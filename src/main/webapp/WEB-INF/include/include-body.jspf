@@ -1,0 +1,5 @@
+<%@ page pageEncoding="UTF-8"%>
+
+<script src="<c:url value='/js/common.js'/>" charset="utf-8"></script>
+
+<form id="commonForm" name="commonForm"></form>

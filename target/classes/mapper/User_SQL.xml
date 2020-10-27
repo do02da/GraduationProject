@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+	<insert id="userReg" parameterType="hashmap">
+		<![CDATA[
+			INSERT INTO TB_USER (
+				EMAIL,
+				NICKNAME,
+				PASSWORD
+			)
+			VALUES (
+				#{EMAIL},
+				#{NICKNAME},
+				#{PASSWORD}
+			)
+		]]>
+	</insert>
+	<!-- 중복 검사 쿼리 -->
+	<select id="CheckNick" parameterType="java.lang.String" resultType="int">
+		<![CDATA[
+			SELECT
+				count(*)
+			FROM
+				TB_USER
+			WHERE
+				NICKNAME = #{NICKNAME}
+		]]>
+	</select>
+	
+	<select id="CheckEmail" parameterType="java.lang.String" resultType="int">
+		<![CDATA[
+			SELECT
+				count(*)
+			FROM
+				TB_USER
+			WHERE
+				EMAIL = #{EMAIL}
+		]]>
+	</select>
+	<!-- 중복 검사 쿼리 끝 -->
+	
+	<select id="userLogin" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				EMAIL,
+				PASSWORD,
+				NICKNAME
+			FROM
+				TB_USER
+			WHERE
+				EMAIL = #{EMAIL}
+		]]>
+	</select>
+</mapper>
