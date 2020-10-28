@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.common.common.CommandMap;
 import com.user.service.UserService;
 
 @Controller
@@ -34,11 +35,12 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/user/userReg.do")
-	public ModelAndView userReg(Map<String, Object> map) throws Exception {
+	public ModelAndView userReg(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/menuMove.do?go=AlbumBoard");
-		logger.debug(map);
-		// userService.userReg(map);
 		
+		Map<String, Object> map = commandMap.getMap();
+		userService.userReg(map);
+
 		return mv;
 	}
 }

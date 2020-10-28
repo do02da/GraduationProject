@@ -13,7 +13,13 @@
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 
-	<mvc:annotation-driven />
+	<mvc:annotation-driven>
+		<mvc:argument-resolvers>
+			<bean class="com.common.resolver.CustomMapArgumentResolver"></bean>
+		</mvc:argument-resolvers>
+	</mvc:annotation-driven>
+
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver" p:order="0" />
 
 	<bean
 		class="org.springframework.web.servlet.view.UrlBasedViewResolver" p:order="1"

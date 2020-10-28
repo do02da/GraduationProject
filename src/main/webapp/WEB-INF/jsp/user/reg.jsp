@@ -3,6 +3,7 @@
 <!doctype html>
 <html lang="ko" class="fade-in">
   <head>
+  	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors, 김도영">
@@ -38,13 +39,13 @@
 	    <!-- 로고  <img class="mb-4" src="" alt="" width="72" height="72"> -->
         <h1 class="h3 mb-3 font-weight-normal"><a href="<c:url value='/menuMove.do?go=AlbumBoard'/>">(Before + After)Trip</a></h1>
         <label for="inputEmail" class="sr-only">이메일 주소</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="이메일 주소" required>
+        <input type="email" id="inputEmail" name="EMAIL" class="form-control" placeholder="이메일 주소" required>
         <label for="inputPassword" class="sr-only">비밀번호</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="비밀번호" maxlength="20" required>
+        <input type="password" id="inputPassword" name="PASSWORD" class="form-control" placeholder="비밀번호" maxlength="20" required>
         <input type="password" id="inputPasswordCheck" class="form-control" placeholder="비밀번호확인" maxlength="20" required>
         <label for="inputNick" class="sr-only">닉네임</label>
-        <input type="text" id="inputNick" class="form-control" placeholder="닉네임" required>
-        <button class="btn btn-lg btn-primary btn-block" id="reg_submit" type="submit">회원가입</button>
+        <input type="text" id="inputNick" name="NICKNAME" class="form-control" placeholder="닉네임" required>
+        <a href="#" class="btn btn-lg btn-primary btn-block" id="reg_submit" role="button">회원가입</a>
         <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
       </form>
     </div>
@@ -52,12 +53,13 @@
 	
 	<%@ include file="/WEB-INF/include/include-body.jspf" %>
 	<script type="text/javascript">
-		var str_dangerAlert = "<div class='alert alert-danger' role='alert' id='dangerAlert'><svg width='1em' height='1em' viewBox='0 0 16 16' class='bi bi-exclamation-circle-fill' fill='currentColor' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z'/></svg>&nbsp;";
-		var str_successAlert = "<div class='alert alert-success' role='alert' id='Alert'><svg width='1em' height='1em' viewBox='0 0 16 16' class='bi bi-check-circle-fill' fill='currentColor' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>&nbsp;";
+		const str_dangerAlert = "<div class='alert alert-danger' role='alert' id='dangerAlert'><svg width='1em' height='1em' viewBox='0 0 16 16' class='bi bi-exclamation-circle-fill' fill='currentColor' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z'/></svg>&nbsp;";
+		const str_successAlert = "<div class='alert alert-success' role='alert' id='Alert'><svg width='1em' height='1em' viewBox='0 0 16 16' class='bi bi-check-circle-fill' fill='currentColor' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>&nbsp;";
 		
 		var isEmailChk = false;
 		var isPWChk = false;
-
+		var isNickChk = false;
+		
 		$(document).ready(function() {
  			// 이메일 포커스가 해제 됬을 때
    		$("#inputEmail").blur(function() {
@@ -174,7 +176,7 @@
 					if (isPWChk) {
 						if (isNickChk) {
 							var comSubmit = new ComSubmit("frm");
-							comSubmit.setUrl("<c:url value='/user/userReg.do'/>");
+							comSubmit.setUrl("<c:url value='/user/userReg.do' />");
 							comSubmit.submit();
 						} else {	// isNickChk == false
 							alert("닉네임을 확인해주세요");
