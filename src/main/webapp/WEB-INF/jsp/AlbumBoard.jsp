@@ -42,8 +42,16 @@
         </div>
         <div class="col-sm-4 offset-md-1 py-4">
           <ul class="list-unstyled">
-            <li><a href="<c:url value='/menuMove.do?go=user/login'/>" class="text-white">로그인</a></li>
-            <li><a href="<c:url value='/menuMove.do?go=user/reg'/>" class="text-white">회원가입</a></li>
+	          <c:choose>
+							<c:when test="${empty login }">
+		            <li><a href="<c:url value='/menuMove.do?go=user/login'/>" class="text-white">로그인</a></li>
+		            <li><a href="<c:url value='/menuMove.do?go=user/reg'/>" class="text-white">회원가입</a></li>
+	            </c:when>
+							<c:otherwise>
+								<li class="text-white">${login.NICKNAME } 님 환영합니다.</li>
+								<li><a href="#" id="logout">로그아웃</a></li>
+							</c:otherwise>
+						</c:choose>
           </ul>
         </div>
       </div>
@@ -234,13 +242,28 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
       <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
       
+      
+<%@ include file="/WEB-INF/include/include-body.jspf" %>
 <script type="text/javascript">
+	$(document).ready(function() {
+		$("#logout").on("click", function(e) {
+			e.preventDefault();
+			fn_logout();
+		});
+	});
+
 	function fn_menuMove(url){
 		$('html').addClass('fade-out');
 		
 		setTimeout(function() {
 			window.location.href="<c:url value='/menuMove.do?go=" + url + "'/>";
 		}, 1500);
+	}
+	
+	function fn_logout() {
+		var comSubmit = new ComSubmit();
+		comSubmit.setUrl("<c:url value='/user/logout.do' />");
+		comSubmit.submit();
 	}
 </script>
 </html>

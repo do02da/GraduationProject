@@ -1,8 +1,8 @@
 package com.user.controller;
 
-import java.util.Map;
-
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -38,9 +38,22 @@ public class UserController {
 	public ModelAndView userReg(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/menuMove.do?go=AlbumBoard");
 		
-		Map<String, Object> map = commandMap.getMap();
-		userService.userReg(map);
+		userService.userReg(commandMap.getMap());
 
 		return mv;
+	}
+	
+	@RequestMapping(value="/user/userLogin.do")
+	public ModelAndView userLogin(HttpSession session, CommandMap commandMap) throws Exception {
+		ModelAndView mv = userService.userLogin(session, commandMap.getMap());
+
+		return mv;
+	}
+	
+	@RequestMapping(value="/user/logout.do")
+	public String logout(HttpSession session, HttpServletRequest request) {
+		session.invalidate();	// 세션 초기화
+		
+		return "redirect:" + request.getHeader("Referer");
 	}
 }

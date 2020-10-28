@@ -32,7 +32,7 @@
   </head>
   <body class="text-center">
   <div class="container-fluid">
-  	<div class="alertDiv" id="alertDiv"></div>
+  	<div id="alertDiv"></div>
 	
     <div class="content">
    	  <form class="form-signin" id="frm">
@@ -157,7 +157,7 @@
     	}
     	
     	function fn_CheckNick(Nick) {
-				// 이메일 중복체크
+				// 닉네임 중복체크
 				$.ajax({
 					type: "POST",
 					data: {Nick:Nick},

@@ -26,4 +26,9 @@ public class UserDAO extends AbstractDAO {
 	public void userReg(Map<String, Object> map) throws Exception {
 		insert("user.userReg", map);
 	}
+
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> userLogin(Map<String, Object> map) {
+		return (Map<String, Object>) selectOne("user.userLogin", map);
+	}
 }
