@@ -25,7 +25,7 @@
         .bd-placeholder-img-lg {
           font-size: 3.5rem;
         }
-      }
+      }  
     </style>
     <!-- Custom styles for this page -->
     <link href="<c:url value='/css/user.css'/>" rel="stylesheet">
