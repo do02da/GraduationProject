@@ -40,6 +40,8 @@
 	
 	<script>
 		CKEDITOR.replace('editor', {
+			filebrowserUploadUrl : "<c:url value='/board/imageUpload.do'/> ",
+			
 			on : {
 			    // maximize the editor on startup
 			    'instanceReady' : function( evt ) {
