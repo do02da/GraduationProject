@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
 <title>(Before + After)Trip</title>
@@ -18,13 +18,13 @@
           <ul class="list-unstyled">
 	          <c:choose>
 							<c:when test="${empty login }">
-		            <li><a href="<c:url value='/menuMove.do?go=user/login'/>" class="text-white">로그인</a></li>
-		            <li><a href="<c:url value='/menuMove.do?go=user/reg'/>" class="text-white">회원가입</a></li>
+		            <li><a href="#" id="login" class="text-white">로그인</a></li>
+		            <li><a href="#" id="reg" class="text-white">회원가입</a></li>
 	            </c:when>
 							<c:otherwise>
 								<li class="text-white">${login.NICKNAME } 님 환영합니다.</li>
 								<li><a href="#" id="logout">로그아웃</a></li>
-								<li><a href="<c:url value='/menuMove.do?go=writePage'/>" class="text-white">글쓰기</a></li> 
+								<li><a href="#" id="write" class="text-white">글쓰기</a></li> 
 							</c:otherwise>
 						</c:choose>
           </ul>
@@ -50,13 +50,35 @@
 			e.preventDefault();
 			fn_logout();
 		});
+		
+		$("#write").on("click", function(e) {
+			e.preventDefault();
+			fn_menumove("writePage");
+		});
+		
+		$("#login").on("click", function(e) {
+			e.preventDefault();
+			fn_menumove("user/login");
+		});
+		
+		$("#reg").on("click", function(e) {
+			e.preventDefault();
+			fn_menumove("user/reg");
+		});
 	});
-
-	function fn_logout() {
-		var comSubmit = new ComSubmit();
-		comSubmit.setUrl("<c:url value='/user/logout.do' />");
-		comSubmit.submit();
-	}
+	
+		function fn_logout() {
+			var comSubmit = new ComSubmit();
+			comSubmit.setUrl("<c:url value='/user/logout.do' />");
+			comSubmit.submit();
+		}
+		
+		function fn_menumove(go) {
+			var comSubmit = new ComSubmit();
+			comSubmit.setUrl("<c:url value='/menuMove.do?go=" + go + "' />");
+			comSubmit.submit();
+		}
+		
 </script>
 </body>
 </html>

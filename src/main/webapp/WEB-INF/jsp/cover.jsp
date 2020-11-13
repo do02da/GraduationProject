@@ -53,7 +53,6 @@
   <footer class="mastfoot mt-auto">
     <div class="inner">
       <p>2020 졸업 작품, by 봄봄봄(<a href="https://github.com/wellcom8">@김도영</a>, <a href="#">@박건우</a>)</p>
-      <p>Cover template for <a href="https://getbootstrap.com/">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
     </div>
   </footer>
 </div>

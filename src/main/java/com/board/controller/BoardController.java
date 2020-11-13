@@ -24,7 +24,6 @@ public class BoardController {
 	String fileDir = "C:\\upload\\";
 	// https://mine-it-record.tistory.com/277?category=1060192
 	
-	
 	/**
 	 * @param request
 	 * @param response

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html class="fade-in">
+<html lang="ko" class="fade-in">
 <head>
 <meta charset="UTF-8">
 <title>(Before + After)Trip</title>
@@ -39,6 +39,7 @@
 	
 	
 	<script>
+	// CKEditor 사용 -> CKFinder도 사용?
 		CKEDITOR.replace('editor', {
 			filebrowserUploadUrl : "<c:url value='/board/imageUpload.do'/> ",
 			

@@ -64,14 +64,14 @@
  			// 이메일 포커스가 해제 됬을 때
    		$("#inputEmail").blur(function() {
    			var emailReg = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;	// 이메일 정규표현식
+   			var emailValue = $(this).val();
    			var str_fail = str_dangerAlert;
-   			
    			$("#alertDiv").children().remove();
-   			if ($(this).val() == "") {	// 이메일이 비어있을 때
+   			if (emailValue == "") {	// 이메일이 비어있을 때
 					str_fail += "이메일을 입력해주세요</div>";
-   			} else if (!emailReg.test($("#inputEmail").val())) {	// 이메일 양식에 맞지 않으면
+   			} else if (!emailReg.test(emailValue)) {	// 이메일 양식에 맞지 않으면
    				str_fail += "이메일을 확인해주세요</div>";
-				} else if (fn_CheckEmail($(this).val()) == false){
+				} else if (fn_CheckEmail(emailValue) == false){
 					str_fail += "중복된 이메일입니다.</div>";
 				} else {
 					var str_success = str_successAlert + "사용 가능한 이메일입니다.</div>";
@@ -142,33 +142,43 @@
    	});
     	
     	function fn_CheckEmail(Email) {
+    		var isChecked;
+    		
 				// 이메일 중복체크
 				$.ajax({
 					type: "POST",
 					data: {Email:Email},
 					url: "<c:url value='/user/CheckEmail.do'/>",
-					success: function(isChecked) {
-						return isChecked;
+					async: false,	// 동기식으로 처리
+					success: function(GetIsChecked) {
+						isChecked = GetIsChecked;
 					},
 					error: function() {
 						alert("error");
 					}
 				});
+				
+				return isChecked;
     	}
     	
     	function fn_CheckNick(Nick) {
+    		var isChecked;
+    		
 				// 닉네임 중복체크
 				$.ajax({
 					type: "POST",
 					data: {Nick:Nick},
 					url: "<c:url value='/user/CheckNick.do'/>",
-					success: function(isChecked) {
-						return isChecked;
+					async: false,	// 동기식으로 처리
+					success: function(GetIsChecked) {
+						isChecked = GetIsChecked;
 					},
 					error: function() {
 						alert("error");
 					}
 				});
+				
+				return isChecked;
     	}
 			
 			function fn_validation() {
