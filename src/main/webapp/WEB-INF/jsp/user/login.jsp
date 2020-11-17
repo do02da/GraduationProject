@@ -51,7 +51,7 @@
         <label for="inputPassword" class="sr-only">비밀번호</label>
         <input type="password" id="inputPassword" name="PASSWORD" class="form-control" placeholder="비밀번호" maxlength="20" required>
         <a class="text-muted" href="<c:url value='/menuMove.do?go=AlbumBoard'/>">아이디 찾기</a>
-        <a class="text-muted" href="<c:url value='/menuMove.do?go=user/reg'/>">회원가입</a>
+        <a class="text-muted" id="openReg" href="#this">회원가입</a>
         <div class="checkbox mb-3">
 	      <label>
 	        <input type="checkbox" value="remember-me"> Remember me
@@ -71,6 +71,19 @@
 			var isNotPWEmpty = false;
 			
     	$(document).ready(function() {
+    		$("#openReg").on("click", function (e) {
+    			e.preventDefault();
+    			fn_menumove("user/reg");
+    		});
+    		
+				$("#inputPassword").keypress(function (e){
+						if (e.which === 13) {	// Enter 키 눌렸을 때
+							e.preventDefault();
+							fn_pwVaildation(this);
+							fn_validation();
+						}
+				});
+    		
     		// 이메일 포커스가 해제 됬을 때
        		$("#inputEmail").blur(function() {
        			const emailReg = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;	// 이메일 정규표현식
@@ -90,24 +103,29 @@
        			isNotEmailEmpty = false;
        		});
         		
-       	// 비밀번호 포커스 해제
-       		$("#inputPassword").blur(function() {
-       			// 비밀번호가 비어있으면
-    				if ($(this).val() == "") {
-    					$("#alertDiv").children().remove();
-    					var str = str_dangerAlert + "비밀번호를 입력해주세요</div>";
-    					$("#alertDiv").append(str);
-    				} else {
-    					isNotPWEmpty = true;
-    					return true;
-    				}
-       		});
+     		// 비밀번호 포커스 해제
+     		$("#inputPassword").blur(function() {
+					fn_pwVaildation(this);
+     		});
     		
     		$("#login_submit").on("click", function(e){
     			e.preventDefault();
     			fn_validation()
     		});
-    	});
+    		
+    	});	// document ready end
+    	
+    	function fn_pwVaildation(form){
+   			// 비밀번호가 비어있으면
+				if ($(form).val() == "") {
+					$("#alertDiv").children().remove();
+					var str = str_dangerAlert + "비밀번호를 입력해주세요</div>";
+					$("#alertDiv").append(str);
+				} else {
+					isNotPWEmpty = true;
+					return true;
+				}
+    	}
     	
     	function fn_validation() {
     		if (isNotEmailEmpty) {
@@ -122,6 +140,12 @@
     			alert("이메일을 입력해주세요");
     		}
     	}
+    	
+			function fn_menumove(go) {
+				var comSubmit = new ComSubmit();
+				comSubmit.setUrl("<c:url value='/menuMove.do?go=" + go + "' />");
+				comSubmit.submit();
+			}
     </script>
 </body>
 </html>

@@ -1,18 +1,20 @@
 package com.board.controller;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.board.service.BoardService;
+import com.common.common.CommandMap;
 
 @Controller
 public class BoardController {
@@ -21,37 +23,30 @@ public class BoardController {
 	@Resource(name="boardService")
 	BoardService boardService;
 	
-	String fileDir = "C:\\upload\\";
-	// https://mine-it-record.tistory.com/277?category=1060192
+	/**
+	 * SummerNote에서 이미지 파일을 업로드하면 서버에 저장하고 URL을 가져와서 매핑된다.
+	 * @author	김도영
+	 * @param	multipartFile
+	 * @return	파일 URL
+	 * @throws	Exception
+	 */
+	@RequestMapping(value="/board/uploadImage.do", produces = "application/json")
+	@ResponseBody
+	public Map<String, Object> uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile) throws Exception {
+		return boardService.uploadSummernoteImageFile(multipartFile);
+	}
 	
 	/**
-	 * @param request
-	 * @param response
-     * @param multiFile
-     * @param upload
-     * @return void
-     * @throws Exception
-     */
-	@RequestMapping(value="/board/imageUpload.do")
-	public void imageUpload(HttpServletRequest request, HttpServletResponse response, MultipartHttpServletRequest multiFile
-            , @RequestParam MultipartFile upload) throws Exception {
-		boardService.imageUpload(request, response, multiFile, upload);
-    }
-	
-	/**
-     * cKeditor 서버로 전송된 이미지 뿌려주기
-     * @param uid
-     * @param fileName
-     * @param request
-     * @param response
-     * @return void
-     * @throws Exception
-     */
-    //
-    @RequestMapping(value="/board/ckImgSubmit.do")
-    public void ckSubmit(@RequestParam(value="uid") String uid
-                       , @RequestParam(value="fileName") String fileName
-                       , HttpServletRequest request, HttpServletResponse response) throws Exception {
-    	boardService.ckSubmit(uid, fileName, request, response);
-    }
+	 * 
+	 * @param	commandMap 제목, 작성자, 내용이 들어이는 map
+	 * @return	글 작성 후 게시판으로 돌아간다.
+	 * @throws	Exception
+	 */
+	@RequestMapping(value="/board/insertBoard.do")
+	public ModelAndView insertBoard(CommandMap commandMap) throws Exception {
+		ModelAndView mv = new ModelAndView("/AlbumBoard");
+		boardService.insertBoard(commandMap.getMap());
+		
+		return mv;
+	}
 }

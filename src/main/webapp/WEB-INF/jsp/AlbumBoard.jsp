@@ -118,9 +118,9 @@
       <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
       
       
-<%@ include file="/WEB-INF/include/include-body.jspf" %>
-<script type="text/javascript">
 
+<script type="text/javascript">
+/*
 	function fn_menuMove(url){
 		$('html').addClass('fade-out');
 		
@@ -128,6 +128,6 @@
 			window.location.href="<c:url value='/menuMove.do?go=" + url + "'/>";
 		}, 1500);
 	}
-
+*/
 </script>
 </html>

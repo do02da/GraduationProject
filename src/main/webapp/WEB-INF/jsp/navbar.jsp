@@ -18,8 +18,8 @@
           <ul class="list-unstyled">
 	          <c:choose>
 							<c:when test="${empty login }">
-		            <li><a href="#" id="login" class="text-white">로그인</a></li>
-		            <li><a href="#" id="reg" class="text-white">회원가입</a></li>
+		            <li><a href="#" id="openLogin" class="text-white">로그인</a></li>
+		            <li><a href="#" id="openReg" class="text-white">회원가입</a></li>
 	            </c:when>
 							<c:otherwise>
 								<li class="text-white">${login.NICKNAME } 님 환영합니다.</li>
@@ -44,6 +44,7 @@
     </div>
   </div>
   
+  <%@ include file="/WEB-INF/include/include-body.jspf" %>
   <script type="text/javascript">
 	$(document).ready(function() {
 		$("#logout").on("click", function(e) {
@@ -56,12 +57,12 @@
 			fn_menumove("writePage");
 		});
 		
-		$("#login").on("click", function(e) {
+		$("#openLogin").on("click", function(e) {
 			e.preventDefault();
 			fn_menumove("user/login");
 		});
 		
-		$("#reg").on("click", function(e) {
+		$("#openReg").on("click", function(e) {
 			e.preventDefault();
 			fn_menumove("user/reg");
 		});

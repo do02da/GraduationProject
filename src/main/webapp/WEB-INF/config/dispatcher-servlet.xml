@@ -18,7 +18,7 @@
 			<bean class="com.common.resolver.CustomMapArgumentResolver"></bean>
 		</mvc:argument-resolvers>
 	</mvc:annotation-driven>
-
+	
 	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver" p:order="0" />
 
 	<bean
@@ -33,5 +33,7 @@
 			<bean id="loggerInterceptor" class="com.common.logger.LoggerInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
+	
+	<mvc:resources location="C:\\summernote_image\\" mapping="/summernoteImage/**"></mvc:resources>
 	
 </beans>

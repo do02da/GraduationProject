@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board">
+		<insert id="insertBoard" parameterType="hashmap">
+		<![CDATA[
+			INSERT INTO TB_BOARD (
+				TITLE,
+				CONTENTS,
+				WRITER,
+				HIT_CNT,
+				DEL_GB
+			)
+			VALUES (
+				#{title},
+				#{contents},
+				#{writer},
+				0,
+				'N'
+			)
+		]]>
+	</insert>
+</mapper>
