@@ -39,11 +39,6 @@
 			fn_logout();
 		});
 		
-		$("#write").on("click", function(e) {
-			e.preventDefault();
-			fn_menumove("writePage");
-		});
-		
 		$("#openBoard").on("click", function(e) {
 			e.preventDefault();
 			fn_openBoard();
