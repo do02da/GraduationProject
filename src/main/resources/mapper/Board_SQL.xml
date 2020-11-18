@@ -19,4 +19,21 @@
 			)
 		]]>
 	</insert>
+	
+	<select id="getBoardList" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				TITLE,
+				WRITER,
+				HIT_CNT,
+				(date_format(CREA_DTM, '%Y.%m.%d %H:%i')) AS CREA_DTM
+			FROM
+				tb_board
+			WHERE
+				DEL_GB = 'N'
+			ORDER BY
+				B_ID DESC
+		]]>
+	</select>
+	
 </mapper>

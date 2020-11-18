@@ -7,42 +7,29 @@
 <title>(Before + After)Trip</title>
 </head>
 <body>
-<div class="collapse bg-dark" id="navbarHeader">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-8 col-md-7 py-4">
-          <h4 class="text-white" >About</h4>
-          <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
-        </div>
-        <div class="col-sm-4 offset-md-1 py-4">
-          <ul class="list-unstyled">
-	          <c:choose>
-							<c:when test="${empty login }">
-		            <li><a href="#" id="openLogin" class="text-white">로그인</a></li>
-		            <li><a href="#" id="openReg" class="text-white">회원가입</a></li>
-	            </c:when>
-							<c:otherwise>
-								<li class="text-white">${login.NICKNAME } 님 환영합니다.</li>
-								<li><a href="#" id="logout">로그아웃</a></li>
-								<li><a href="#" id="write" class="text-white">글쓰기</a></li> 
-							</c:otherwise>
-						</c:choose>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="navbar navbar-dark bg-dark shadow-sm">
-    <div class="container d-flex justify-content-between">
-      <a href="<c:url value='/menuMove.do?go=AlbumBoard'/>" class="navbar-brand d-flex align-items-center">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="mr-2" viewBox="0 0 24 24" focusable="false"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-        <strong>Board</strong>
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    </div>
-  </div>
+	<div class="navbar navbar-dark d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-dark border-bottom shadow-sm">
+		<div class="container">
+		  <h5 class="my-0 mr-md-auto font-weight-normal">
+	      <a href="<c:url value='/menuMove.do?go=AlbumBoard'/>" class="navbar-brand d-flex align-items-center">
+	      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="mr-2" viewBox="0 0 24 24" focusable="false"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+	      <strong>TEST</strong>
+	    	</a>
+			</h5>
+		  <nav class="my-2 my-md-0 mr-md-3">
+		    <a class="p-2 text-white" href="#" id="openBoard">Board</a>
+		    <a class="p-2 text-white" href="#">Map</a>
+		    <c:choose>
+		    	<c:when test="${empty login}">
+		    		<a class="p-2 text-white" href="#" id="openLogin">Sign in</a>
+		  			</nav>
+		  			<a class="btn btn-outline-primary" href="#" id="openReg">Sign up</a>
+		  		</c:when>
+		  		<c:otherwise>
+		  			<small class="text-white">${login.NICKNAME } 님 환영합니다. <a href="#" id="logout"> 로그아웃</a></small>
+		  		</c:otherwise>
+		  	</c:choose>
+	  	</div>
+	</div>
   
   <%@ include file="/WEB-INF/include/include-body.jspf" %>
   <script type="text/javascript">
@@ -55,6 +42,11 @@
 		$("#write").on("click", function(e) {
 			e.preventDefault();
 			fn_menumove("writePage");
+		});
+		
+		$("#openBoard").on("click", function(e) {
+			e.preventDefault();
+			fn_openBoard();
 		});
 		
 		$("#openLogin").on("click", function(e) {
@@ -80,6 +72,11 @@
 			comSubmit.submit();
 		}
 		
+		function fn_openBoard() {
+			var comSubmit = new ComSubmit();
+			comSubmit.setUrl("<c:url value='/board/openBoard.do' />");
+			comSubmit.submit();
+		}
 </script>
 </body>
 </html>

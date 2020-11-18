@@ -26,6 +26,11 @@ public class BoardServiceImpl implements BoardService {
 	BoardDAO boardDAO;
 	
 	@Override
+	public Map<String, Object> getBoardList() throws Exception {
+		return boardDAO.getBoardList();
+	}
+	
+	@Override
 	public Map<String, Object> uploadSummernoteImageFile(MultipartFile multipartFile) throws Exception{
 		
 		Map<String, Object> resultMap = new HashMap<String, Object>();

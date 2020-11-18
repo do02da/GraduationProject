@@ -23,6 +23,16 @@ public class BoardController {
 	@Resource(name="boardService")
 	BoardService boardService;
 	
+	@RequestMapping(value="/board/openBoard.do")
+	public ModelAndView openBoard() throws Exception {
+		ModelAndView mv = new ModelAndView("/board/BoardMain");
+		
+		Map<String, Object> resultMap = boardService.getBoardList();
+				
+		mv.addObject("list", resultMap.get("result"));
+		return mv;
+	}
+	
 	/**
 	 * SummerNote에서 이미지 파일을 업로드하면 서버에 저장하고 URL을 가져와서 매핑된다.
 	 * @author	김도영
@@ -44,7 +54,7 @@ public class BoardController {
 	 */
 	@RequestMapping(value="/board/insertBoard.do")
 	public ModelAndView insertBoard(CommandMap commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView("/AlbumBoard");
+		ModelAndView mv = new ModelAndView("/board/BoardMain");
 		boardService.insertBoard(commandMap.getMap());
 		
 		return mv;
