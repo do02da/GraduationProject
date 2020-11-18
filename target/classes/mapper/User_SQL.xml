@@ -3,7 +3,7 @@
 <mapper namespace="user">
 	<insert id="userReg" parameterType="hashmap">
 		<![CDATA[
-			INSERT INTO TB_USER (
+			INSERT INTO tb_user (
 				EMAIL,
 				NICKNAME,
 				PASSWORD
@@ -21,7 +21,7 @@
 			SELECT
 				count(*)
 			FROM
-				TB_USER
+				tb_user
 			WHERE
 				NICKNAME = #{NICKNAME}
 		]]>
@@ -32,7 +32,7 @@
 			SELECT
 				count(*)
 			FROM
-				TB_USER
+				tb_user
 			WHERE
 				EMAIL = #{EMAIL}
 		]]>
@@ -46,7 +46,7 @@
 				PASSWORD,
 				NICKNAME
 			FROM
-				TB_USER
+				tb_user
 			WHERE
 				EMAIL = #{EMAIL}
 		]]>

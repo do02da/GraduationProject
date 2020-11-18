@@ -3,7 +3,7 @@
 <mapper namespace="board">
 		<insert id="insertBoard" parameterType="hashmap">
 		<![CDATA[
-			INSERT INTO TB_BOARD (
+			INSERT INTO tb_board (
 				TITLE,
 				CONTENTS,
 				WRITER,
