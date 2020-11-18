@@ -8,6 +8,12 @@ import com.common.dao.AbstractDAO;
 
 @Repository("boardDAO")
 public class BoardDAO extends AbstractDAO {
+	
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> getBoardList() throws Exception {
+		return (Map<String, Object>)selectBoardList("board.getBoardList");
+	}
+	
 	/**
 	 * 작성한 게시글을 DB에 저장한다.
 	 * @author	김도영

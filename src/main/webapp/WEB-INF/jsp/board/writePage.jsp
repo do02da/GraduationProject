@@ -12,7 +12,6 @@
 	<script src="<c:url value='/summernote/lang/summernote-ko-KR.js'/> "></script>
 	
 	<link rel="stylesheet" href="<c:url value='/summernote/summernote-lite.css'/>">
-<
 <style>
 	html, body, #writeDiv, #textareaDiv  {
 		height:100%;
@@ -20,6 +19,10 @@
 	
 	main {
 		height: 80%;
+	}
+	
+	textarea {
+		resize: none;
 	}
 </style>
 </head>
@@ -42,7 +45,9 @@
 				</div>
 				
 			</form>
-			<a href="#this" class="btn btn-primary" id="write_submit" role="button">저장</a>
+			<p class="text-right">
+				<a href="#this" class="btn btn-primary" id="write_submit" role="button">저장</a>
+			</p>
 		</div>
 	</main>
 	

@@ -1,6 +1,8 @@
 package com.common.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -60,4 +62,17 @@ public class AbstractDAO {
 		printQueryId(queryId);
 		return sqlSession.selectList(queryId, params);
 	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public Map selectBoardList(String queryId) {
+		printQueryId(queryId);
+	     
+	    Map<String,Object> returnMap = new HashMap<String,Object>();
+	    List<Map<String,Object>> list = sqlSession.selectList(queryId);
+	    
+	    returnMap.put("result", list);
+	    
+	    return returnMap;
+	}
+	
 }

@@ -15,5 +15,17 @@ public interface BoardService {
 	 */
 	Map<String, Object> uploadSummernoteImageFile(MultipartFile multipartFile) throws Exception;
 
+	/**
+	 * @author	김도영
+	 * @param	map 게시글 정보가 들어있는 map 
+	 * @throws	Exception
+	 */
 	void insertBoard(Map<String, Object> map) throws Exception;
+
+	/**
+	 * @author	김도영
+	 * @return	게시판 글들
+	 * @throws	Exception
+	 */
+	Map<String, Object> getBoardList() throws Exception;
 }

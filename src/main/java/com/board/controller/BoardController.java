@@ -24,6 +24,42 @@ public class BoardController {
 	BoardService boardService;
 	
 	/**
+	 * DB에서 게시글 목록을 가져와 게시판으로 보여준다
+	 * @author	김도영
+	 * @return	게시판
+	 * @throws	Exception
+	 */
+	@RequestMapping(value="/board/openBoard.do")
+	public ModelAndView openBoard() throws Exception {
+		ModelAndView mv = new ModelAndView("/board/BoardMain");
+		
+		Map<String, Object> resultMap = boardService.getBoardList();
+				
+		mv.addObject("list", resultMap.get("result"));
+		return mv;
+	}
+	
+	@RequestMapping(value="/board/openWritePage.do")
+	public ModelAndView openWritePage() throws Exception {
+		ModelAndView mv = new ModelAndView("/board/writePage");
+	
+		return mv;
+	}
+	
+	/**
+	 * 네비게이션바에서 map을 눌렀을 때 이동
+	 * @author	박건우
+	 * @return	지도 화면으로 이동
+	 * @throws	Exception
+	 */
+	@RequestMapping(value="/board/openMap.do")
+	public ModelAndView openMap() throws Exception {
+		ModelAndView mv = new ModelAndView("/boad/Map");
+		
+		return mv;
+	}
+	
+	/**
 	 * SummerNote에서 이미지 파일을 업로드하면 서버에 저장하고 URL을 가져와서 매핑된다.
 	 * @author	김도영
 	 * @param	multipartFile
@@ -37,16 +73,14 @@ public class BoardController {
 	}
 	
 	/**
-	 * 
+	 * 글 작성 후 게시판 목록으로 돌아간다.
 	 * @param	commandMap 제목, 작성자, 내용이 들어이는 map
-	 * @return	글 작성 후 게시판으로 돌아간다.
 	 * @throws	Exception
 	 */
 	@RequestMapping(value="/board/insertBoard.do")
-	public ModelAndView insertBoard(CommandMap commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView("/AlbumBoard");
+	public void insertBoard(CommandMap commandMap) throws Exception {
 		boardService.insertBoard(commandMap.getMap());
-		
-		return mv;
+	
+		openBoard();
 	}
 }
