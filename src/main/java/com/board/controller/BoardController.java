@@ -23,6 +23,12 @@ public class BoardController {
 	@Resource(name="boardService")
 	BoardService boardService;
 	
+	/**
+	 * DB에서 게시글 목록을 가져와 게시판으로 보여준다
+	 * @author	김도영
+	 * @return	게시판
+	 * @throws	Exception
+	 */
 	@RequestMapping(value="/board/openBoard.do")
 	public ModelAndView openBoard() throws Exception {
 		ModelAndView mv = new ModelAndView("/board/BoardMain");
@@ -30,6 +36,13 @@ public class BoardController {
 		Map<String, Object> resultMap = boardService.getBoardList();
 				
 		mv.addObject("list", resultMap.get("result"));
+		return mv;
+	}
+	
+	@RequestMapping(value="/board/openWritePage.do")
+	public ModelAndView openWritePage() throws Exception {
+		ModelAndView mv = new ModelAndView("/board/writePage");
+	
 		return mv;
 	}
 	
@@ -47,16 +60,14 @@ public class BoardController {
 	}
 	
 	/**
-	 * 
+	 * 글 작성 후 게시판 목록으로 돌아간다.
 	 * @param	commandMap 제목, 작성자, 내용이 들어이는 map
-	 * @return	글 작성 후 게시판으로 돌아간다.
 	 * @throws	Exception
 	 */
 	@RequestMapping(value="/board/insertBoard.do")
-	public ModelAndView insertBoard(CommandMap commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView("/board/BoardMain");
+	public void insertBoard(CommandMap commandMap) throws Exception {
 		boardService.insertBoard(commandMap.getMap());
-		
-		return mv;
+	
+		openBoard();
 	}
 }

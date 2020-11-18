@@ -16,8 +16,8 @@
 	</header>
 	
 <main role="main">
-	<div class="text-right">
-		<a href="#" class="btn btn-primary" role="button" id="openWritePage">글쓰기</a>
+	<div class="container text-right">
+			<a href="#" class="btn btn-primary" role="button" id="openWritePage">글쓰기</a>
 	</div>
 
 	<div class="album py-5 bg-light">
@@ -53,12 +53,24 @@
 
 <script>
 	$(document).ready(function() {
-		$("#openWritePage").on("click", function(e) {
+		$("#openWritePage").on("click", function(e){
 			e.preventDefault();
-			fn_menumove("board/writePage");
+			
+			if (${not empty sessionScope.login}) {
+				fn_test();
+				// fn_menumove("board/writePage");
+			} else {
+				alert("로그인 후 사용이 가능합니다.");
+			}
+
+
 		});
 	});
-	
+	function fn_test() {
+		var comSubmit = new ComSubmit();
+		comSubmit.setUrl("<c:url value='/board/openWritePage.do'/>");
+		comSubmit.submit();
+	}
 	function fn_menumove(go) {
 		var comSubmit = new ComSubmit();
 		comSubmit.setUrl("<c:url value='/menuMove.do?go=" + go + "' />");
