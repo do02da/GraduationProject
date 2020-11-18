@@ -44,6 +44,7 @@ public class UserDAO extends AbstractDAO {
 	 */
 	public void userReg(Map<String, Object> map) throws Exception {
 		insert("user.userReg", map);
+		logger.debug("TEST");
 	}
 
 	/**
