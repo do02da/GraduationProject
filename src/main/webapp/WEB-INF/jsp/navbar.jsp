@@ -7,6 +7,7 @@
 <title>(Before + After)Trip</title>
 </head>
 <body>
+<header>
 	<div class="navbar navbar-dark d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-dark border-bottom shadow-sm">
 		<div class="container">
 		  <h5 class="my-0 mr-md-auto font-weight-normal">
@@ -25,12 +26,13 @@
 		  			<a class="btn btn-outline-primary" href="#" id="openReg">Sign up</a>
 		  		</c:when>
 		  		<c:otherwise>
-		  			<small class="text-white">${login.NICKNAME } 님 환영합니다. <a href="#" id="logout"> 로그아웃</a></small>
+		  			<small class="text-white">Hello!, ${login.NICKNAME } <a href="#" id="logout">Sign Out</a></small>
 		  		</c:otherwise>
 		  	</c:choose>
 	  	</div>
 	</div>
-  
+</header>
+
   <%@ include file="/WEB-INF/include/include-body.jspf" %>
   <script type="text/javascript">
 	$(document).ready(function() {

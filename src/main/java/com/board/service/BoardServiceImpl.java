@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 
@@ -28,6 +30,16 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public Map<String, Object> getBoardList() throws Exception {
 		return boardDAO.getBoardList();
+	}
+	
+	@Override
+	public void up_Hit_Cnt(Map<String, Object> map) throws Exception {
+		boardDAO.up_Hit_Cnt(map);
+	}
+	
+	@Override
+	public Map<String, Object> getBoardDetail(Map<String, Object> map) throws Exception {
+		return boardDAO.getBoardDetail(map);
 	}
 	
 	@Override
@@ -60,7 +72,22 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public void insertBoard(Map<String, Object> map) throws Exception {
-		logger.debug(map);
+		Pattern pattern = Pattern.compile(".*<img.*>");	// 이미지 있는지 확인하는 정규표현식
+		String contents = (String) map.get("contents");	// 게시글 내용을 String으로 가져온다
+		Matcher matcher = pattern.matcher(contents);	// 게시글 내용과 정규표현식
+		String target = "/summernoteImage/";
+
+		
+		if (matcher.find()) {
+			int target_num = contents.indexOf(target);	// 일치하는 첫 번째 사진의 시작위치를 가져온다.
+			
+			String result = contents.substring(target_num, (contents.substring(target_num).indexOf("\"") + target_num));
+			
+			map.put("thumbnail", result);
+		} else {
+			map.put("thumbnail", "");
+		}
+
 		boardDAO.insertBoard(map);
 	}
 }

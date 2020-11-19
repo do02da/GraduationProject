@@ -32,9 +32,7 @@
   </head>
   <body class="text-center">
   
-  	<header>
-  		<%@ include file="/WEB-INF/jsp/navbar.jsp" %>
-  	</header>
+	<%@ include file="/WEB-INF/jsp/navbar.jsp" %>
   
   	<main role="main">
 		  <div class="container-fluid">
@@ -57,6 +55,8 @@
 		    </div>
 			</div>
 		</main>
+		
+		<%@ include file="/WEB-INF/jsp/footer.jsp" %>
 	
 	<%@ include file="/WEB-INF/include/include-body.jspf" %>
 	<script type="text/javascript">

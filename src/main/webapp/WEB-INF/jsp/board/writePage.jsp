@@ -28,9 +28,7 @@
 </head>
 <body>
 
-	<header>
-		<%@ include file="/WEB-INF/jsp/navbar.jsp" %>
-	</header>
+<%@ include file="/WEB-INF/jsp/navbar.jsp" %>
 	
 	<main role="main">
 		<div class="container" id="writeDiv">
@@ -50,6 +48,8 @@
 			</p>
 		</div>
 	</main>
+	
+	<%@ include file="/WEB-INF/jsp/footer.jsp" %>
 	
 	<script type="text/javascript">
 	$(document).ready(function() {

@@ -8,31 +8,64 @@
 				CONTENTS,
 				WRITER,
 				HIT_CNT,
-				DEL_GB
+				DEL_GB,
+				THUMBNAIL
 			)
 			VALUES (
 				#{title},
 				#{contents},
 				#{writer},
 				0,
-				'N'
+				'N',
+				#{thumbnail}
 			)
 		]]>
 	</insert>
 	
+	<!-- 글목록 가져오기 -->
 	<select id="getBoardList" resultType="hashmap">
 		<![CDATA[
 			SELECT
+				B_ID,
 				TITLE,
 				WRITER,
 				HIT_CNT,
-				(date_format(CREA_DTM, '%Y.%m.%d %H:%i')) AS CREA_DTM
+				(date_format(CREA_DTM, '%Y.%m.%d %H:%i')) AS CREA_DTM,
+				THUMBNAIL
 			FROM
 				tb_board
 			WHERE
 				DEL_GB = 'N'
 			ORDER BY
 				B_ID DESC
+		]]>
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="updateHitCnt" parameterType="hashmap">
+		<![CDATA[
+			UPDATE tb_board
+			SET
+				HIT_CNT = NVL(HIT_CNT, 0) + 1
+			WHERE
+				B_ID = #{B_ID}
+		]]>
+	</update>
+	
+	<!-- 글 상세보기 -->
+	<select id="getBoardDetail" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				B_ID,
+				TITLE,
+				WRITER,
+				CONTENTS,
+				HIT_CNT,
+				(date_format(CREA_DTM, '%Y.%m.%d %H:%i')) AS CREA_DTM
+			FROM
+				tb_board
+			WHERE
+				B_ID = #{B_ID}
 		]]>
 	</select>
 	

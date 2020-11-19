@@ -32,9 +32,7 @@
   </head>
   <body>
   
-    <header>
-  		<%@ include file="/WEB-INF/jsp/navbar.jsp" %>
-		</header>
+<%@ include file="/WEB-INF/jsp/navbar.jsp" %>
 
 <main role="main">
 
@@ -106,14 +104,7 @@
 
 </main>
 
-<footer class="text-muted">
-  <div class="container">
-    <p class="float-right">
-      <a href="#">Back to top</a>
-    </p>
-    <p>2020 졸업 작품, by 봄봄봄(<a href="https://github.com/wellcom8">@김도영</a>, <a href="#">@박건우</a>)</p>
-  </div>
-</footer>
+<%@ include file="/WEB-INF/jsp/footer.jsp" %>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
       <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script>

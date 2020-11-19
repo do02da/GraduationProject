@@ -34,15 +34,40 @@ public class BoardController {
 		ModelAndView mv = new ModelAndView("/board/BoardMain");
 		
 		Map<String, Object> resultMap = boardService.getBoardList();
-				
+		
 		mv.addObject("list", resultMap.get("result"));
 		return mv;
 	}
 	
+	/**
+	 * 글쓰기 화면으로 이동
+	 * @author	김도영
+	 * @return	글쓰기 화면
+	 * @throws	Exception
+	 */
 	@RequestMapping(value="/board/openWritePage.do")
 	public ModelAndView openWritePage() throws Exception {
 		ModelAndView mv = new ModelAndView("/board/writePage");
 	
+		return mv;
+	}
+	
+	/**
+	 * 글 상세보기 조회수를 1 올리고 게시글을 가져와서 게시글 상세보기로 뿌려준다.
+	 * @author	김도영
+	 * @param	commandMap
+	 * @return	게시글 상세화면
+	 * @throws	Exception
+	 */
+	@RequestMapping(value="/board/openBoardDetail.do")
+	public ModelAndView openBoardDetail(CommandMap commandMap) throws Exception {
+		ModelAndView mv = new ModelAndView("/board/BoardDetail");
+		Map<String, Object> map = commandMap.getMap();
+		Map<String, Object> boardMap = boardService.getBoardDetail(map);
+		
+		boardService.up_Hit_Cnt(map);
+		mv.addObject("map", boardMap);
+		
 		return mv;
 	}
 	
@@ -65,9 +90,9 @@ public class BoardController {
 	 * @throws	Exception
 	 */
 	@RequestMapping(value="/board/insertBoard.do")
-	public void insertBoard(CommandMap commandMap) throws Exception {
+	public ModelAndView insertBoard(CommandMap commandMap) throws Exception {
 		boardService.insertBoard(commandMap.getMap());
 	
-		openBoard();
+		return openBoard();
 	}
 }
