@@ -117,6 +117,9 @@
 		var comSubmit = new ComSubmit();
 		comSubmit.addParam("B_ID", $("#B_ID").val());
 		
+		var userNick = ${login.NICKNAME}
+		comSubmit.addParam("NICKNAME", userNick);
+			
 		comSubmit.setUrl("<c:url value='/board/LikeIt.do' />");
 		comSubmit.submit();
 	}
@@ -125,6 +128,9 @@
 	function fn_DisLikeIt() {
 		var comSubmit = new ComSubmit();
 		comSubmit.addParam("B_ID", $("#B_ID").val());
+		
+		var userNick = ${login.NICKNAME}
+		comSubmit.addParam("NICKNAME", userNick);
 		
 		comSubmit.setUrl("<c:url value='/board/DisLikeIt.do' />");
 		comSubmit.submit();

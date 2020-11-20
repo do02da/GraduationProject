@@ -50,7 +50,7 @@ public class BoardServiceImpl implements BoardService {
 	// 좋아요 부분
 	@Override
 	public void LikeIt(Map<String, Object> map) throws Exception {
-		if (!isLikePeople(map)) {				// 좋아요 여부 확인
+		if (isLikePeople(map)) {				// 좋아요 여부 확인
 			boardDAO.InsertLikePeople(map);
 		} else {
 			return;
@@ -59,7 +59,7 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Override
 	public void DisLikeIt(Map<String, Object> map) throws Exception {
-		if (isLikePeople(map)) {
+		if (!isLikePeople(map)) {
 			boardDAO.DeleteLikePeople(map);
 		} else {
 			return;
@@ -81,7 +81,7 @@ public class BoardServiceImpl implements BoardService {
 		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
-		String fileRoot = "/summernote_image/";											// 저장될 외부 파일 경로
+		String fileRoot = "\\summernote_image\\";											// 저장될 외부 파일 경로
 		String originalFileName = multipartFile.getOriginalFilename();						// 오리지날 파일명
 		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	// 파일 확장자
 				

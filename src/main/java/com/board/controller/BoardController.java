@@ -29,9 +29,8 @@ public class BoardController {
 		ModelAndView mv = new ModelAndView("/AlbumBoard");
 		
 		Map<String, Object> resultMap = boardService.getBestBoardList();
-		logger.debug(resultMap);
 		mv.addObject("list", resultMap.get("result"));
-		logger.debug("list");
+
 		return mv;
 	}
 	
@@ -92,8 +91,6 @@ public class BoardController {
 	@RequestMapping(value="/board/LikeIt.do")
 	public ModelAndView likeit(HttpServletRequest request, CommandMap commandMap) throws Exception {
 		Map<String, Object> map = commandMap.getMap();
-		map.put("NICKNAME", request.getAttribute("NICKNAME"));	// 로그인 정보
-		
 		boardService.LikeIt(map);
 		
 		return openBoardDetail(commandMap);
@@ -102,8 +99,6 @@ public class BoardController {
 	@RequestMapping(value="/board/DisLikeIt.do")
 	public ModelAndView Dislikeit(HttpServletRequest request, CommandMap commandMap) throws Exception {
 		Map<String, Object> map = commandMap.getMap();
-		map.put("NICKNAME", request.getAttribute("NICKNAME"));	// 로그인 정보
-		
 		boardService.DisLikeIt(map);
 		
 		return openBoardDetail(commandMap);
