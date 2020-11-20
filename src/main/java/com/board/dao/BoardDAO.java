@@ -14,6 +14,11 @@ public class BoardDAO extends AbstractDAO {
 		return (Map<String, Object>)selectBoardList("board.getBoardList");
 	}
 	
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> getBestBoardList() throws Exception {
+		return (Map<String, Object>)selectBoardList("board.getBestBoardList");
+	}
+	
 	/**
 	 * 게시글에 들어가면 조회수를 1 올린다.
 	 * @param	map 게시글

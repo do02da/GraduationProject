@@ -65,7 +65,7 @@
 			$('html').addClass('fade-out');
 			
 			setTimeout(function() {
-				window.location.replace("<c:url value='/menuMove.do?go=AlbumBoard'/>");
+				window.location.replace("<c:url value='/openAlbumBoard.do'/>");
 			}, 1500);
 		});
 	});

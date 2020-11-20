@@ -44,6 +44,27 @@
 		]]>
 	</select>
 	
+		<!-- 좋아요 많은 글목록 가져오기 -->
+	<select id="getBestBoardList" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				B_ID,
+				TITLE,
+				WRITER,
+				HIT_CNT,
+				(date_format(CREA_DTM, '%Y.%m.%d %H:%i')) AS CREA_DTM,
+				THUMBNAIL,
+				LIKE_CNT
+			FROM
+				tb_board
+			WHERE
+				DEL_GB = 'N'
+			ORDER BY
+				LIKE_CNT DESC
+			LIMIT 3
+		]]>
+	</select>
+	
 	<!-- 조회수 증가 -->
 	<update id="updateHitCnt" parameterType="hashmap">
 		<![CDATA[

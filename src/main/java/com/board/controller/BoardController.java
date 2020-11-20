@@ -24,6 +24,17 @@ public class BoardController {
 	@Resource(name="boardService")
 	BoardService boardService;
 	
+	@RequestMapping(value="/openAlbumBoard.do")
+	public ModelAndView openBestBoard() throws Exception {
+		ModelAndView mv = new ModelAndView("/AlbumBoard");
+		
+		Map<String, Object> resultMap = boardService.getBestBoardList();
+		logger.debug(resultMap);
+		mv.addObject("list", resultMap.get("result"));
+		logger.debug("list");
+		return mv;
+	}
+	
 	/**
 	 * DB에서 게시글 목록을 가져와 게시판으로 보여준다
 	 * @author	김도영

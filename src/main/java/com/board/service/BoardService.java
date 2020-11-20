@@ -5,6 +5,16 @@ import java.util.Map;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface BoardService {
+
+	Map<String, Object> getBestBoardList() throws Exception;
+	
+	/**
+	 * 게시글들을 가져온다
+	 * @author	김도영
+	 * @return	게시판 글들
+	 * @throws	Exception
+	 */
+	Map<String, Object> getBoardList() throws Exception;
 	
 	/**
 	 * 파일을 서버에 저장하고 저장된 URL을 반환한다.
@@ -22,14 +32,6 @@ public interface BoardService {
 	 * @throws	Exception
 	 */
 	void insertBoard(Map<String, Object> map) throws Exception;
-
-	/**
-	 * 게시글들을 가져온다
-	 * @author	김도영
-	 * @return	게시판 글들
-	 * @throws	Exception
-	 */
-	Map<String, Object> getBoardList() throws Exception;
 
 	/**
 	 * 게시글 상세보기하면 조회수를 1 올린다.
@@ -69,4 +71,5 @@ public interface BoardService {
 	 * @throws	Exception
 	 */
 	void DisLikeIt(Map<String, Object> map) throws Exception;
+
 }
