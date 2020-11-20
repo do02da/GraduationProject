@@ -40,6 +40,6 @@
 		</mvc:interceptor>
 	</mvc:interceptors>
 	
-	<mvc:resources location="ROOT/summernote_image/" mapping="/summernoteImage/**"></mvc:resources>
+	<mvc:resources location="/home/pi/summernote_image/" mapping="/summernoteImage/**"></mvc:resources>
 	
 </beans>
