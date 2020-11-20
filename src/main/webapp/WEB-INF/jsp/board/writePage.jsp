@@ -21,9 +21,6 @@
 		height: 80%;
 	}
 	
-	textarea {
-		resize: none;
-	}
 </style>
 </head>
 <body>
@@ -76,11 +73,11 @@
 			fontNames: ['맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New'],
 			fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
 			
-		  height: 500,				// 에디터 높이
-		  minHeight: null,		// 최소 높이
-		  maxHeight: null,		// 최대 높이
-		  focus: true,				// 에디터 로딩후 포커스를 맞출지 여부
-		  lang: "ko-KR",			// 한글 설정
+		  height: 500,							// 에디터 높이
+		  minHeight: null,					// 최소 높이
+		  maxHeight: null,					// 최대 높이
+		  focus: false,							// 에디터 로딩후 포커스를 맞출지 여부
+		  lang: "ko-KR",						// 한글 설정
 		  
 		  callbacks: {				// 이미지를 첨부
 				onImageUpload : function(files) {

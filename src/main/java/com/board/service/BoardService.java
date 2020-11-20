@@ -47,4 +47,26 @@ public interface BoardService {
 	 * @throws	Exception
 	 */
 	Map<String, Object> getBoardDetail(Map<String, Object> map) throws Exception;
+
+	/**
+	 * 좋아요
+	 * @param	map 게시글 ID와 세션 로그인 사용자 닉네임이 들어있는 map
+	 * @throws	Exception
+	 */
+	void LikeIt(Map<String, Object> map) throws Exception;
+
+	/**
+	 * 이미 게시글을 좋아요를 눌렀는지 확인
+	 * @param	map 게시글 ID와 세션 로그인 사용자 닉네임이 들어있는 map
+	 * @return	좋아요 여부
+	 * @throws	Exception
+	 */
+	boolean isLikePeople(Map<String, Object> map) throws Exception;
+
+	/**
+	 * 좋아요 취소
+	 * @param	map 게시글 ID와 세션 로그인 사용자 닉네임이 들어있는 map
+	 * @throws	Exception
+	 */
+	void DisLikeIt(Map<String, Object> map) throws Exception;
 }

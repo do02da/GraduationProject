@@ -3,6 +3,7 @@ package com.board.controller;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -64,12 +65,39 @@ public class BoardController {
 		ModelAndView mv = new ModelAndView("/board/BoardDetail");
 		Map<String, Object> map = commandMap.getMap();
 		Map<String, Object> boardMap = boardService.getBoardDetail(map);
+
+		if (map.containsKey("NICKNAME")) {	// 로그인 했으면
+			mv.addObject("isLike", boardService.isLikePeople(map));
+		} else {							// 비로그인 경우
+			mv.addObject("isLike", "true");
+		}
 		
 		boardService.up_Hit_Cnt(map);
 		mv.addObject("map", boardMap);
 		
 		return mv;
 	}
+	
+	@RequestMapping(value="/board/LikeIt.do")
+	public ModelAndView likeit(HttpServletRequest request, CommandMap commandMap) throws Exception {
+		Map<String, Object> map = commandMap.getMap();
+		map.put("NICKNAME", request.getAttribute("NICKNAME"));	// 로그인 정보
+		
+		boardService.LikeIt(map);
+		
+		return openBoardDetail(commandMap);
+	}
+	
+	@RequestMapping(value="/board/DisLikeIt.do")
+	public ModelAndView Dislikeit(HttpServletRequest request, CommandMap commandMap) throws Exception {
+		Map<String, Object> map = commandMap.getMap();
+		map.put("NICKNAME", request.getAttribute("NICKNAME"));	// 로그인 정보
+		
+		boardService.DisLikeIt(map);
+		
+		return openBoardDetail(commandMap);
+	}
+	
 	
 	/**
 	 * SummerNote에서 이미지 파일을 업로드하면 서버에 저장하고 URL을 가져와서 매핑된다.

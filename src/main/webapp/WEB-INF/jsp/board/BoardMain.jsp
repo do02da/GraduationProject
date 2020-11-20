@@ -28,14 +28,16 @@
 							<div class="col-md-4">
 			          <div class="card mb-4 shadow-sm">
 			          	<!-- 썸네일 여부 확인 -->
+			          	<a href="#" class="openBoardDetail">
 			          	<c:choose>
 				          	<c:when test="${empty row.THUMBNAIL }">
-				          		<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+				          		<svg class="bd-placeholder-img card-img-top " width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
 				          	</c:when>
 				          	<c:otherwise>
 				          			<img src="${row.THUMBNAIL }" width="100%" height="225">
 				          	</c:otherwise>
 				          </c:choose>
+			            </a>
 			            
 			            <div class="card-body">
 			            	<table style="width:100%">
@@ -62,7 +64,15 @@
 												  <path fill-rule="evenodd" d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
 												</svg>
 												<span class="sr-only">조회수</span>
-												${row.HIT_CNT }</small>
+												${row.HIT_CNT }
+												<!-- 좋아요 아이콘 -->
+												<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+												  <path fill-rule="evenodd" d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+												</svg>
+												<span class="sr-only">좋아요</span>
+												${row.LIKE_CNT }
+												
+												</small>
 			                <small class="text-muted">
 			               	 	<!-- 시계 아이콘 -->
 				                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-smartwatch" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -103,13 +113,11 @@
 		$("#openWritePage").on("click", function(e){
 			e.preventDefault();
 			
-			if (${not empty sessionScope.login}) {
+			if (${not empty sessionScope.login}) {	// 로그인 했으면
 				fn_openWritePage();
-			} else {
+			} else {																// 비로그인이면
 				alert("로그인 후 사용이 가능합니다.");
 			}
-
-
 		});
 	});
 	
@@ -120,12 +128,17 @@
 	}
 	
 	function fn_openBoardDetail(obj) {
+		var B_ID = obj.parent().find("#B_ID").val();
+		
 		var comSubmit = new ComSubmit();
 		comSubmit.setUrl("<c:url value='/board/openBoardDetail.do'/>");
 		
-		var B_ID = obj.parent().find("#B_ID").val();
-		comSubmit.addParam("B_ID", B_ID);
+		if (${not empty sessionScope.login}) {	// 로그인 했으면
+			var userNick = ${login.NICKNAME}
+			comSubmit.addParam("NICKNAME", userNick);
+		}
 		
+		comSubmit.addParam("B_ID", B_ID);
 		comSubmit.submit();
 	}
 </script>

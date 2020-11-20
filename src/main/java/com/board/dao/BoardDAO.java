@@ -33,6 +33,33 @@ public class BoardDAO extends AbstractDAO {
 	}
 	
 	/**
+	 * 좋아요 중복 검사
+	 * @param	NICKNAME
+	 * @return	좋아요 여부
+	 */
+	public int CheckLikePeople(Map<String, Object> map) {
+		return (Integer) selectOne("board.CheckLikePeople", map);
+	}
+	
+	/**
+	 * 좋아요
+	 * @param	map
+	 */
+	public void InsertLikePeople(Map<String, Object> map) {
+		insert("board.InsertLikePeople", map);	// 좋아요 테이블에 좋아요 추가
+		update("board.Up_LikeCnt", map);		// 좋아요 증가
+	}
+	
+	/**
+	 * 좋아요 취소
+	 * @param	map
+	 */
+	public void DeleteLikePeople(Map<String, Object> map) {
+		delete("board.DeleteLikePeople", map);	// 좋아요 테이블에서 좋아요 한 사람 삭제
+		update("board.Down_LikeCnt", map);		// 좋아요 감소
+	}
+	
+	/**
 	 * 작성한 게시글을 DB에 저장한다.
 	 * @author	김도영
 	 * @param	map 게시글
