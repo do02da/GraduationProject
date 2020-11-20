@@ -65,7 +65,6 @@ public class BoardController {
 	}
 	
 	/**
-<<<<<<< HEAD
 	 * 글 상세보기 조회수를 1 올리고 게시글을 가져와서 게시글 상세보기로 뿌려준다.
 	 * @author	김도영
 	 * @param	commandMap
@@ -109,8 +108,7 @@ public class BoardController {
 		
 		return openBoardDetail(commandMap);
 	}
-	
-=======
+	 /**
 	 * 네비게이션바에서 map을 눌렀을 때 이동
 	 * @author	박건우
 	 * @return	지도 화면으로 이동
@@ -122,7 +120,6 @@ public class BoardController {
 		
 		return mv;
 	}
->>>>>>> branch 'main' of https://github.com/wellcom8/GraduationProject.git
 	
 	/**
 	 * SummerNote에서 이미지 파일을 업로드하면 서버에 저장하고 URL을 가져와서 매핑된다.

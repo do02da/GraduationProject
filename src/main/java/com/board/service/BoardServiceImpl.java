@@ -106,7 +106,6 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public void insertBoard(Map<String, Object> map) throws Exception {
-<<<<<<< HEAD
 		Pattern pattern = Pattern.compile(".*<img.*>");	// 이미지 있는지 확인하는 정규표현식
 		String contents = (String) map.get("contents");	// 게시글 내용을 String으로 가져온다
 		Matcher matcher = pattern.matcher(contents);	// 게시글 내용과 정규표현식
@@ -123,8 +122,6 @@ public class BoardServiceImpl implements BoardService {
 			map.put("thumbnail", "");					// thumbnail을 빈 값으로 한다.
 		}
 
-=======
->>>>>>> branch 'main' of https://github.com/wellcom8/GraduationProject.git
 		boardDAO.insertBoard(map);
 	}
 }
