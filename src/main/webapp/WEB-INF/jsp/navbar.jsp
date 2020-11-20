@@ -18,7 +18,7 @@
 			</h5>
 		  <nav class="my-2 my-md-0 mr-md-3">
 		    <a class="p-2 text-white" href="#" id="openBoard">Board</a>
-		    <a class="p-2 text-white" href="#">Map</a>
+		    <a class="p-2 text-white" href="#" id="openMap">Map</a>
 		    <c:choose>
 		    	<c:when test="${empty login}">
 		    		<a class="p-2 text-white" href="#" id="openLogin">Sign in</a>
@@ -41,15 +41,15 @@
 			fn_logout();
 		});
 		
-		$("#write").on("click", function(e) {
-			e.preventDefault();
-			fn_menumove("writePage");
-		});
-		
 		$("#openBoard").on("click", function(e) {
 			e.preventDefault();
 			fn_openBoard();
 		});
+		
+		$("#openMap").on("click", function(e) {
+			e.preventDefault();
+			fn_openMap();
+		})
 		
 		$("#openLogin").on("click", function(e) {
 			e.preventDefault();
@@ -77,6 +77,12 @@
 		function fn_openBoard() {
 			var comSubmit = new ComSubmit();
 			comSubmit.setUrl("<c:url value='/board/openBoard.do' />");
+			comSubmit.submit();
+		}
+		
+		function fn_openMap() {
+			var comSubmit = new ComSubmit();
+			comSubmit.setUrl("<c:url value='/board/openMap.do' />");
 			comSubmit.submit();
 		}
 </script>
