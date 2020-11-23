@@ -148,7 +148,7 @@
 		
 		comSubmit.addParam("B_ID", B_ID);
 		comSubmit.submit();
-	}
+	}b
 </script>
 </body>
 </html>

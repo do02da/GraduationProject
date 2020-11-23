@@ -65,6 +65,7 @@
 		function fn_logout() {
 			var comSubmit = new ComSubmit();
 			comSubmit.setUrl("<c:url value='/user/logout.do' />");
+			window.history.back();
 			comSubmit.submit();
 		}
 		

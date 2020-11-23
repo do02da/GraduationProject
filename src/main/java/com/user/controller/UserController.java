@@ -79,7 +79,7 @@ public class UserController {
 	}
 	
 	/**
-	 * 현재 세션을 초기화하고 있던 화면을 띄워준다.
+	 * 현재 세션을 초기화하고 처음 화면을 띄워준다.
 	 * @author	김도영
 	 * @param	session 현재 세션
 	 * @param	request 있던 화면으로 돌아가기 위해 가져온다

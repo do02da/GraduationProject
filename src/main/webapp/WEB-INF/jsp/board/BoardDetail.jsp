@@ -108,8 +108,7 @@
 		// 수정하기 버튼
 		$("#updateBtn").on("click", function(e) {
 			e.preventDefault();
-
-			fn_update();
+			fn_Modify();
 		});
 		
 		// 삭제하기 버튼
@@ -151,10 +150,10 @@
 	}
 	
 	// 수정하기
-	function fn_update() {
+	function fn_Modify() {
 		var comSubmit = new ComSubmit();
 		comSubmit.addParam("B_ID", $("#B_ID").val());
-		comSubmit.setUrl("<c:url value='/board/openUpdate.do' />");
+		comSubmit.setUrl("<c:url value='/board/openModify.do' />");
 		comSubmit.submit();
 	}
 

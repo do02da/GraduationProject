@@ -165,4 +165,13 @@ public class BoardController {
 	
 		return openBoard();
 	}
+	
+	@RequestMapping(value="/board/openModify.do")
+	public ModelAndView openModify(CommandMap commandMap) throws Exception {
+		ModelAndView mv = new ModelAndView("board/BoardModify");
+		
+		mv.addObject("map", boardService.getBoardDetail(commandMap.getMap()));
+		
+		return mv;
+	}
 }
