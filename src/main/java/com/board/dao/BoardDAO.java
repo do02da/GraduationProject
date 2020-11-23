@@ -28,6 +28,7 @@ public class BoardDAO extends AbstractDAO {
 	}
 	
 	/**
+	 * 게시글 상세 내용을 가져온다.
 	 * @author	김도영
 	 * @param	map 게시글 ID가 들어있는 맵
 	 * @return	게시글 상세내용
@@ -35,6 +36,10 @@ public class BoardDAO extends AbstractDAO {
 	@SuppressWarnings("unchecked")
 	public Map<String, Object> getBoardDetail(Map<String, Object> map) {
 		return (Map<String, Object>)selectOne("board.getBoardDetail", map);
+	}
+	
+	public void Delete(Map<String, Object> map) {
+		update("board.delete", map);
 	}
 	
 	/**

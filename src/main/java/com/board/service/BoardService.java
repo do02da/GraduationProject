@@ -72,4 +72,7 @@ public interface BoardService {
 	 */
 	void DisLikeIt(Map<String, Object> map) throws Exception;
 
+	
+	void Delete(Map<String, Object> map) throws Exception;
+
 }

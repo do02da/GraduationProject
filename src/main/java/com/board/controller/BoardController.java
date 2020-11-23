@@ -24,6 +24,11 @@ public class BoardController {
 	@Resource(name="boardService")
 	BoardService boardService;
 	
+	/**
+	 * 게시글 중에서 좋아요가 가장 높은 3개를 가져와서 첫 화면으로 이동한다.
+	 * @return	첫 화면
+	 * @throws	Exception
+	 */
 	@RequestMapping(value="/openAlbumBoard.do")
 	public ModelAndView openBestBoard() throws Exception {
 		ModelAndView mv = new ModelAndView("/AlbumBoard");
@@ -88,21 +93,41 @@ public class BoardController {
 		return mv;
 	}
 	
+	@RequestMapping(value="/board/Delete.do")
+	public ModelAndView Delete(CommandMap commandMap) throws Exception {
+		boardService.Delete(commandMap.getMap());
+		
+		return openBoard();
+	}
+	
+	/**
+	 * 좋아요 기능
+	 * @param	commandMap
+	 * @return	현재 있던 게시글 화면
+	 * @throws	Exception
+	 */
 	@RequestMapping(value="/board/LikeIt.do")
-	public ModelAndView likeit(HttpServletRequest request, CommandMap commandMap) throws Exception {
+	public ModelAndView likeit(CommandMap commandMap) throws Exception {
 		Map<String, Object> map = commandMap.getMap();
 		boardService.LikeIt(map);
 		
 		return openBoardDetail(commandMap);
 	}
 	
+	/**
+	 * 좋아요 취소 기능
+	 * @param	commandMap 게시글 ID와 로그인 사용자 닉네임이 들어있는 map
+	 * @return	현재 있던 게시글 화면
+	 * @throws	Exception
+	 */
 	@RequestMapping(value="/board/DisLikeIt.do")
-	public ModelAndView Dislikeit(HttpServletRequest request, CommandMap commandMap) throws Exception {
+	public ModelAndView Dislikeit(CommandMap commandMap) throws Exception {
 		Map<String, Object> map = commandMap.getMap();
 		boardService.DisLikeIt(map);
 		
 		return openBoardDetail(commandMap);
 	}
+	
 	 /**
 	 * 네비게이션바에서 map을 눌렀을 때 이동
 	 * @author	박건우
@@ -111,7 +136,7 @@ public class BoardController {
 	 */
 	@RequestMapping(value="/board/openMap.do")
 	public ModelAndView openMap() throws Exception {
-		ModelAndView mv = new ModelAndView("/boad/Map");
+		ModelAndView mv = new ModelAndView("/board/Map");
 		
 		return mv;
 	}

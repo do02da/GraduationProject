@@ -137,14 +137,27 @@
       
 
 <script type="text/javascript">
-/*
-	function fn_menuMove(url){
-		$('html').addClass('fade-out');
-		
-		setTimeout(function() {
-			window.location.href="<c:url value='/menuMove.do?go=" + url + "'/>";
-		}, 1500);
+$(document).ready(function() {
+	// 글 상세 보기
+	$(".openBoardDetail").on("click", function(e) {
+		e.preventDefault();
+		fn_openBoardDetail($(this));
+	});
+});
+
+function fn_openBoardDetail(obj) {
+	var B_ID = obj.parent().find("#B_ID").val();
+	
+	var comSubmit = new ComSubmit();
+	comSubmit.setUrl("<c:url value='/board/openBoardDetail.do'/>");
+	
+	if (${not empty sessionScope.login}) {	// 로그인 했으면
+		var userNick = ${login.NICKNAME}
+		comSubmit.addParam("NICKNAME", userNick);
 	}
-*/
+	
+	comSubmit.addParam("B_ID", B_ID);
+	comSubmit.submit();
+}
 </script>
 </html>

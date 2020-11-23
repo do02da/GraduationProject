@@ -47,6 +47,11 @@ public class BoardServiceImpl implements BoardService {
 		return boardDAO.getBoardDetail(map);
 	}
 	
+	@Override
+	public void Delete(Map<String, Object> map) throws Exception {
+		boardDAO.Delete(map);
+	}
+	
 	// 좋아요 부분
 	@Override
 	public void LikeIt(Map<String, Object> map) throws Exception {

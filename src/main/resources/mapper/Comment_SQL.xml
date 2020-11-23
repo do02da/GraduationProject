@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="comment">
+	<select id="commentSelect" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				C_ID,
+				CONTENTS,
+				CREA_NICK,
+				(date_format(CREA_DTM, '%Y.%m.%d %H:%i')) AS CREA_DTM,
+				DEL_GB
+			FROM
+				tb_comment
+			WHERE
+				PARENT_ID = #{PARENT_ID}
+			ORDER BY
+				C_ID ASC
+		]]>
+	</select>
+
+
+	<insert id="commentWrite" parameterType="hashmap">
+		<![CDATA[
+			INSERT INTO tb_comment
+			(
+				PARENT_ID,
+				CREA_NICK,
+				CONTENTS,
+				DEL_GB
+			)
+			VALUES
+			(
+				#{PARENT_ID},
+				#{CREA_NICK},
+				#{CONTENTS},
+				'N'
+			)
+		]]>
+	</insert>
+	
+	<update id="commentUpdate" parameterType="hashmap">
+		<![CDATA[
+			UPDATE tb_comment
+			SET
+				CONTENTS = #{CONTENTS}
+			WHERE
+				C_ID = #{C_ID}
+		]]>
+	</update>
+	
+	<update id="commentDelete" parameterType="hashmap">
+		<![CDATA[
+			UPDATE tb_comment
+			SET
+				DEL_GB = 'Y'
+			WHERE
+				C_ID = #{C_ID}
+		]]>
+	</update>
+
+</mapper>

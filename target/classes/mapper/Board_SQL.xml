@@ -60,7 +60,8 @@
 			WHERE
 				DEL_GB = 'N'
 			ORDER BY
-				LIKE_CNT DESC
+				LIKE_CNT DESC,
+				CREA_DTM DESC
 			LIMIT 3
 		]]>
 	</select>
@@ -76,6 +77,16 @@
 		]]>
 	</update>
 	
+	<update id="delete" parameterType="hashmap">
+		<![CDATA[
+			UPDATE tb_board
+			SET
+				DEL_GB = 'Y'
+			WHERE
+				B_ID = #{B_ID}		
+		]]>
+  </update>
+  
 	<!-- 좋아요 기능 -->
 		<!-- 이미 좋아요했는지 -->
 		<select id="CheckLikePeople" parameterType="hashmap" resultType="int">
