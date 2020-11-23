@@ -9,6 +9,23 @@
     <meta name="generator" content="Eclipse Photon">
 <title>(Before + After)Trip</title>
 
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
 <%@ include file="/WEB-INF/include/include-header.jspf" %>
 
 </head>
@@ -26,7 +43,7 @@
 			</a>
 	</div>
 
-	<div class="album py-5">
+	<div class="py-5">
 		<div class="container">
 	  	<div class="row">
 	  	
@@ -39,7 +56,11 @@
 			          	<a href="#" class="openBoardDetail">
 			          	<c:choose>
 				          	<c:when test="${empty row.THUMBNAIL }">
-				          		<svg class="bd-placeholder-img card-img-top " width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+				          		<svg class="bd-placeholder-img card-img-top " width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+					          		<title>No Thumbnail</title>
+					          		<rect width="100%" height="100%" fill="#55595c"/>
+					          		<text x="50%" y="50%" fill="#eceeef" dy=".3em">No Thumbnail</text>
+				          		</svg>
 				          	</c:when>
 				          	<c:otherwise>
 				          			<img src="${row.THUMBNAIL }" width="100%" height="225">

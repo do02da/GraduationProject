@@ -49,6 +49,7 @@
 		        <input type="password" id="inputPasswordCheck" class="form-control" placeholder="비밀번호확인" maxlength="20" required>
 		        <label for="inputNick" class="sr-only">닉네임</label>
 		        <input type="text" id="inputNick" name="NICKNAME" class="form-control" placeholder="닉네임" required>
+		        <br/>
 		        <a href="#" class="btn btn-lg btn-primary btn-block" id="reg_submit" role="button">회원가입</a>
 		        <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
 		      </form>
