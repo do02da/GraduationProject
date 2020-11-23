@@ -27,5 +27,5 @@ public interface BoardService {
 	 * @return	게시판 글들
 	 * @throws	Exception
 	 */
-	Map<String, Object> getBoardList() throws Exception;
+	Map<String, Object> getBoardList(Map<String, Object> map) throws Exception;
 }

@@ -10,8 +10,8 @@ import com.common.dao.AbstractDAO;
 public class BoardDAO extends AbstractDAO {
 	
 	@SuppressWarnings("unchecked")
-	public Map<String, Object> getBoardList() throws Exception {
-		return (Map<String, Object>)selectBoardList("board.getBoardList");
+	public Map<String, Object> getBoardList(Map<String, Object> map) throws Exception {
+		return (Map<String, Object>)selectPagingList("board.getBoardList", map);
 	}
 	
 	/**

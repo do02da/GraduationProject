@@ -47,6 +47,7 @@
 			</form>
 			<p class="text-right">
 				<a href="#this" class="btn btn-primary" id="write_submit" role="button">저장</a>
+				<a href="#this" class="btn btn-primary" id="list_submit" role="button">목록</a>
 			</p>
 		</div>
 	</main>
@@ -57,6 +58,12 @@
  		$("#write_submit").on("click", function(e){
  			e.preventDefault();
  			fn_submit();
+ 		});
+		
+		//목록으로 버튼 클릭 
+		$("#list_submit").on("click", function(e){
+ 			e.preventDefault();
+ 			fn_list();
  		});
 		
 		// SummerNote 에디터 설정
@@ -108,6 +115,13 @@
 			comSubmit.setUrl("<c:url value='/board/insertBoard.do'/>");
 			comSubmit.submit();
 		}
+	}
+	
+	//게시물 목록으로
+	function fn_list() {
+		var comSubmit = new ComSubmit();
+		comSubmit.setUrl("<c:url value='/board/openBoard.do'/>");
+		comSubmit.submit();
 	}
 	
 	// SummerNote 이미지 업로드

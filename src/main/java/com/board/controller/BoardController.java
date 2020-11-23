@@ -16,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.board.service.BoardService;
 import com.common.common.CommandMap;
 
+import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
+
 @Controller
 public class BoardController {
 	Logger logger = (Logger) LogManager.getLogger(this.getClass());
@@ -30,12 +32,14 @@ public class BoardController {
 	 * @throws	Exception
 	 */
 	@RequestMapping(value="/board/openBoard.do")
-	public ModelAndView openBoard() throws Exception {
+	public ModelAndView openBoard(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("/board/BoardMain");
 		
-		Map<String, Object> resultMap = boardService.getBoardList();
+		Map<String, Object> resultMap = boardService.getBoardList(commandMap.getMap());
 				
 		mv.addObject("list", resultMap.get("result"));
+		mv.addObject("paginationInfo", (PaginationInfo)resultMap.get("paginationInfo"));
+		
 		return mv;
 	}
 	
@@ -54,7 +58,7 @@ public class BoardController {
 	 */
 	@RequestMapping(value="/board/openMap.do")
 	public ModelAndView openMap() throws Exception {
-		ModelAndView mv = new ModelAndView("/boad/Map");
+		ModelAndView mv = new ModelAndView("/board/Map");
 		
 		return mv;
 	}
@@ -78,9 +82,11 @@ public class BoardController {
 	 * @throws	Exception
 	 */
 	@RequestMapping(value="/board/insertBoard.do")
-	public void insertBoard(CommandMap commandMap) throws Exception {
+	public ModelAndView insertBoard(CommandMap commandMap) throws Exception {
+		ModelAndView mv = new ModelAndView("/board/BoardMain");
+		
 		boardService.insertBoard(commandMap.getMap());
 	
-		openBoard();
+		return mv;
 	}
 }

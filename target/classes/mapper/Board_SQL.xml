@@ -23,7 +23,15 @@
 	<select id="getBoardList" resultType="hashmap">
 		<![CDATA[
 			SELECT
-				TITLE,
+				(
+					SELECT
+						COUNT(*)
+					FROM
+						tb_board
+					WHERE
+						DEL_GB = 'N'
+				) AS TOTAL_COUNT,
+				TITLE,	
 				WRITER,
 				HIT_CNT,
 				(date_format(CREA_DTM, '%Y.%m.%d %H:%i')) AS CREA_DTM
@@ -33,6 +41,7 @@
 				DEL_GB = 'N'
 			ORDER BY
 				B_ID DESC
+				LIMIT #{START}, #{END}
 		]]>
 	</select>
 	

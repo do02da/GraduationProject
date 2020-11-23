@@ -17,7 +17,7 @@
 	
 <main role="main">
 	<div class="container text-right">
-			<a href="#" class="btn btn-primary" role="button" id="openWritePage">글쓰기</a>
+		<a href="#" class="btn btn-primary" role="button" id="openWritePage">글쓰기</a>
 	</div>
 
 	<div class="album py-5 bg-light">
@@ -49,7 +49,13 @@
 			</div>
 		</div>
 	</div>
+	
+	<c:if test="${not empty paginationInfo }">
+		<ui:pagination paginationInfo = "${paginationInfo }" type="text" jsFunction="fn_pagiNation"/>
+	</c:if>
+	<input type="hidden" id="currentPageNo" name="currentPageNo"/>
 </main>
+
 
 <script>
 	$(document).ready(function() {
@@ -74,6 +80,12 @@
 	function fn_menumove(go) {
 		var comSubmit = new ComSubmit();
 		comSubmit.setUrl("<c:url value='/menuMove.do?go=" + go + "' />");
+		comSubmit.submit();
+	}
+	function fn_pagiNation(pageNo){
+		var comSubmit = new ComSubmit();
+		comSubmit.setUrl("<c:url value='/board/openBoard.do' />");
+		comSubmit.addParam("currentPageNo", pageNo);
 		comSubmit.submit();
 	}
 </script>

@@ -15,6 +15,19 @@
 		<log4j2.version>2.13.3</log4j2.version>
 		<com.fasterxml.jackson>2.11.2</com.fasterxml.jackson>
 	</properties>
+	
+	<repositories>
+        <repository>
+            <id>egovframe</id>
+            <url>http://maven.egovframe.kr:8080/maven/</url>
+            <releases>
+            <enabled>true</enabled>
+            </releases>
+            <snapshots>
+            <enabled>false</enabled>
+            </snapshots>
+        </repository>
+	</repositories>
 
 	<dependencies>
 		<!-- Spring -->
@@ -70,6 +83,13 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
 			<version>${org.springframework-version}</version>
+		</dependency>
+		
+		<!-- 전자정부 프레임워크 -->
+		<dependency>
+			<groupId>egovframework.rte</groupId>
+			<artifactId>egovframework.rte.ptl.mvc</artifactId>
+			<version>3.1.0</version>
 		</dependency>
 				
 		<!-- AspectJ -->
