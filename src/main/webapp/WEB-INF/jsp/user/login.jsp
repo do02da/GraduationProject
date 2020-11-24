@@ -10,22 +10,7 @@
     <title>(Before + After)Trip</title>
 
 	<%@ include file="/WEB-INF/include/include-header.jspf" %>
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
     <!-- Custom styles for this page -->
     <link href="<c:url value='/css/user.css'/>" rel="stylesheet">
   </head>
@@ -35,7 +20,7 @@
 
 	<main role="main">
 	  <div class="container-fluid">
-	    <div id="alertDiv">
+	    <div id="alertDiv" class="w-100">
 		    <c:if test="${not empty error}">
 					<div class="alert alert-danger" role="alert" id="isIDalert">
 					<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-exclamation-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -48,13 +33,13 @@
 	    <div class="content">
 	      <form class="form-signin" id="frm">
 		    <!-- 로고  <img class="mb-4" src="" alt="" width="72" height="72"> -->
-	        <h1 class="h3 mb-3 font-weight-normal"><a href="<c:url value='/menuMove.do?go=AlbumBoard'/>">(Before + After)Trip</a></h1>
+	        <h1 class="h3 mb-3 font-weight-normal"><a href="#this" id="toBoard">(Before + After)Trip</a></h1>
 	        <label for="inputEmail" class="sr-only">이메일 주소</label>
 	        <input type="email" id="inputEmail" name="EMAIL" class="form-control" placeholder="이메일 주소" required>
 	        <label for="inputPassword" class="sr-only">비밀번호</label>
 	        <input type="password" id="inputPassword" name="PASSWORD" class="form-control" placeholder="비밀번호" maxlength="20" required>
-	        <a class="text-muted" id="openInquiry" href="#this">아이디 찾기</a>&ensp;
-	        <a class="text-muted" id="openReg" href="#this">회원가입</a>
+	        <!-- <a class="text-muted" id="openInquiry" href="#this">아이디 찾기</a>&ensp;  -->
+	        <a class="text-muted" id="toReg" href="#this">회원가입</a>
 	        <div class="checkbox mb-3">
 		      <label>
 		        <input type="checkbox" value="remember-me"> Remember me
@@ -68,6 +53,7 @@
   </main>
   
   <%@ include file="/WEB-INF/jsp/footer.jsp" %>
+  
     <%@ include file="/WEB-INF/include/include-body.jspf" %>
     <script type="text/javascript">
     	const str_dangerAlert = "<div class='alert alert-danger' role='alert' id='dangerAlert'><svg width='1em' height='1em' viewBox='0 0 16 16' class='bi bi-exclamation-circle-fill' fill='currentColor' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z'/></svg>&nbsp;";
@@ -76,6 +62,11 @@
 			var isNotPWEmpty = false;
 			
     	$(document).ready(function() {
+    		$("#toBoard").on("click", function(e) {
+    			e.preventDefault();
+    			fn_openBoard();
+    		});
+    		
     		// 아이디찾기
     		$("#openInquiry").on("click", function(e) {
     			e.preventDefault();
@@ -83,7 +74,7 @@
     		});
     		
     		// 회원가입
-    		$("#openReg").on("click", function(e) {
+    		$("#toReg").on("click", function(e) {
     			e.preventDefault();
     			fn_menumove("user/reg");
     		});
@@ -126,6 +117,12 @@
     		});
     		
     	});	// document ready end
+    	
+			function fn_openBoard() {
+				var comSubmit = new ComSubmit();
+				comSubmit.setUrl("<c:url value='/openAlbumBoard.do' />");
+				comSubmit.submit();
+			}
     	
     	function fn_pwVaildation(form){
    			// 비밀번호가 비어있으면

@@ -14,14 +14,25 @@
 	<%@ include file="/WEB-INF/include/include-header.jspf" %>
 	<style>
 		html, body{
-			height:100%;
+			height: 100%;
 		}
+		
+		body {
+			padding-top:50px;
+		}
+		
 		div.container {
-			height:80%;
+			height: 80%;
 		}
+		
+		footer {
+			position: absolute;
+			bottom: 0;
+		}
+		
 		#map {
-			width:100%;
-			height:100%;
+			width: 100%;
+			height: 100%;
 		}
 	</style>
 	<!-- 네이버맵 클라이언트 아이디 입력 -->
@@ -29,13 +40,12 @@
 </head>
 
 <body>
-	<header>
-		<%@ include file="/WEB-INF/jsp/navbar.jsp" %>
-	</header>
+	<%@ include file="/WEB-INF/jsp/navbar.jsp" %>
 	
 	<div class="container">
 		<div id="map"></div>
 	</div>
+	
 	<script>
 		var mapOptions = {
 			center: new naver.maps.LatLng(37.3595704, 127.105399),
@@ -50,5 +60,6 @@
 		
 	</script>
 
+	<%@ include file="/WEB-INF/jsp/footer.jsp" %>
 </body>
 </html>	

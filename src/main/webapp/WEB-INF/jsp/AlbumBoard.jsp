@@ -27,9 +27,6 @@
         }
       }
       
-      #Carousel {
-      	background-color:#555555;
-      }
     </style>
     <!-- Custom styles for this page -->
     <link href="<c:url value='/css/album.css'/>" rel="stylesheet">  
@@ -48,13 +45,13 @@
 		  </ol>
 		  <div class="carousel-inner">
 		    <div class="carousel-item active">
-					<img src="<c:url value='/img/carousel01.svg'/>" class="w-100">
+					<img src="<c:url value='/img/carousel01.svg'/>" class="bd-placeholder-img w-100">
 				</div>
 		    <div class="carousel-item">
-					<img src="<c:url value='/img/carousel02.svg'/>" class="w-100">
+					<img src="<c:url value='/img/carousel02.svg'/>" class="bd-placeholder-img w-100">
 		    </div>
 		    <div class="carousel-item">
-					<img src="<c:url value='/img/carousel03.svg'/>" class="w-100">
+					<img src="<c:url value='/img/carousel03.svg'/>" class="bd-placeholder-img w-100">
 		    </div>
 		  </div>
 		    <a class="carousel-control-prev" href="#Carousel" role="button" data-slide="prev">
@@ -68,7 +65,7 @@
 		</div>
   </section>
 
-  <div class="py-5 bg-light">
+  <div class="py-5">
     <div class="container">
       <div class="row">
       

@@ -8,7 +8,7 @@
 </head>
 <body>
 <header>
-	<div class="navbar navbar-dark bg-dark sticky-top">
+	<div class="navbar navbar-dark bg-dark fixed-top">
 		<div class="container">
 		  <h5 class="my-0 mr-md-auto font-weight-normal">
 	      <a href="<c:url value='/openAlbumBoard.do'/>" class="navbar-brand d-flex align-items-center">
