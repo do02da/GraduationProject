@@ -38,8 +38,9 @@
 			<form method="post" id="frm">
 				<div class="form-group">
 					<input type="hidden" id="writer" name="writer" value="${login.NICKNAME }">
-					<label for="title">제목</label>
+					<label for="TITLE">제목</label>
 					<input type="text" class="form-control" name="title" id="title" maxlength="100" value="${map.TITLE}">
+					<input type="hidden" id="B_ID" name="B_ID" value="${map.B_ID }">
 				</div>
 				<div id="textareaDiv">
 					<textarea name="contents" id="editor">${map.CONTENTS}</textarea>
@@ -113,7 +114,7 @@
 			alert("제목을 입력하세요");
 		} else {
 			var comSubmit = new ComSubmit("frm");
-			comSubmit.setUrl("<c:url value='/board/insertBoard.do'/>");
+			comSubmit.setUrl("<c:url value='/board/updateBoard.do'/>");
 			comSubmit.submit();
 		}
 	}

@@ -26,16 +26,19 @@ public class CommentServiceImpl implements CommentService{
 	
 	@Override
 	public void commentWrite(Map<String, Object> map) throws Exception {
-		logger.debug(map);
-		
-		// 스크립트 사용 방지
-		map.put("CONTENTS", map.get("CONTENTS").toString().replaceAll("(?i)<script", "&lt;script"));
+		// 태그 사용 방지
+		map.put("CONTENTS", map.get("CONTENTS").toString().replaceAll("<", "&lt"));
+		map.put("CONTENTS", map.get("CONTENTS").toString().replaceAll("\n", "<br/>"));
 		
 		commentDAO.commentWrite(map);
 	}
 	
 	@Override
 	public void commentUpdate(Map<String, Object> map) throws Exception {
+		// 태그 사용 방지
+		map.put("CONTENTS", map.get("CONTENTS").toString().replaceAll("<", "&lt"));
+		map.put("CONTENTS", map.get("CONTENTS").toString().replaceAll("\n", "<br/>"));
+		
 		commentDAO.commentUpdate(map);
 	}
 	

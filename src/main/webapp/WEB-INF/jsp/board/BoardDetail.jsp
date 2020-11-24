@@ -48,7 +48,11 @@
 						<th class="table-active" scope="row">작성자</th>
 						<td>${map.WRITER }</td>
 						<th class="table-active" scope="row">작성시간</th>
-						<td>${map.CREA_DTM }</td>
+						<td>${map.CREA_DTM }
+							<c:if test="${map.CREA_DTM ne map.MOD_DTM}">
+								<small>[${map.MOD_DTM}]</small>
+							</c:if>
+						</td>
 					</tr>
 					<tr>
 						<th class="table-active" scope="row">제목</th>

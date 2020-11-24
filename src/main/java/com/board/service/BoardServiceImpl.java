@@ -111,12 +111,26 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public void insertBoard(Map<String, Object> map) throws Exception {
+		Map<String ,Object> resultMap = new HashMap<String, Object>();
+		resultMap = PostModify(map);
+		
+		boardDAO.insertBoard(resultMap);
+	}
+	
+	@Override
+	public void UpdateBoard(Map<String, Object> map) throws Exception {
+		Map<String ,Object> resultMap = new HashMap<String, Object>();
+		resultMap = PostModify(map);
+		
+		boardDAO.UpdateBoard(resultMap);
+	}
+	
+	public Map<String, Object> PostModify(Map<String, Object> map) throws Exception {
 		Pattern pattern = Pattern.compile(".*<img.*>");	// 이미지 있는지 확인하는 정규표현식
 		String contents = (String) map.get("contents");	// 게시글 내용을 String으로 가져온다
 		Matcher matcher = pattern.matcher(contents);	// 게시글 내용과 정규표현식
 		String target = "/summernoteImage/";			// 이미지 경로 시작부분
 
-		
 		if (matcher.find()) {							// 글에 사진이 있으면
 			int target_num = contents.indexOf(target);	// 일치하는 첫 번째 사진의 시작위치를 가져온다.
 			
@@ -128,9 +142,12 @@ public class BoardServiceImpl implements BoardService {
 		}
 
 		// 스크립트 사용 방지
-		map.put("title", map.get("title").toString().replaceAll("(?i)<script", "&lt;script"));
 		map.put("contents", map.get("contents").toString().replaceAll("(?i)<script", "&lt;script"));
 		
-		boardDAO.insertBoard(map);
+		// 태그 사용 방지
+		map.put("title", map.get("title").toString().replaceAll("<", "&lt"));
+		map.put("title", map.get("title").toString().replaceAll(">", "&gt"));
+		
+		return map;
 	}
 }

@@ -168,6 +168,7 @@
 				CONTENTS,
 				HIT_CNT,
 				(date_format(CREA_DTM, '%Y.%m.%d %H:%i')) AS CREA_DTM,
+				(date_format(MOD_DTM, '%Y.%m.%d %H:%i')) AS MOD_DTM,
 				LIKE_CNT
 			FROM
 				tb_board
@@ -175,5 +176,16 @@
 				B_ID = #{B_ID}
 		]]>
 	</select>
+	
+	<update id="UpdateBoard" parameterType="hashmap">
+		<![CDATA[
+			UPDATE tb_board
+			SET
+				TITLE = #{title},
+				CONTENTS = #{contents}
+			WHERE
+				B_ID = #{B_ID}
+		]]>
+	</update>
 	
 </mapper>

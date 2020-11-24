@@ -2,12 +2,15 @@ package com.board.dao;
 
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import com.common.dao.AbstractDAO;
 
 @Repository("boardDAO")
 public class BoardDAO extends AbstractDAO {
+	Logger logger = (Logger) LogManager.getLogger(this.getClass());
 	
 	@SuppressWarnings("unchecked")
 	public Map<String, Object> getBoardList() throws Exception {
@@ -77,5 +80,14 @@ public class BoardDAO extends AbstractDAO {
 	 */
 	public void insertBoard(Map<String, Object> map) throws Exception {
 		insert("board.insertBoard", map);
+	}
+	
+	/**
+	 * 게시글을 수정한다.
+	 * @param	map
+	 * @throws	Exception
+	 */
+	public void UpdateBoard(Map<String, Object> map) throws Exception {
+		update("board.UpdateBoard", map);
 	}
 }
