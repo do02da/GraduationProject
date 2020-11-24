@@ -79,6 +79,4 @@ public interface BoardService {
 	 */
 	void Delete(Map<String, Object> map) throws Exception;
 
-	void UpdateBoard(Map<String, Object> map) throws Exception;
-
 }
