@@ -116,8 +116,8 @@
    
     if (CREA_NICK == data.CREA_NICK && data.DEL_GB == 'N') {
     	tmphtml += "<p class='text-right'>";
-    	tmphtml += "<a href='#this' class='update btn btn-primary' id='update_" + data.C_ID + "'  role='button'>수정</a> ";
-    	tmphtml += "<a href='#this' class='delete btn btn-danger' id='delete_" + data.C_ID + "' role='button'>삭제</a>";
+    	tmphtml += "<a href='#this' class='update text-muted' id='update_" + data.C_ID + "'  role='button'>[수정]</a> ";
+    	tmphtml += "<a href='#this' class='delete text-muted' id='delete_" + data.C_ID + "' role='button'>[삭제]</a>";
     	tmphtml += "</p>";
     }
     
@@ -181,8 +181,8 @@
 		var str = "<textarea  rows='5' style='width:100%' id='contents_modify' name='contents_modify'>" + con + "</textarea>";
 		var div = obj.parent().parent().find("#comment_div");
 		
-		var btn = " <a href='#this' name='comment_update' class='btn btn-primary'>저장</a> "
-						+ "<a href='#this' name='update_cancel' class='btn btn-primary'>취소</a>"
+		var btn = " <a href='#this' name='comment_update' class='text-muted'>[저장]</a> "
+						+ "<a href='#this' name='update_cancel' class='text-muted'>[취소]</a>"
 		obj.parent().append(btn);
 		obj.hide();
 		

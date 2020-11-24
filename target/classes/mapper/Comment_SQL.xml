@@ -19,7 +19,6 @@
 		]]>
 	</select>
 
-
 	<insert id="commentWrite" parameterType="hashmap">
 		<![CDATA[
 			INSERT INTO tb_comment

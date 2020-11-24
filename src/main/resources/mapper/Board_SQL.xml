@@ -34,7 +34,15 @@
 				HIT_CNT,
 				(date_format(CREA_DTM, '%Y.%m.%d %H:%i')) AS CREA_DTM,
 				THUMBNAIL,
-				LIKE_CNT
+				LIKE_CNT,
+				(	SELECT
+						count(*)
+					FROM
+						tb_comment
+					WHERE
+						PARENT_ID = B_ID AND
+						DEL_GB = 'N'
+				) AS CMT_CNT
 			FROM
 				tb_board
 			WHERE

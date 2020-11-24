@@ -14,7 +14,11 @@
 	<script src="<c:url value='/summernote/lang/summernote-ko-KR.js'/> "></script>
 	
 	<link rel="stylesheet" href="<c:url value='/summernote/summernote-lite.css'/>">
-
+	<style>
+		body {
+			padding-top: 60px;
+		}
+	</style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/jsp/navbar.jsp" %>

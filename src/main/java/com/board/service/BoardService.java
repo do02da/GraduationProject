@@ -72,7 +72,11 @@ public interface BoardService {
 	 */
 	void DisLikeIt(Map<String, Object> map) throws Exception;
 
-	
+	/**
+	 * 게시글 삭제
+	 * @param	map
+	 * @throws	Exception
+	 */
 	void Delete(Map<String, Object> map) throws Exception;
 
 }

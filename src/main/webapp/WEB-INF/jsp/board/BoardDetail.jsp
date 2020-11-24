@@ -9,7 +9,11 @@
 <title>(Before + After)Trip</title>
 
 <%@ include file="/WEB-INF/include/include-header.jspf" %>
-
+<style>
+	body {
+		padding-top: 60px;
+	}
+</style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/jsp/navbar.jsp" %>

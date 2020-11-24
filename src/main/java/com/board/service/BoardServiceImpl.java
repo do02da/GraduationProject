@@ -36,7 +36,7 @@ public class BoardServiceImpl implements BoardService {
 	public Map<String, Object> getBoardList() throws Exception {
 		return boardDAO.getBoardList();
 	}
-	
+
 	@Override
 	public void up_Hit_Cnt(Map<String, Object> map) throws Exception {
 		boardDAO.up_Hit_Cnt(map);
@@ -127,6 +127,10 @@ public class BoardServiceImpl implements BoardService {
 			map.put("thumbnail", "");					// thumbnail을 빈 값으로 한다.
 		}
 
+		// 스크립트 사용 방지
+		map.put("title", map.get("title").toString().replaceAll("(?i)<script", "&lt;script"));
+		map.put("contents", map.get("contents").toString().replaceAll("(?i)<script", "&lt;script"));
+		
 		boardDAO.insertBoard(map);
 	}
 }

@@ -50,7 +50,7 @@ public class BoardController {
 		ModelAndView mv = new ModelAndView("/board/BoardMain");
 		
 		Map<String, Object> resultMap = boardService.getBoardList();
-		
+
 		mv.addObject("list", resultMap.get("result"));
 		return mv;
 	}
@@ -93,6 +93,12 @@ public class BoardController {
 		return mv;
 	}
 	
+	/**
+	 * 게시글 삭제
+	 * @param	commandMap
+	 * @return	
+	 * @throws	Exception
+	 */
 	@RequestMapping(value="/board/Delete.do")
 	public ModelAndView Delete(CommandMap commandMap) throws Exception {
 		boardService.Delete(commandMap.getMap());

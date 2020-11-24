@@ -76,6 +76,7 @@
 			            		<tr>
 				            		<td>
 				            			<a href="#this" class="openBoardDetail card-text">${row.TITLE }</a>
+				            			<small class="text-muted">[${row.CMT_CNT }]</small>
 				            			<input type="hidden" id="B_ID" value="${row.B_ID }">
 				            		</td>
 				            		<td class="text-right">
