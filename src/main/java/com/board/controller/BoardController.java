@@ -183,7 +183,6 @@ public class BoardController {
 	
 	@RequestMapping(value="/board/updateBoard.do")
 	public ModelAndView UpdateBoard(CommandMap commandMap) throws Exception {
-		logger.debug(commandMap.getMap());
 		boardService.UpdateBoard(commandMap.getMap());
 		
 		return openBoardDetail(commandMap);
