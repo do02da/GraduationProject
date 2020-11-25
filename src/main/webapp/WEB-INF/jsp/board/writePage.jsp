@@ -52,6 +52,10 @@
 					<label for="title">제목</label>
 					<input type="text" class="form-control" name="title" id="title" maxlength="100">
 				</div>
+			
+				<div id="Map_Shown_Div"></div>
+				<div id="test">
+				</div>
 				<div id="textareaDiv">
 					<textarea name="contents" id="editor"></textarea>
 				</div>
