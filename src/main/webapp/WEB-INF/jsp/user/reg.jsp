@@ -41,7 +41,7 @@
 		    <div class="content">
 		   	  <form class="form-signin" id="frm">
 			    <!-- 로고  <img class="mb-4" src="" alt="" width="72" height="72"> -->
-		        <h1 class="h3 mb-3 font-weight-normal"><a href="<c:url value='/menuMove.do?go=AlbumBoard'/>">(Before + After)Trip</a></h1>
+		        <h1 class="h3 mb-3 font-weight-normal"><a href="#this" id="toBoard">(Before + After)Trip</a></h1>
 		        <label for="inputEmail" class="sr-only">이메일 주소</label>
 		        <input type="email" id="inputEmail" name="EMAIL" class="form-control" placeholder="이메일 주소" required>
 		        <label for="inputPassword" class="sr-only">비밀번호</label>
@@ -49,6 +49,7 @@
 		        <input type="password" id="inputPasswordCheck" class="form-control" placeholder="비밀번호확인" maxlength="20" required>
 		        <label for="inputNick" class="sr-only">닉네임</label>
 		        <input type="text" id="inputNick" name="NICKNAME" class="form-control" placeholder="닉네임" required>
+		        <br/>
 		        <a href="#" class="btn btn-lg btn-primary btn-block" id="reg_submit" role="button">회원가입</a>
 		        <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
 		      </form>
@@ -68,6 +69,11 @@
 		var isNickChk = false;
 		
 		$(document).ready(function() {
+			$("#toBoard").on("click", function(e) {
+					e.preventDefault();
+					fn_openBoard();
+			});
+			
  			// 이메일 포커스가 해제 됬을 때
    		$("#inputEmail").blur(function() {
    			var emailReg = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;	// 이메일 정규표현식
@@ -147,7 +153,13 @@
    		});
    		
    	});
-    	
+		
+		function fn_openBoard() {
+			var comSubmit = new ComSubmit();
+			comSubmit.setUrl("<c:url value='/openAlbumBoard.do' />");
+			comSubmit.submit();
+		}	
+		
     	function fn_CheckEmail(Email) {
     		var isChecked;
     		

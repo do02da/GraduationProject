@@ -26,6 +26,11 @@ public class BoardController {
 	@Resource(name="boardService")
 	BoardService boardService;
 	
+	/**
+	 * 게시글 중에서 좋아요가 가장 높은 3개를 가져와서 첫 화면으로 이동한다.
+	 * @return	첫 화면
+	 * @throws	Exception
+	 */
 	@RequestMapping(value="/openAlbumBoard.do")
 	public ModelAndView openBestBoard() throws Exception {
 		ModelAndView mv = new ModelAndView("/AlbumBoard");
@@ -51,7 +56,11 @@ public class BoardController {
 				
 =======
 		Map<String, Object> resultMap = boardService.getBoardList();
+<<<<<<< HEAD
 		
+>>>>>>> branch 'main' of https://github.com/wellcom8/GraduationProject.git
+=======
+
 >>>>>>> branch 'main' of https://github.com/wellcom8/GraduationProject.git
 		mv.addObject("list", resultMap.get("result"));
 		mv.addObject("paginationInfo", (PaginationInfo)resultMap.get("paginationInfo"));
@@ -97,21 +106,47 @@ public class BoardController {
 		return mv;
 	}
 	
+	/**
+	 * 게시글 삭제
+	 * @param	commandMap
+	 * @return	
+	 * @throws	Exception
+	 */
+	@RequestMapping(value="/board/Delete.do")
+	public ModelAndView Delete(CommandMap commandMap) throws Exception {
+		boardService.Delete(commandMap.getMap());
+		
+		return openBoard();
+	}
+	
+	/**
+	 * 좋아요 기능
+	 * @param	commandMap
+	 * @return	현재 있던 게시글 화면
+	 * @throws	Exception
+	 */
 	@RequestMapping(value="/board/LikeIt.do")
-	public ModelAndView likeit(HttpServletRequest request, CommandMap commandMap) throws Exception {
+	public ModelAndView likeit(CommandMap commandMap) throws Exception {
 		Map<String, Object> map = commandMap.getMap();
 		boardService.LikeIt(map);
 		
 		return openBoardDetail(commandMap);
 	}
 	
+	/**
+	 * 좋아요 취소 기능
+	 * @param	commandMap 게시글 ID와 로그인 사용자 닉네임이 들어있는 map
+	 * @return	현재 있던 게시글 화면
+	 * @throws	Exception
+	 */
 	@RequestMapping(value="/board/DisLikeIt.do")
-	public ModelAndView Dislikeit(HttpServletRequest request, CommandMap commandMap) throws Exception {
+	public ModelAndView Dislikeit(CommandMap commandMap) throws Exception {
 		Map<String, Object> map = commandMap.getMap();
 		boardService.DisLikeIt(map);
 		
 		return openBoardDetail(commandMap);
 	}
+	
 	 /**
 	 * 네비게이션바에서 map을 눌렀을 때 이동
 	 * @author	박건우
@@ -157,5 +192,21 @@ public class BoardController {
 =======
 		return openBoard();
 >>>>>>> branch 'main' of https://github.com/wellcom8/GraduationProject.git
+	}
+	
+	@RequestMapping(value="/board/openModify.do")
+	public ModelAndView openModify(CommandMap commandMap) throws Exception {
+		ModelAndView mv = new ModelAndView("board/BoardModify");
+		
+		mv.addObject("map", boardService.getBoardDetail(commandMap.getMap()));
+		
+		return mv;
+	}
+	
+	@RequestMapping(value="/board/updateBoard.do")
+	public ModelAndView UpdateBoard(CommandMap commandMap) throws Exception {
+		boardService.UpdateBoard(commandMap.getMap());
+		
+		return openBoardDetail(commandMap);
 	}
 }

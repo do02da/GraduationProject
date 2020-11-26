@@ -75,5 +75,17 @@ public interface BoardService {
 	 */
 	void DisLikeIt(Map<String, Object> map) throws Exception;
 
+<<<<<<< HEAD
+>>>>>>> branch 'main' of https://github.com/wellcom8/GraduationProject.git
+=======
+	/**
+	 * 게시글 삭제
+	 * @param	map
+	 * @throws	Exception
+	 */
+	void Delete(Map<String, Object> map) throws Exception;
+
+	void UpdateBoard(Map<String, Object> map) throws Exception;
+
 >>>>>>> branch 'main' of https://github.com/wellcom8/GraduationProject.git
 }

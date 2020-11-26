@@ -4,10 +4,16 @@
 <html lang="ko" class="fade-in">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 <title>(Before + After)Trip</title>
 
 <%@ include file="/WEB-INF/include/include-header.jspf" %>
-
+<style>
+	body {
+		padding-top: 60px;
+	}
+</style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/jsp/navbar.jsp" %>
@@ -15,9 +21,15 @@
 	<main role="main">
 		<div class="container">
 			<div class="text-right">
-				<a href="#this" class="list btn btn-primary" role="button">목록으로</a>
+				<a href="#this" class="list btn btn-primary" role="button">
+					<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-counterclockwise" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+				  <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"/>
+				  <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z"/>
+					</svg> 목록으로</a>
 			</div>
-			<table class="table table-bordered">
+			<br/>
+			
+			<table class="table">
 				<caption class="sr-only">게시글 상세</caption>
 				<colgroup>
 					<col width="15%"/>
@@ -27,19 +39,23 @@
 				</colgroup>
 				<tbody>
 					<tr>
-						<th scope="row">글 번호</th>
+						<th class="table-active" scope="row">글 번호</th>
 						<td><input type="hidden" id="B_ID" value="${map.B_ID }">${map.B_ID }</td>
-						<th scope="row">조회수</th>
+						<th class="table-active" scope="row">조회수</th>
 						<td>${map.HIT_CNT }</td>
 					</tr>
 					<tr>
-						<th scope="row">작성자</th>
+						<th class="table-active" scope="row">작성자</th>
 						<td>${map.WRITER }</td>
-						<th scope="row">작성시간</th>
-						<td>${map.CREA_DTM }</td>
+						<th class="table-active" scope="row">작성시간</th>
+						<td>${map.CREA_DTM }
+							<c:if test="${map.CREA_DTM ne map.MOD_DTM}">
+								<small>[${map.MOD_DTM}]</small>
+							</c:if>
+						</td>
 					</tr>
 					<tr>
-						<th scope="row">제목</th>
+						<th class="table-active" scope="row">제목</th>
 						<td colspan="3">${map.TITLE }</td>
 					</tr>
 					<tr>
@@ -47,6 +63,13 @@
 					</tr>
 				</tbody>
 			</table>
+			
+			<div class="text-right">
+					<c:if test="${login.NICKNAME == map.WRITER}">
+						<a href="#" class="btn btn-secondary" id="updateBtn">수정하기</a>
+						<a href="#" class="btn btn-danger" id="deleteBtn">삭제하기</a>
+					</c:if>
+			</div>
 			
 			<div class="text-center">
 				<c:choose>
@@ -73,6 +96,11 @@
 				</c:choose>
 				
 			</div>
+			
+			<br/>
+			
+			<%@ include file="/WEB-INF/jsp/board/BoardComment.jsp" %>
+			
 		</div>
 	</main>
 
@@ -83,6 +111,23 @@
 		$(".list").on("click", function(e) {
 			e.preventDefault();
 			fn_openBoardList();
+		});
+		
+		// 수정하기 버튼
+		$("#updateBtn").on("click", function(e) {
+			e.preventDefault();
+			fn_Modify();
+		});
+		
+		// 삭제하기 버튼
+		$("#deleteBtn").on("click", function(e) {
+			e.preventDefault();
+			if (confirm("정말 삭제하시겠습니까?")) {
+				fn_delete();
+			} else {
+				return false;
+			}
+
 		});
 		
 		// 좋아요 버튼
@@ -109,6 +154,22 @@
 	function fn_openBoardList() {
 		var comSubmit = new ComSubmit();
 		comSubmit.setUrl("<c:url value='/board/openBoard.do' />");
+		comSubmit.submit();
+	}
+	
+	// 수정하기
+	function fn_Modify() {
+		var comSubmit = new ComSubmit();
+		comSubmit.addParam("B_ID", $("#B_ID").val());
+		comSubmit.setUrl("<c:url value='/board/openModify.do' />");
+		comSubmit.submit();
+	}
+
+	// 삭제하기
+	function fn_delete() {
+		var comSubmit = new ComSubmit();
+		comSubmit.addParam("B_ID", $("#B_ID").val());
+		comSubmit.setUrl("<c:url value='/board/Delete.do' />");
 		comSubmit.submit();
 	}
 	

@@ -3,8 +3,31 @@
 <!DOCTYPE html>
 <html lang="ko" class="fade-in">
 <head>
-<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="김도영">
+    <meta name="generator" content="Eclipse Photon">
 <title>(Before + After)Trip</title>
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+      body {
+      	padding-top: 60px;
+      }
+    </style>
 
 <%@ include file="/WEB-INF/include/include-header.jspf" %>
 
@@ -14,6 +37,7 @@
 <%@ include file="/WEB-INF/jsp/navbar.jsp" %>
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
 <main role="main">
 	<div class="container text-right">
 		<a href="#" class="btn btn-primary" role="button" id="openWritePage">글쓰기</a>
@@ -22,9 +46,19 @@
 	<div class="container text-right	">
 			<a href="#" class="btn btn-primary" role="button" id="openWritePage">글쓰기</a>
 >>>>>>> branch 'main' of https://github.com/wellcom8/GraduationProject.git
+=======
+<main role="main">
+	<div class="container text-right">
+			<a href="#" class="btn btn-primary" role="button" id="openWritePage">
+				<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+				  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+				  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+				</svg> 글쓰기
+			</a>
+>>>>>>> branch 'main' of https://github.com/wellcom8/GraduationProject.git
 	</div>
 
-	<div class="album py-5">
+	<div class="py-5">
 		<div class="container">
 	  	<div class="row">
 	  	
@@ -37,7 +71,11 @@
 			          	<a href="#" class="openBoardDetail">
 			          	<c:choose>
 				          	<c:when test="${empty row.THUMBNAIL }">
-				          		<svg class="bd-placeholder-img card-img-top " width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+				          		<svg class="bd-placeholder-img card-img-top " width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+					          		<title>No Thumbnail</title>
+					          		<rect width="100%" height="100%" fill="#55595c"/>
+					          		<text x="50%" y="50%" fill="#eceeef" dy=".3em">No Thumbnail</text>
+				          		</svg>
 				          	</c:when>
 				          	<c:otherwise>
 				          			<img src="${row.THUMBNAIL }" width="100%" height="225">
@@ -50,6 +88,7 @@
 			            		<tr>
 				            		<td>
 				            			<a href="#this" class="openBoardDetail card-text">${row.TITLE }</a>
+				            			<small class="text-muted">[${row.CMT_CNT }]</small>
 				            			<input type="hidden" id="B_ID" value="${row.B_ID }">
 				            		</td>
 				            		<td class="text-right">
@@ -155,6 +194,7 @@
 		
 		comSubmit.addParam("B_ID", B_ID);
 		comSubmit.submit();
+<<<<<<< HEAD
 	}
 	function fn_pagiNation(pageNo){
 		var comSubmit = new ComSubmit();
@@ -162,6 +202,9 @@
 		comSubmit.addParam("currentPageNo", pageNo);
 		comSubmit.submit();
 	}
+=======
+	}b
+>>>>>>> branch 'main' of https://github.com/wellcom8/GraduationProject.git
 </script>
 </body>
 </html>
