@@ -110,7 +110,8 @@
 		// 목록으로 버튼
 		$(".list").on("click", function(e) {
 			e.preventDefault();
-			fn_openBoardList();
+			window.history.back();
+			// fn_openBoardList();
 		});
 		
 		// 수정하기 버튼

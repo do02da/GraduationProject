@@ -22,6 +22,12 @@ public class BoardDAO extends AbstractDAO {
 		return (Map<String, Object>)selectBoardList("board.getBestBoardList");
 	}
 	
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> getSearchList(Map<String, Object> map) throws Exception {
+		logger.debug(map);
+		return (Map<String, Object>)selectBoardList("board.getSearchList", map);
+	}
+	
 	/**
 	 * 게시글에 들어가면 조회수를 1 올린다.
 	 * @param	map 게시글
@@ -41,6 +47,10 @@ public class BoardDAO extends AbstractDAO {
 		return (Map<String, Object>)selectOne("board.getBoardDetail", map);
 	}
 	
+	/**
+	 * 게시글 삭제
+	 * @param	map
+	 */
 	public void Delete(Map<String, Object> map) {
 		update("board.delete", map);
 	}

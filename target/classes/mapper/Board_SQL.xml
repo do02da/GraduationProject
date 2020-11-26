@@ -24,6 +24,18 @@
 		]]>
 	</insert>
 	
+	<!-- 
+	<insert id="insert_map">
+		<![CDATA[
+			INSERT INTO tb_board_map (
+			
+			) VALUES (
+			
+			)
+		]]>
+	</insert>	
+	 -->
+	 
 	<!-- 글목록 가져오기 -->
 	<select id="getBoardList" resultType="hashmap">
 		<![CDATA[
@@ -51,6 +63,35 @@
 				B_ID DESC
 		]]>
 	</select>
+	
+	<select id="getSearchList" resultType="hashmap" parameterType="hashmap">
+		<![CDATA[
+			SELECT
+				B_ID,
+				TITLE,
+				WRITER,
+				HIT_CNT,
+				(date_format(CREA_DTM, '%Y.%m.%d %H:%i')) AS CREA_DTM,
+				THUMBNAIL,
+				LIKE_CNT,
+				(	SELECT
+						count(*)
+					FROM
+						tb_comment
+					WHERE
+						PARENT_ID = B_ID AND
+						DEL_GB = 'N'
+				) AS CMT_CNT
+			FROM
+				tb_board
+			WHERE
+				${searchCondition} LIKE '%${searchWord}%' AND
+				DEL_GB = 'N'
+			ORDER BY
+				B_ID DESC
+		]]>
+	</select>
+
 	
 		<!-- 좋아요 많은 글목록 가져오기 -->
 	<select id="getBestBoardList" resultType="hashmap">

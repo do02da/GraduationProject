@@ -50,6 +50,13 @@
 	      		</div>
 	      	</div>
 	      </div>
+	      <div>
+	      
+		      <div class="container">
+		     		<div id="Markers_Div" class="row"></div>
+		      </div>
+	      </div>
+
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-primary" id="Map_Confirm">확인</button>
 	      </div>
@@ -66,15 +73,18 @@
 			logoControlOptions: naver.maps.Position.CENTER
 		};
 	
-		var ModalMap;
+		var ModalMap;								// Modal 맵
 		
-		var Markers = [];
+		var Markers = [];						// 마커 목록
+		var Markers_Pin = [];
 		
-		var marker = new naver.maps.Marker();
+		var marker = new naver.maps.Marker();	// 마커
 		
 		var infoWindow = new naver.maps.InfoWindow({
 				borderColor: "#AAAAAA",	// 정보 창의 테두리 색상
 		});
+	
+	var j = 0;
 	</script>
 	
 	<script>
@@ -86,14 +96,17 @@
 					$("#Lat").val(marker.getPosition().lat());
 					$("#Lng").val(marker.getPosition().lng());
 					
+					// Static Map
+					// $("#test").html("<img src='https://naveropenapi.apigw.ntruss.com/map-static/v2/raster-cors?w=1024&h=300&markers=type:a|pos:" + marker.getPosition().lng() + "%20" + marker.getPosition().lat() + "|label=a&X-NCP-APIGW-API-KEY-ID=s56b4f2jk4' style='width:100%;'>");
+					
+					// Dynamic Map 
+					/*
 					var Post_mapOptions= {
 						center: User_Place_LatLng,
 					  draggable: false,							// 마우스 또는 손가락을 이용한 지도 이동 여부
 						zoom: 12
 					};
 					
-					// $("#test").html("<img src='https://naveropenapi.apigw.ntruss.com/map-static/v2/raster-cors?w=1024&h=300&markers=type:a|pos:" + marker.getPosition().lng() + "%20" + marker.getPosition().lat() + "|label=a&X-NCP-APIGW-API-KEY-ID=s56b4f2jk4' style='width:100%;'>");
-					/*
 					var Map_In_Shown_Div = new naver.maps.Map(document.getElementById('Map_Shown_Div'), Post_mapOptions);
 					
 					var Post_Marker = new naver.maps.Marker({
@@ -125,7 +138,11 @@
 			marker.setMap(null);				// 마커 지도에서 제거
 			infoWindow.close();					// 정보 창 닫기
 			marker.setPosition(null);		// 마커 좌표 삭제
+			$("#Markers_Div").empty();	// 마커 목록 다이브 초기화
+			j = 0;
 		});
+		
+
 		
 		function searchCoordinateToAddress(latlng){
 		    naver.maps.Service.reverseGeocode({
@@ -163,12 +180,63 @@
 
 		        infoWindow.open(ModalMap, marker);
 		        
+		        $("#Place").keypress(function (e){
+								if (e.which === 13) {	// Enter 키 눌렸을 때
+									e.preventDefault();
+									Marker_tb_set();
+								}
+						});
+		        
+		        // 추가 버튼 클릭
 						$("#Marker_Add").on("click", function(e) {
-							if (!$("#Place").val()) {
-								
-							}
+							Marker_tb_set();
 						});
 		    });
+		}
+		
+		function Marker_tb_set() {
+			if (Markers.length < 5) {
+				if ($("#Place").val()) {
+					var tbStr = "<table class='col-2 border m-2' id='tb_" + j + "'><tr><td class='pl-2 text-truncate' style='max-width: 150px;'>"
+					+ "<svg width='1em' height='1em' viewBox='0 0 16 16' class='bi bi-geo-alt-fill' fill='currentColor' xmlns='http://www.w3.org/2000/svg'>"
+					+ "<path fill-rule='evenodd' d='M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 0 0-6 3 3 0 0 0 0 6z'/>"
+					+ "</svg> <small>"
+					+ $("#Place").val() + "</small></td>"
+					+ "<td class='text-right'><button class='btn Xbtn' id='" + j++ + "'>"
+					+ "<svg width='1em' height='1em' viewBox='0 0 16 16' class='bi bi-x' fill='currentColor' xmlns='http://www.w3.org/2000/svg'>"
+					+ "<path fill-rule='evenodd' d='M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z'/>"
+					+	"</svg></button></td>"
+					+ "</tr></table>";
+						
+					$("#Markers_Div").append(tbStr);
+					
+					var NewMarker = new naver.maps.Marker({
+						map: ModalMap,
+						position: marker.getPosition(),
+						title: $("#Place").val()
+					});
+					Markers_Pin.push(NewMarker);
+					Markers.push(marker);
+					
+					marker.setMap(null);
+					marker.setPosition(null);
+					infoWindow.close();
+					
+					$(".Xbtn").on("click", function(e) {
+						var tbId = this.id;
+						
+						$("#tb_" + tbId).remove();
+						
+						delete Markers[tbId];
+						Markers_Pin[tbId].setMap(null);
+						Markers = Markers.filter(function (item) {
+							return item !== null && item !== undefined && item !== '';
+						});
+					});
+				}
+			} else {
+				alert("마커는 5개까지만 만들 수 있습니다.");
+			}
 		}
 		
 

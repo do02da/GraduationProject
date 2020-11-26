@@ -36,6 +36,19 @@ public class BoardServiceImpl implements BoardService {
 	public Map<String, Object> getBoardList() throws Exception {
 		return boardDAO.getBoardList();
 	}
+	
+	@Override
+	public Map<String, Object> getSearchList(Map<String, Object> map) throws Exception {
+		
+		// 검색 조건 설정
+		if (map.get("searchCondition").equals("제목")) {
+			map.put("searchCondition", "TITLE");
+		} else if (map.get("searchCondition").equals("글쓴이")) {
+			map.put("searchCondition", "WRITER");
+		}
+		
+		return boardDAO.getSearchList(map);
+	}
 
 	@Override
 	public void up_Hit_Cnt(Map<String, Object> map) throws Exception {

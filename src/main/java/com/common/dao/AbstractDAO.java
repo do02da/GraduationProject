@@ -63,12 +63,24 @@ public class AbstractDAO {
 		return sqlSession.selectList(queryId, params);
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings( "rawtypes")
 	public Map selectBoardList(String queryId) {
 		printQueryId(queryId);
 	     
 	    Map<String,Object> returnMap = new HashMap<String,Object>();
 	    List<Map<String,Object>> list = sqlSession.selectList(queryId);
+	    
+	    returnMap.put("result", list);
+	    
+	    return returnMap;
+	}
+	
+	@SuppressWarnings( "rawtypes" )
+	public Map selectBoardList(String queryId, Object params) {
+		printQueryId(queryId);
+	     
+	    Map<String,Object> returnMap = new HashMap<String,Object>();
+	    List<Map<String,Object>> list = sqlSession.selectList(queryId, params);
 	    
 	    returnMap.put("result", list);
 	    

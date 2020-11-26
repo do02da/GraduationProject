@@ -55,6 +55,18 @@ public class BoardController {
 		return mv;
 	}
 	
+
+	@RequestMapping(value="/board/search.do")
+	public ModelAndView search(CommandMap commandMap) throws Exception {
+		ModelAndView mv = new ModelAndView("/board/BoardMain");
+		
+		Map<String, Object> resultMap = boardService.getSearchList(commandMap.getMap());
+		
+		mv.addObject("list", resultMap.get("result"));
+		
+		return mv;
+	}
+	
 	/**
 	 * 글쓰기 화면으로 이동
 	 * @author	김도영
@@ -172,6 +184,12 @@ public class BoardController {
 		return openBoard();
 	}
 	
+	/**
+	 * 수정 화면으로 들어간다.
+	 * @param	commandMap 게시글 상세내용
+	 * @return	게시글 상세내용을 포함한 수정화면
+	 * @throws	Exception
+	 */
 	@RequestMapping(value="/board/openModify.do")
 	public ModelAndView openModify(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("board/BoardModify");
@@ -181,6 +199,12 @@ public class BoardController {
 		return mv;
 	}
 	
+	/**
+	 * 수정한 결과를 저장한다.
+	 * @param	commandMap 게시글 수정내용
+	 * @return	다시 상세 화면으로 돌아간다.
+	 * @throws	Exception
+	 */
 	@RequestMapping(value="/board/updateBoard.do")
 	public ModelAndView UpdateBoard(CommandMap commandMap) throws Exception {
 		boardService.UpdateBoard(commandMap.getMap());
