@@ -57,7 +57,7 @@ public class UserController {
 	 */
 	@RequestMapping(value="/user/userReg.do")
 	public ModelAndView userReg(CommandMap commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView("redirect:/menuMove.do?go=AlbumBoard");
+		ModelAndView mv = new ModelAndView("redirect:/openAlbumBoard.do");
 		
 		userService.userReg(commandMap.getMap());
 
@@ -83,12 +83,12 @@ public class UserController {
 	 * @author	김도영
 	 * @param	session 현재 세션
 	 * @param	request 있던 화면으로 돌아가기 위해 가져온다
-	 * @return	있던 화면으로 돌아간다
+	 * @return	메인 화면으로 돌아간다.
 	 */
 	@RequestMapping(value="/user/logout.do")
 	public String logout(HttpSession session, HttpServletRequest request) {
 		session.invalidate();	// 세션 초기화
 		
-		return "redirect:" + request.getHeader("Referer");
+		return "redirect:/openAlbumBoard.do";
 	}
 }

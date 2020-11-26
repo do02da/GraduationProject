@@ -3,6 +3,7 @@ package com.board.controller;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -25,6 +26,16 @@ public class BoardController {
 	@Resource(name="boardService")
 	BoardService boardService;
 	
+	@RequestMapping(value="/openAlbumBoard.do")
+	public ModelAndView openBestBoard() throws Exception {
+		ModelAndView mv = new ModelAndView("/AlbumBoard");
+		
+		Map<String, Object> resultMap = boardService.getBestBoardList();
+		mv.addObject("list", resultMap.get("result"));
+
+		return mv;
+	}
+	
 	/**
 	 * DB에서 게시글 목록을 가져와 게시판으로 보여준다
 	 * @author	김도영
@@ -35,14 +46,25 @@ public class BoardController {
 	public ModelAndView openBoard(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("/board/BoardMain");
 		
+<<<<<<< HEAD
 		Map<String, Object> resultMap = boardService.getBoardList(commandMap.getMap());
 				
+=======
+		Map<String, Object> resultMap = boardService.getBoardList();
+		
+>>>>>>> branch 'main' of https://github.com/wellcom8/GraduationProject.git
 		mv.addObject("list", resultMap.get("result"));
 		mv.addObject("paginationInfo", (PaginationInfo)resultMap.get("paginationInfo"));
 		
 		return mv;
 	}
 	
+	/**
+	 * 글쓰기 화면으로 이동
+	 * @author	김도영
+	 * @return	글쓰기 화면
+	 * @throws	Exception
+	 */
 	@RequestMapping(value="/board/openWritePage.do")
 	public ModelAndView openWritePage() throws Exception {
 		ModelAndView mv = new ModelAndView("/board/writePage");
@@ -51,6 +73,46 @@ public class BoardController {
 	}
 	
 	/**
+	 * 글 상세보기 조회수를 1 올리고 게시글을 가져와서 게시글 상세보기로 뿌려준다.
+	 * @author	김도영
+	 * @param	commandMap
+	 * @return	게시글 상세화면
+	 * @throws	Exception
+	 */
+	@RequestMapping(value="/board/openBoardDetail.do")
+	public ModelAndView openBoardDetail(CommandMap commandMap) throws Exception {
+		ModelAndView mv = new ModelAndView("/board/BoardDetail");
+		Map<String, Object> map = commandMap.getMap();
+		Map<String, Object> boardMap = boardService.getBoardDetail(map);
+
+		if (map.containsKey("NICKNAME")) {	// 로그인 했으면
+			mv.addObject("isLike", boardService.isLikePeople(map));
+		} else {							// 비로그인 경우
+			mv.addObject("isLike", "true");
+		}
+		
+		boardService.up_Hit_Cnt(map);
+		mv.addObject("map", boardMap);
+		
+		return mv;
+	}
+	
+	@RequestMapping(value="/board/LikeIt.do")
+	public ModelAndView likeit(HttpServletRequest request, CommandMap commandMap) throws Exception {
+		Map<String, Object> map = commandMap.getMap();
+		boardService.LikeIt(map);
+		
+		return openBoardDetail(commandMap);
+	}
+	
+	@RequestMapping(value="/board/DisLikeIt.do")
+	public ModelAndView Dislikeit(HttpServletRequest request, CommandMap commandMap) throws Exception {
+		Map<String, Object> map = commandMap.getMap();
+		boardService.DisLikeIt(map);
+		
+		return openBoardDetail(commandMap);
+	}
+	 /**
 	 * 네비게이션바에서 map을 눌렀을 때 이동
 	 * @author	박건우
 	 * @return	지도 화면으로 이동
@@ -83,10 +145,17 @@ public class BoardController {
 	 */
 	@RequestMapping(value="/board/insertBoard.do")
 	public ModelAndView insertBoard(CommandMap commandMap) throws Exception {
+<<<<<<< HEAD
 		ModelAndView mv = new ModelAndView("/board/BoardMain");
 		
+=======
+>>>>>>> branch 'main' of https://github.com/wellcom8/GraduationProject.git
 		boardService.insertBoard(commandMap.getMap());
 	
+<<<<<<< HEAD
 		return mv;
+=======
+		return openBoard();
+>>>>>>> branch 'main' of https://github.com/wellcom8/GraduationProject.git
 	}
 }

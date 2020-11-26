@@ -26,8 +26,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			response.setContentType("text/html; charset=UTF-8");
 			 
 			PrintWriter pw = response.getWriter();
-			 
-			pw.println("<script>alert('로그인 후 글쓰기가 가능합니다.'); location.href='/board/openBoard.do';</script>");
+			
+			pw.println("<script>alert('로그인 후 글쓰기가 가능합니다.'); location.href='" + request.getContextPath() + "/board/openBoard.do';</script>");
 			 
 			pw.flush();
 

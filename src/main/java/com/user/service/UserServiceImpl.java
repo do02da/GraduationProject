@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
 			String encode_password = userUtil.encryptPassword(map.get("EMAIL").toString(), map.get("PASSWORD").toString());
 			
 			if (UserMap.get("PASSWORD").equals(encode_password)) {
-				mv = new ModelAndView("redirect:/menuMove.do?go=AlbumBoard");
+				mv = new ModelAndView("redirect:/openAlbumBoard.do");
 				
 				Map<String, Object> sessionMap = new HashMap<String, Object>();
 				sessionMap.put("EMAIL", UserMap.get("EMAIL"));

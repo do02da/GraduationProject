@@ -8,21 +8,27 @@
 				CONTENTS,
 				WRITER,
 				HIT_CNT,
-				DEL_GB
+				DEL_GB,
+				THUMBNAIL,
+				LIKE_CNT
 			)
 			VALUES (
 				#{title},
 				#{contents},
 				#{writer},
 				0,
-				'N'
+				'N',
+				#{thumbnail},
+				0
 			)
 		]]>
 	</insert>
 	
+	<!-- 글목록 가져오기 -->
 	<select id="getBoardList" resultType="hashmap">
 		<![CDATA[
 			SELECT
+<<<<<<< HEAD
 				(
 					SELECT
 						COUNT(*)
@@ -32,9 +38,15 @@
 						DEL_GB = 'N'
 				) AS TOTAL_COUNT,
 				TITLE,	
+=======
+				B_ID,
+				TITLE,
+>>>>>>> branch 'main' of https://github.com/wellcom8/GraduationProject.git
 				WRITER,
 				HIT_CNT,
-				(date_format(CREA_DTM, '%Y.%m.%d %H:%i')) AS CREA_DTM
+				(date_format(CREA_DTM, '%Y.%m.%d %H:%i')) AS CREA_DTM,
+				THUMBNAIL,
+				LIKE_CNT
 			FROM
 				tb_board
 			WHERE
@@ -42,6 +54,119 @@
 			ORDER BY
 				B_ID DESC
 				LIMIT #{START}, #{END}
+		]]>
+	</select>
+	
+		<!-- 좋아요 많은 글목록 가져오기 -->
+	<select id="getBestBoardList" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				B_ID,
+				TITLE,
+				WRITER,
+				HIT_CNT,
+				(date_format(CREA_DTM, '%Y.%m.%d %H:%i')) AS CREA_DTM,
+				THUMBNAIL,
+				LIKE_CNT
+			FROM
+				tb_board
+			WHERE
+				DEL_GB = 'N'
+			ORDER BY
+				LIKE_CNT DESC
+			LIMIT 3
+		]]>
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="updateHitCnt" parameterType="hashmap">
+		<![CDATA[
+			UPDATE tb_board
+			SET
+				HIT_CNT = NVL(HIT_CNT, 0) + 1
+			WHERE
+				B_ID = #{B_ID}
+		]]>
+	</update>
+	
+	<!-- 좋아요 기능 -->
+		<!-- 이미 좋아요했는지 -->
+		<select id="CheckLikePeople" parameterType="hashmap" resultType="int">
+			<![CDATA[
+				SELECT
+					count(*)
+				FROM
+					tb_liketable
+				WHERE
+					B_ID = #{B_ID} AND
+					LIKE_PEOPLE_NICK = #{NICKNAME}
+			]]>
+		</select>
+	
+		<!-- 좋아요 추가 -->
+		<insert id="InsertLikePeople" parameterType="hashmap">
+			<![CDATA[
+				INSERT INTO tb_liketable (
+					B_ID,
+					LIKE_PEOPLE_NICK
+				)
+				VALUES (
+					#{B_ID},
+					#{NICKNAME}
+				)
+			]]>
+		</insert>
+		
+		<!-- 좋아요 취소 -->
+		<delete id="DeleteLikePeople" parameterType="hashmap">
+			<![CDATA[
+				DELETE
+				FROM
+					tb_liketable
+				WHERE
+					B_ID = #{B_ID} AND
+					LIKE_PEOPLE_NICK = #{NICKNAME}
+			]]>
+		</delete>
+		
+		<!-- 좋아요 증가 -->
+		<update id="Up_LikeCnt" parameterType="hashmap">
+		<![CDATA[
+			UPDATE tb_board
+			SET
+				LIKE_CNT = NVL(LIKE_CNT, 0) + 1
+			WHERE
+				B_ID = #{B_ID}
+		]]>
+		</update>
+		
+		<!-- 좋아요 감소 -->
+		<update id="Down_LikeCnt" parameterType="hashmap">
+		<![CDATA[
+			UPDATE tb_board
+			SET
+				LIKE_CNT = NVL(LIKE_CNT, 0) - 1
+			WHERE
+				B_ID = #{B_ID}
+		]]>
+		</update>
+	<!-- 좋아요 기능 끝 -->
+
+	<!-- 글 상세보기 -->
+	<select id="getBoardDetail" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				B_ID,
+				TITLE,
+				WRITER,
+				CONTENTS,
+				HIT_CNT,
+				(date_format(CREA_DTM, '%Y.%m.%d %H:%i')) AS CREA_DTM,
+				LIKE_CNT
+			FROM
+				tb_board
+			WHERE
+				B_ID = #{B_ID}
 		]]>
 	</select>
 	
