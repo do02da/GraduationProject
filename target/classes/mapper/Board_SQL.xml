@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="board">
-		<insert id="insertBoard" parameterType="hashmap">
+		<insert id="insertBoard" parameterType="hashmap" useGeneratedKeys="true" keyColumn="B_ID" keyProperty="parent_id">
 		<![CDATA[
 			INSERT INTO tb_board (
 				TITLE,
@@ -24,18 +24,40 @@
 		]]>
 	</insert>
 	
-	<!-- 
-	<insert id="insert_map">
+
+	<insert id="insertMap" parameterType="hashmap">
 		<![CDATA[
 			INSERT INTO tb_board_map (
-			
+				PARENT_ID,
+				MAP_SRC,
+				LAT_1,
+				LNG_1,
+				LAT_2,
+				LNG_2,
+				LAT_3,
+				LNG_3,
+				LAT_4,
+				LNG_4,
+				LAT_5,
+				LNG_5
 			) VALUES (
-			
+				#{parent_id},
+				#{map_src},
+				#{lat_1},
+				#{lng_1},
+				IFNULL(#{lat_2}, 0),
+				IFNULL(#{lng_2}, 0),
+				IFNULL(#{lat_3}, 0),
+				IFNULL(#{lng_3}, 0),
+				IFNULL(#{lat_4}, 0),
+				IFNULL(#{lng_4}, 0),
+				IFNULL(#{lat_5}, 0),
+				IFNULL(#{lng_5}, 0)
 			)
 		]]>
 	</insert>	
-	 -->
-	 
+
+
 	<!-- 글목록 가져오기 -->
 	<select id="getBoardList" resultType="hashmap">
 		<![CDATA[
@@ -210,7 +232,15 @@
 				HIT_CNT,
 				(date_format(CREA_DTM, '%Y.%m.%d %H:%i')) AS CREA_DTM,
 				(date_format(MOD_DTM, '%Y.%m.%d %H:%i')) AS MOD_DTM,
-				LIKE_CNT
+				LIKE_CNT,
+				(
+					SELECT
+						MAP_SRC
+					FROM
+						tb_board_map
+					WHERE
+						PARENT_ID = B_ID
+				) AS MAP_SRC
 			FROM
 				tb_board
 			WHERE
@@ -228,5 +258,14 @@
 				B_ID = #{B_ID}
 		]]>
 	</update>
+	
+	<select id="getMap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+				tb_board_map
+		]]>
+	</select>
 	
 </mapper>

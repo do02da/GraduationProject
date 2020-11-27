@@ -24,7 +24,6 @@ public class BoardDAO extends AbstractDAO {
 	
 	@SuppressWarnings("unchecked")
 	public Map<String, Object> getSearchList(Map<String, Object> map) throws Exception {
-		logger.debug(map);
 		return (Map<String, Object>)selectBoardList("board.getSearchList", map);
 	}
 	
@@ -90,6 +89,10 @@ public class BoardDAO extends AbstractDAO {
 	 */
 	public void insertBoard(Map<String, Object> map) throws Exception {
 		insert("board.insertBoard", map);
+		
+		if (!map.get("map_src").equals("undefined")) {
+			insert("board.insertMap", map);
+		}
 	}
 	
 	/**
@@ -99,5 +102,10 @@ public class BoardDAO extends AbstractDAO {
 	 */
 	public void UpdateBoard(Map<String, Object> map) throws Exception {
 		update("board.UpdateBoard", map);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> getMap() throws Exception {
+		return (Map<String, Object>) selectBoardList("board.getMap");
 	}
 }

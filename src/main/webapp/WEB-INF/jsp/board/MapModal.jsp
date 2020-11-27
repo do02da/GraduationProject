@@ -91,14 +91,18 @@
 		$("#Map_Confirm").on("click", function(e) {
 					// Static Map
 					var static_Map_Str = "<img src='https://naveropenapi.apigw.ntruss.com/map-static/v2/raster-cors?w=1024&h=300&"
+					var latlng_Str = "";
 					for (var a=1; a < Markers.length+1; a++) {
 						static_Map_Str += "markers=type:n|size:mid|pos:";
 						static_Map_Str += Markers[a-1].getPosition().lng() + "%20";	// %20 == 공백
 						static_Map_Str += Markers[a-1].getPosition().lat();
 						static_Map_Str += "|label:" + a + "&";
+						
+						latlng_Str += "<input type='hidden' name='lat_" + a + "' value='" + Markers[a-1].getPosition().lat() + "'>";
+						latlng_Str += "<input type='hidden' name='lng_" + a + "' value='" + Markers[a-1].getPosition().lng() + "'>";
 					}
-					static_Map_Str += "X-NCP-APIGW-API-KEY-ID=s56b4f2jk4' style='width:100%;'>"
-					$("#test").html(static_Map_Str);
+					static_Map_Str += "X-NCP-APIGW-API-KEY-ID=s56b4f2jk4' id='map_src' style='width:100%;'>"
+					$("#Map_Shown_Div").html(static_Map_Str + latlng_Str);
 					
 			// Modal 사라지게 하기. 사라지면 이벤트 발생.
 			$('#MapModal').modal('hide')

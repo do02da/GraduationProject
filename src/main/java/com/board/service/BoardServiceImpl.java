@@ -163,4 +163,9 @@ public class BoardServiceImpl implements BoardService {
 		
 		return map;
 	}
+	
+	@Override
+	public Map<String, Object> getMap() throws Exception {
+		return boardDAO.getMap();
+	}
 }

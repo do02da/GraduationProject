@@ -89,4 +89,7 @@ public interface BoardService {
 	 */
 	Map<String, Object> getSearchList(Map<String, Object> map) throws Exception;
 
+	Map<String, Object> getMap() throws Exception;
+
+
 }

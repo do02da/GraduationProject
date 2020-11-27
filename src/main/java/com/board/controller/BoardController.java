@@ -56,6 +56,12 @@ public class BoardController {
 	}
 	
 
+	/**
+	 * 검색
+	 * @param	commandMap
+	 * @return	
+	 * @throws	Exception
+	 */
 	@RequestMapping(value="/board/search.do")
 	public ModelAndView search(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("/board/BoardMain");
@@ -155,6 +161,8 @@ public class BoardController {
 	@RequestMapping(value="/board/openMap.do")
 	public ModelAndView openMap() throws Exception {
 		ModelAndView mv = new ModelAndView("/board/Map");
+		
+		mv.addObject("data", boardService.getMap());
 		
 		return mv;
 	}
