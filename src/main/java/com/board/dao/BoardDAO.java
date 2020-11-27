@@ -24,7 +24,7 @@ public class BoardDAO extends AbstractDAO {
 	
 	@SuppressWarnings("unchecked")
 	public Map<String, Object> getSearchList(Map<String, Object> map) throws Exception {
-		return (Map<String, Object>)selectBoardList("board.getSearchList", map);
+		return (Map<String, Object>)selectPagingList("board.getSearchList", map);
 	}
 	
 	/**
@@ -102,6 +102,10 @@ public class BoardDAO extends AbstractDAO {
 	 */
 	public void UpdateBoard(Map<String, Object> map) throws Exception {
 		update("board.UpdateBoard", map);
+		
+		if (!map.get("map_src").equals("undefined")) {
+			update("board.updateMap", map);
+		}
 	}
 	
 	@SuppressWarnings("unchecked")

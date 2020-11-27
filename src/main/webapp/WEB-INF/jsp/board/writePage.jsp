@@ -79,45 +79,6 @@
  			fn_submit();
  		});
 
-		// SummerNote 에디터 설정
-		$("#editor").summernote({
-			toolbar: [
-			    // [groupName, [list of button]]
-			    ['fontname', ['fontname']],
-			    ['fontsize', ['fontsize']],
-			    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-			    ['color', ['forecolor','color']],
-			    ['table', ['table']],
-			    ['para', ['ul', 'ol', 'paragraph']],
-			    ['height', ['height']],
-			    ['insert',['picture','link','video']],
-			    ['view', ['fullscreen', 'help']]
-			  ],
-			fontNames: ['맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New'],
-			fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
-			
-		  height: 500,							// 에디터 높이
-		  minHeight: null,					// 최소 높이
-		  maxHeight: null,					// 최대 높이
-		  focus: false,							// 에디터 로딩후 포커스를 맞출지 여부
-		  lang: "ko-KR",						// 한글 설정
-		  
-		  callbacks: {				// 이미지를 첨부
-				onImageUpload : function(files) {
-					uploadSummernoteImageFile(files[0], this);
-				},
-				onPaste: function (e) {
-					var clipboardData = e.originalEvent.clipboardData;
-					if (clipboardData && clipboardData.items && clipboardData.items.length) {
-						var item = clipboardData.items[0];
-						if (item.kind === 'file' && item.type.indexOf('image/') !== -1) {
-							e.preventDefault();
-						}
-					}
-				}
-		  }
-		});
-		
 		// 목록으로 버튼
 		$(".list").on("click", function(e) {
 			e.preventDefault();

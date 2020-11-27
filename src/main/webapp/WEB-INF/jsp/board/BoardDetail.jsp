@@ -61,7 +61,7 @@
 					<c:if test="${map.MAP_SRC != 'undefined' }">
 						<tr>
 							<td class="text-center" colspan="4">
-								<img src='${map.MAP_SRC }'>
+								<img src='${map.MAP_SRC }' style="width:100%">
 							</td>
 						</tr>
 					</c:if>
@@ -117,8 +117,7 @@
 		// 목록으로 버튼
 		$(".list").on("click", function(e) {
 			e.preventDefault();
-			window.history.back();
-			// fn_openBoardList();
+			fn_openBoardList();
 		});
 		
 		// 수정하기 버튼
@@ -162,6 +161,7 @@
 	function fn_openBoardList() {
 		var comSubmit = new ComSubmit();
 		comSubmit.setUrl("<c:url value='/board/openBoard.do' />");
+		comSubmit.addParam("currentPageNo", ${currentPageNo});
 		comSubmit.submit();
 	}
 	

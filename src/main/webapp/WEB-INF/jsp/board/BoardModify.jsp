@@ -42,6 +42,16 @@
 					<input type="text" class="form-control" name="title" id="title" maxlength="100" value="${map.TITLE}">
 					<input type="hidden" id="B_ID" name="B_ID" value="${map.B_ID }">
 				</div>
+				
+				<div id="Map_Shown_Div">
+					<c:if test="${map.MAP_SRC != 'undefined' }">
+						<tr>
+							<td class="text-center" colspan="4">
+								<img src='${map.MAP_SRC }' style="width:100%">
+							</td>
+						</tr>
+					</c:if>
+				</div>
 				<div id="textareaDiv">
 					<textarea name="contents" id="editor">${map.CONTENTS}</textarea>
 				</div>
@@ -80,6 +90,7 @@
 			alert("제목을 입력하세요");
 		} else {
 			var comSubmit = new ComSubmit("frm");
+			comSubmit.addParam("map_src", $("#map_src").attr("src"));
 			comSubmit.setUrl("<c:url value='/board/updateBoard.do'/>");
 			comSubmit.submit();
 		}

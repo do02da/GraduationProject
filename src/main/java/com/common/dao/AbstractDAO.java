@@ -15,14 +15,14 @@ import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 
 
 public class AbstractDAO {
-	protected Logger log = (Logger) LogManager.getLogger(this.getClass());
+	protected Logger logger = (Logger) LogManager.getLogger(this.getClass());
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
 	protected void printQueryId(String queryId) {
-		if(log.isDebugEnabled()) {
-			log.debug("\t QueryId \t: " + queryId);
+		if(logger.isDebugEnabled()) {
+			logger.debug("\t QueryId \t: " + queryId);
 		}
 	}
 	
@@ -128,7 +128,7 @@ public class AbstractDAO {
 	        }
 	    }
 	    returnMap.put("result", list);
-	    
+	    returnMap.put("currentPageNo", paginationInfo.getCurrentPageNo());
 		return returnMap;
 }
 

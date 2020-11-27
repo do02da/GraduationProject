@@ -73,6 +73,7 @@ public class BoardController {
 		Map<String, Object> resultMap = boardService.getSearchList(commandMap.getMap());
 		
 		mv.addObject("list", resultMap.get("result"));
+		mv.addObject("paginationInfo", (PaginationInfo) resultMap.get("paginationInfo"));
 		
 		return mv;
 	}
@@ -110,6 +111,8 @@ public class BoardController {
 		}
 		
 		boardService.up_Hit_Cnt(map);
+		
+		mv.addObject("currentPageNo", commandMap.get("currentPageNo"));
 		mv.addObject("map", boardMap);
 		
 		return mv;
@@ -191,11 +194,9 @@ public class BoardController {
 	 */
 	@RequestMapping(value="/board/insertBoard.do")
 	public ModelAndView insertBoard(CommandMap commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView("/board/BoardMain");
-		
 		boardService.insertBoard(commandMap.getMap());
 	
-		return mv;
+		return openBoard(commandMap);
 	}
 	
 	/**

@@ -99,6 +99,15 @@
 	<select id="getSearchList" resultType="hashmap" parameterType="hashmap">
 		<![CDATA[
 			SELECT
+				(
+					SELECT
+						COUNT(*)
+					FROM
+						tb_board
+					WHERE
+						DEL_GB = 'N' AND
+						${searchCondition} LIKE '%${searchWord}%'
+				) AS TOTAL_COUNT,
 				B_ID,
 				TITLE,
 				WRITER,
@@ -121,6 +130,7 @@
 				DEL_GB = 'N'
 			ORDER BY
 				B_ID DESC
+			LIMIT #{START}, #{END}
 		]]>
 	</select>
 
@@ -268,6 +278,26 @@
 				B_ID = #{B_ID}
 		]]>
 	</update>
+	
+		<update id="updateMap" parameterType="hashmap">
+		<![CDATA[
+			UPDATE tb_board_map
+			SET
+				MAP_SRC = #{map_src},
+				LAT_1 = IFNULL(#{lat_1}, 0),
+				LNG_1 = IFNULL(#{lng_1}, 0),
+				LAT_2 = IFNULL(#{lat_2}, 0),
+				LNG_2 = IFNULL(#{lng_2}, 0),
+				LAT_3 = IFNULL(#{lat_3}, 0),
+				LNG_3 = IFNULL(#{lng_3}, 0),
+				LAT_4 = IFNULL(#{lat_4}, 0),
+				LNG_4 = IFNULL(#{lng_4}, 0),
+				LAT_5 = IFNULL(#{lat_5}, 0),
+				LNG_5 = IFNULL(#{lng_5}, 0)
+			WHERE
+				PARENT_ID = #{B_ID}
+		]]>
+	</update>	
 	
 	<select id="getMap" resultType="hashmap">
 		<![CDATA[

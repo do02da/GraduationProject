@@ -31,7 +31,8 @@ public class BoardServiceImpl implements BoardService {
 	public Map<String, Object> getBoardList(Map<String, Object> map) throws Exception {
 		return boardDAO.getBoardList(map);
 	}
-
+	
+	@Override
 	public Map<String, Object> getBestBoardList() throws Exception {
 		return boardDAO.getBestBoardList();
 	}

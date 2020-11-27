@@ -27,6 +27,17 @@
       body {
       	padding-top: 60px;
       }
+      
+      #searchForm {
+			  width: 100%;
+			  max-width: 500px;
+			  padding: 15px;
+			}
+			
+			.content {
+			  display: grid;
+			  place-items: center;
+			}
     </style>
 
 <%@ include file="/WEB-INF/include/include-header.jspf" %>
@@ -38,28 +49,6 @@
 	
 <main role="main">
 	<div class="container text-right">
-	
-			<!-- Search -->
-			<form id="searchForm" name="searchForm">
-				<div class="input-group">
-					<div class="input-group-prepend">
-						<input class="btn btn-outline-secondary" id="searchCondition" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" value="검색조건">
-						<div class="dropdown-menu" id="ConditionList" role="menu">
-				    	<a href="#this" class="dropdown-item" id="search_Title">제목</a>
-				    	<a href="#this" class="dropdown-item" id="search_Writer">글쓴이</a>
-				    </div>
-			    </div>	<!-- input-group-prepend end -->
-			    
-					<input type="text" class="form-control" id="searchWord" name="searchWord">
-					
-					<div class="input-group-append">
-						<button class="btn btn-outline-secondary" id="search">검색</button>
-					</div>	<!-- input-group-append end -->
-					
-				</div> <!-- input-group end -->
-			</form>
-			<!-- Search end -->
-	
 			<a href="#" class="btn btn-primary" role="button" id="openWritePage">
 				<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 				  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
@@ -152,20 +141,43 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<!-- 페이지네이션 -->
-	
-		<c:if test="${not empty paginationInfo}">
-			<div class="container text-center">
+	<c:if test="${not empty paginationInfo}">
+			<div class="container">
 				<nav aria-label="Page navigation">
-					<ul class="pagination">
-						<ui:pagination paginationInfo = "${paginationInfo}" type="text" jsFunction="fn_pagiNation"/>
+					<ul class="pagination justify-content-center">
+						<ui:pagination paginationInfo = "${paginationInfo}" type="text" jsFunction="fn_pagination"/>
 					</ul>
 				</nav>
 			</div>
-	    </c:if>
-		<input type="hidden" id="currentPageNo" name="currentPageNo"/>
-		<!-- 페이지네이션 끝 -->
+    </c:if>
+	<input type="hidden" id="currentPageNo" name="currentPageNo"  value="${paginationInfo.currentPageNo }"/>
+	<!-- 페이지네이션 끝 -->
+
+	<!-- Search -->
+	<div class="content">
+		<form id="searchForm" name="searchForm">
+			<div class="input-group">
+				<div class="input-group-prepend">
+					<input class="btn btn-outline-secondary" id="searchCondition" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" value="검색조건">
+					<div class="dropdown-menu" id="ConditionList" role="menu">
+			    	<a href="#this" class="dropdown-item" id="search_Title">제목</a>
+			    	<a href="#this" class="dropdown-item" id="search_Writer">글쓴이</a>
+			    </div>
+		    </div>	<!-- input-group-prepend end -->
+		    
+				<input type="text" class="form-control" id="searchWord" name="searchWord">
+				
+				<div class="input-group-append">
+					<button class="btn btn-outline-secondary" id="search">검색</button>
+				</div>	<!-- input-group-append end -->
+				
+			</div> <!-- input-group end -->
+		</form>
+	</div>
+	<!-- Search end -->
+	
 </main>
 
 
@@ -225,12 +237,13 @@
 			var userNick = ${login.NICKNAME}
 			comSubmit.addParam("NICKNAME", userNick);
 		}	
-		
+
+		comSubmit.addParam("currentPageNo", $("#currentPageNo").val());
 		comSubmit.addParam("B_ID", B_ID);
 		comSubmit.submit();
 	}
 	
-	function fn_pagiNation(pageNo){
+	function fn_pagination(pageNo){
 		var comSubmit = new ComSubmit();
 		comSubmit.setUrl("<c:url value='/board/openBoard.do' />");
 		comSubmit.addParam("currentPageNo", pageNo);
