@@ -22,6 +22,11 @@ public class BoardDAO extends AbstractDAO {
 		return (Map<String, Object>)selectBoardList("board.getBestBoardList");
 	}
 	
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> getSearchList(Map<String, Object> map) throws Exception {
+		return (Map<String, Object>)selectBoardList("board.getSearchList", map);
+	}
+	
 	/**
 	 * 게시글에 들어가면 조회수를 1 올린다.
 	 * @param	map 게시글
@@ -41,6 +46,10 @@ public class BoardDAO extends AbstractDAO {
 		return (Map<String, Object>)selectOne("board.getBoardDetail", map);
 	}
 	
+	/**
+	 * 게시글 삭제
+	 * @param	map
+	 */
 	public void Delete(Map<String, Object> map) {
 		update("board.delete", map);
 	}
@@ -80,6 +89,10 @@ public class BoardDAO extends AbstractDAO {
 	 */
 	public void insertBoard(Map<String, Object> map) throws Exception {
 		insert("board.insertBoard", map);
+		
+		if (!map.get("map_src").equals("undefined")) {
+			insert("board.insertMap", map);
+		}
 	}
 	
 	/**
@@ -89,5 +102,10 @@ public class BoardDAO extends AbstractDAO {
 	 */
 	public void UpdateBoard(Map<String, Object> map) throws Exception {
 		update("board.UpdateBoard", map);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> getMap() throws Exception {
+		return (Map<String, Object>) selectBoardList("board.getMap");
 	}
 }

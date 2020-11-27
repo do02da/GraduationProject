@@ -38,6 +38,28 @@
 	
 <main role="main">
 	<div class="container text-right">
+	
+			<!-- Search -->
+			<form id="searchForm" name="searchForm">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<input class="btn btn-outline-secondary" id="searchCondition" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" value="검색조건">
+						<div class="dropdown-menu" id="ConditionList" role="menu">
+				    	<a href="#this" class="dropdown-item" id="search_Title">제목</a>
+				    	<a href="#this" class="dropdown-item" id="search_Writer">글쓴이</a>
+				    </div>
+			    </div>	<!-- input-group-prepend end -->
+			    
+					<input type="text" class="form-control" id="searchWord" name="searchWord">
+					
+					<div class="input-group-append">
+						<button class="btn btn-outline-secondary" id="search">검색</button>
+					</div>	<!-- input-group-append end -->
+					
+				</div> <!-- input-group end -->
+			</form>
+			<!-- Search end -->
+	
 			<a href="#" class="btn btn-primary" role="button" id="openWritePage">
 				<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 				  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
@@ -130,16 +152,44 @@
 			</div>
 		</div>
 	</div>
-	<c:if test="${not empty paginationInfo }">
-		<ui:pagination paginationInfo="${paginationInfo }" type="text" jsFunction="fn_pagiNation" />
-	</c:if> 
-	<input type="hidden" id="currentPageNo" name="currentPageNo" />
+	
+	<!-- 페이지네이션 -->
+	
+		<c:if test="${not empty paginationInfo}">
+			<div class="container text-center">
+				<nav aria-label="Page navigation">
+					<ul class="pagination">
+						<ui:pagination paginationInfo = "${paginationInfo}" type="text" jsFunction="fn_pagiNation"/>
+					</ul>
+				</nav>
+			</div>
+	    </c:if>
+		<input type="hidden" id="currentPageNo" name="currentPageNo"/>
+		<!-- 페이지네이션 끝 -->
 </main>
 
 
 <%@ include file="/WEB-INF/jsp/footer.jsp" %>
 <script>
 	$(document).ready(function() {
+		// 검색 조건 선택
+		$('#ConditionList > a').on('click', function() {
+			$('#searchCondition').val($(this).text());
+		});
+		
+		// 검색 버튼 클릭
+		$('#search').on('click', function(e) {
+			e.preventDefault();
+			fn_search();
+		});
+		
+		// 검색에서 Enter 입력
+		$("#searchWord").keypress(function (e) {
+	        if (e.which == 13){
+	        	e.preventDefault();
+						fn_search();
+	       	}
+	  });
 		
 		// 글 상세 보기
 		$(".openBoardDetail").on("click", function(e) {
@@ -185,6 +235,21 @@
 		comSubmit.setUrl("<c:url value='/board/openBoard.do' />");
 		comSubmit.addParam("currentPageNo", pageNo);
 		comSubmit.submit();
+	}
+	
+	function fn_search() {
+		if ($("#searchCondition").val() !== "검색조건") {
+			if ($("#searchWord").val() != "") {
+					var comSubmit = new ComSubmit("searchForm");
+					comSubmit.setUrl("<c:url value='/board/search.do'/>")
+					comSubmit.addParam("searchCondition", $("#searchCondition").val());
+					comSubmit.submit();
+			} else {	// 검색어가 없으면
+					alert("검색어를 입력하세요.");
+			}
+		} else {	// 검색조건을 선택하지 않았으면
+			alert("검색조건을 설정해주세요.")
+		}
 	}
 </script>
 </body>

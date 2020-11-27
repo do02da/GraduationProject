@@ -50,6 +50,13 @@
 	      		</div>
 	      	</div>
 	      </div>
+	      <div>
+	      
+		      <div class="container">
+		     		<div id="Markers_Div" class="row"></div>
+		      </div>
+	      </div>
+
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-primary" id="Map_Confirm">확인</button>
 	      </div>
@@ -66,49 +73,45 @@
 			logoControlOptions: naver.maps.Position.CENTER
 		};
 	
-		var ModalMap;
+		var ModalMap;								// Modal 맵
 		
-		var Markers = [];
+		var Markers = [];						// 마커 목록
+		var Markers_Pin = [];
 		
-		var marker = new naver.maps.Marker();
+		var marker = new naver.maps.Marker();	// 마커
 		
 		var infoWindow = new naver.maps.InfoWindow({
 				borderColor: "#AAAAAA",	// 정보 창의 테두리 색상
 		});
+	
+	var j = 0;
 	</script>
 	
 	<script>
 		$("#Map_Confirm").on("click", function(e) {
-			if (marker.getPosition() !== null) {
-					User_Place_LatLng = new naver.maps.LatLng(marker.getPosition().lat(), marker.getPosition().lng());
+					// Static Map
+					var static_Map_Str = "<img src='https://naveropenapi.apigw.ntruss.com/map-static/v2/raster-cors?w=1024&h=300&"
+					var latlng_Str = "";
+					for (var a=1; a < Markers.length+1; a++) {
+						static_Map_Str += "markers=type:n|size:mid|pos:";
+						static_Map_Str += Markers[a-1].getPosition().lng() + "%20";	// %20 == 공백
+						static_Map_Str += Markers[a-1].getPosition().lat();
+						static_Map_Str += "|label:" + a + "&";
+						
+						latlng_Str += "<input type='hidden' name='lat_" + a + "' value='" + Markers[a-1].getPosition().lat() + "'>";
+						latlng_Str += "<input type='hidden' name='lng_" + a + "' value='" + Markers[a-1].getPosition().lng() + "'>";
+					}
+					static_Map_Str += "X-NCP-APIGW-API-KEY-ID=s56b4f2jk4' id='map_src' style='width:100%;'>"
+					$("#Map_Shown_Div").html(static_Map_Str + latlng_Str);
 					
-					// $("#Map_Shown_Div").css("height", "10rem");
-					$("#Lat").val(marker.getPosition().lat());
-					$("#Lng").val(marker.getPosition().lng());
-					
-					var Post_mapOptions= {
-						center: User_Place_LatLng,
-					  draggable: false,							// 마우스 또는 손가락을 이용한 지도 이동 여부
-						zoom: 12
-					};
-					
-					// $("#test").html("<img src='https://naveropenapi.apigw.ntruss.com/map-static/v2/raster-cors?w=1024&h=300&markers=type:a|pos:" + marker.getPosition().lng() + "%20" + marker.getPosition().lat() + "|label=a&X-NCP-APIGW-API-KEY-ID=s56b4f2jk4' style='width:100%;'>");
-					/*
-					var Map_In_Shown_Div = new naver.maps.Map(document.getElementById('Map_Shown_Div'), Post_mapOptions);
-					
-					var Post_Marker = new naver.maps.Marker({
-							position: User_Place_LatLng,
-					    map: Map_In_Shown_Div,
-					});
-					*/
-			}
-			
 			// Modal 사라지게 하기. 사라지면 이벤트 발생.
 			$('#MapModal').modal('hide')
 		});
 		
 		// Modal 열릴 때
 		$('#MapModal').on('shown.bs.modal', function (e) {
+				j = 0;
+				Markers = [];
 				ModalMap = new naver.maps.Map(document.getElementById('Modal_Map_Panel'), mapOptions);
 				
 				naver.maps.Event.addListener(ModalMap, 'click', function(e) {
@@ -125,7 +128,10 @@
 			marker.setMap(null);				// 마커 지도에서 제거
 			infoWindow.close();					// 정보 창 닫기
 			marker.setPosition(null);		// 마커 좌표 삭제
+			$("#Markers_Div").empty();	// 마커 목록 다이브 초기화
 		});
+		
+
 		
 		function searchCoordinateToAddress(latlng){
 		    naver.maps.Service.reverseGeocode({
@@ -163,14 +169,75 @@
 
 		        infoWindow.open(ModalMap, marker);
 		        
+		        $("#Place").keypress(function (e){
+								if (e.which === 13) {	// Enter 키 눌렸을 때
+									e.preventDefault();
+									Marker_tb_set();
+								}
+						});
+		        
+		        // 추가 버튼 클릭
 						$("#Marker_Add").on("click", function(e) {
-							if (!$("#Place").val()) {
-								
-							}
+							Marker_tb_set();
 						});
 		    });
 		}
 		
+		function Marker_tb_set() {
+			if (Markers.length < 5) {
+				if ($("#Place").val()) {
+					var tbStr = "<table class='col-2 border m-2' id='tb_" + j + "'><tr><td class='pl-2 text-truncate' style='max-width: 150px;'>"
+					+ "<svg width='1em' height='1em' viewBox='0 0 16 16' class='bi bi-geo-alt-fill' fill='currentColor' xmlns='http://www.w3.org/2000/svg'>"
+					+ "<path fill-rule='evenodd' d='M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 0 0-6 3 3 0 0 0 0 6z'/>"
+					+ "</svg> <small>"
+					+ $("#Place").val() + "</small></td>"
+					+ "<td class='text-right'><button class='btn Xbtn' role='button' id='XBtn_" + j + "' value='" + j + "'>"
+					+ "<svg width='1em' height='1em' viewBox='0 0 16 16' class='bi bi-x' fill='currentColor' xmlns='http://www.w3.org/2000/svg'>"
+					+ "<path fill-rule='evenodd' d='M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z'/>"
+					+	"</svg></button></td>"
+					+ "</tr></table>";
+						
+					$("#Markers_Div").append(tbStr);
+					
+					var NewMarker = new naver.maps.Marker({
+						map: ModalMap,
+						position: marker.getPosition(),
+						title: $("#Place").val()
+					});
+					Markers_Pin.push(NewMarker);
+					Markers.push(NewMarker);
+					
+					marker.setMap(null);
+					marker.setPosition(null);
+					infoWindow.close();
+					
+					$("#XBtn_" + j++).on("click", function(e) {
+						e.preventDefault();
+						fn_Xbtn($(this));
+					});
+				}
+			} else {
+				alert("마커는 5개까지만 만들 수 있습니다.");
+			}
+		}
+		
+		function fn_Xbtn(obj) {
+			var tbId = obj.parent().find(".Xbtn").val();
+			
+			$("#tb_" + tbId).remove();			// 뷰에 목록 삭제
+			
+			delete Markers[tbId];						// tbId번 마커 삭제
+			Markers_Pin[tbId].setMap(null);	// 맵에 찍혀있는 마커 삭제
+			
+			if (Markers.length > 1) {
+				Markers = Markers.filter(function (item) {
+					return item !== null && item !== undefined && item !== '';
+					
+				});
+			} else {
+				Markers = [];
+			}
+		}
 
 		function makeAddress(item) {
 		    if (!item) {

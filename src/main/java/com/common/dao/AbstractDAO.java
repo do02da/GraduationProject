@@ -68,7 +68,7 @@ public class AbstractDAO {
 		return sqlSession.selectList(queryId, params);
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings( "rawtypes")
 	public Map selectBoardList(String queryId) {
 		printQueryId(queryId);
 	     
@@ -103,10 +103,10 @@ public class AbstractDAO {
 	    int start = paginationInfo.getFirstRecordIndex();
 	    int end = paginationInfo.getRecordCountPerPage();
 	    map.put("START",start);
-	    map.put("END",end);
-	      
+	    map.put("END", end);
+	    
 	    params = map;
-	     
+
 	    Map<String,Object> returnMap = new HashMap<String,Object>();
 	    List<Map<String,Object>> list = sqlSession.selectList(queryId,params);
 	      
@@ -128,6 +128,19 @@ public class AbstractDAO {
 	        }
 	    }
 	    returnMap.put("result", list);
+	    
+		return returnMap;
+}
+
+	@SuppressWarnings( "rawtypes" )
+	public Map selectBoardList(String queryId, Object params) {
+		printQueryId(queryId);
+	     
+	    Map<String,Object> returnMap = new HashMap<String,Object>();
+	    List<Map<String,Object>> list = sqlSession.selectList(queryId, params);
+	    
+	    returnMap.put("result", list);
+	    
 	    return returnMap;
 	}
 	

@@ -54,8 +54,6 @@
 				</div>
 			
 				<div id="Map_Shown_Div"></div>
-				<div id="test">
-				</div>
 				<div id="textareaDiv">
 					<textarea name="contents" id="editor"></textarea>
 				</div>
@@ -118,6 +116,8 @@
 					}
 				}
 		  }
+		});
+		
 		// 목록으로 버튼
 		$(".list").on("click", function(e) {
 			e.preventDefault();
@@ -128,13 +128,16 @@
 	// 게시글 저장
 	function fn_submit() {
 		if ($("#title").val() === "") {
+			$("#title").focus();
 			alert("제목을 입력하세요");
 		} else {
 			var comSubmit = new ComSubmit("frm");
+			comSubmit.addParam("map_src", $("#map_src").attr("src"));
 			comSubmit.setUrl("<c:url value='/board/insertBoard.do'/>");
 			comSubmit.submit();
 		}
 	}
+	
 	
 	// SummerNote 이미지 업로드
 	function uploadSummernoteImageFile(file, editor) {

@@ -29,7 +29,7 @@ http://www.springframework.org/schema/cache/spring-cache.xsd">
 	<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
 	
 	<!-- 페이징 새로 추가한 부분 -->
-	<bean id="textRenderer" class="egovframework.rte.ptl.mvc.tags.ui.pagination.DefaultPaginationRenderer"/>  
+	<bean id="textRenderer" class="com.board.pagination.PaginationRenderer"/>  
 	<bean id="paginationManager" class="egovframework.rte.ptl.mvc.tags.ui.pagination.DefaultPaginationManager">
 	    <property name="rendererType">
 	        <map>

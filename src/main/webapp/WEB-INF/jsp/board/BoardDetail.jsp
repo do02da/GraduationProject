@@ -58,6 +58,13 @@
 						<th class="table-active" scope="row">제목</th>
 						<td colspan="3">${map.TITLE }</td>
 					</tr>
+					<c:if test="${map.MAP_SRC != 'undefined' }">
+						<tr>
+							<td class="text-center" colspan="4">
+								<img src='${map.MAP_SRC }'>
+							</td>
+						</tr>
+					</c:if>
 					<tr>
 						<td colspan="4">${map.CONTENTS }</td>
 					</tr>
@@ -110,7 +117,8 @@
 		// 목록으로 버튼
 		$(".list").on("click", function(e) {
 			e.preventDefault();
-			fn_openBoardList();
+			window.history.back();
+			// fn_openBoardList();
 		});
 		
 		// 수정하기 버튼

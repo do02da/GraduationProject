@@ -46,7 +46,10 @@
 		<div id="map"></div>
 	</div>
 	
-	<script>
+	${test.result }
+	<%@ include file="/WEB-INF/jsp/footer.jsp" %>
+	
+		<script>
 		var mapOptions = {
 			center: new naver.maps.LatLng(37.3595704, 127.105399),
 			zoom: 10,
@@ -58,8 +61,54 @@
 		};
 		var map = new naver.maps.Map(document.getElementById('map'), mapOptions);
 		
-	</script>
 
-	<%@ include file="/WEB-INF/jsp/footer.jsp" %>
+		var Markers = [];
+	</script>
+	
+	<script>
+		var dataArr = [], dataObj;
+	
+		$(document).ready(function() {
+			fn_setMarkers();
+		});
+		
+		function fn_setMarkers() {
+			<c:forEach var="data" items="${data.result}">
+			var marker = new naver.maps.Marker({
+				position: naver.maps.LatLng(${data.LAT_1}, ${data.LNG_1}),
+				map: map
+			});
+			
+			if (${data.LNG_2} != '0.0') {
+				var marker = new naver.maps.Marker({
+					position: naver.maps.LatLng(${data.LAT_2}, ${data.LNG_2}),
+					map: map
+				});
+			}
+			
+			if (${data.LNG_3} != '0.0') {
+				var marker = new naver.maps.Marker({
+					position: naver.maps.LatLng(${data.LAT_3}, ${data.LNG_3}),
+					map: map
+				});
+			}
+			
+			if (${data.LNG_4} != '0.0') {
+				var marker = new naver.maps.Marker({
+					position: naver.maps.LatLng(${data.LAT_4}, ${data.LNG_4}),
+					map: map
+				});
+			}
+			
+			if (${data.LNG_5} != '0.0') {
+				var marker = new naver.maps.Marker({
+					position: naver.maps.LatLng(${data.LAT_5}, ${data.LNG_5}),
+					map: map
+				});
+			}
+
+			</c:forEach>
+		}
+	</script>
 </body>
 </html>	

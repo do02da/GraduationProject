@@ -77,4 +77,15 @@ public interface BoardService {
 
 	void UpdateBoard(Map<String, Object> map) throws Exception;
 
+	/**
+	 * 검색
+	 * @param	map {searchCondition, searchWord}
+	 * @return	Search result
+	 * @throws	Exception
+	 */
+	Map<String, Object> getSearchList(Map<String, Object> map) throws Exception;
+
+	Map<String, Object> getMap() throws Exception;
+
+
 }
