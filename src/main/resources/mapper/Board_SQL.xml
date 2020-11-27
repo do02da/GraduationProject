@@ -28,7 +28,6 @@
 	<select id="getBoardList" resultType="hashmap">
 		<![CDATA[
 			SELECT
-<<<<<<< HEAD
 				(
 					SELECT
 						COUNT(*)
@@ -38,10 +37,8 @@
 						DEL_GB = 'N'
 				) AS TOTAL_COUNT,
 				TITLE,	
-=======
 				B_ID,
 				TITLE,
->>>>>>> branch 'main' of https://github.com/wellcom8/GraduationProject.git
 				WRITER,
 				HIT_CNT,
 				(date_format(CREA_DTM, '%Y.%m.%d %H:%i')) AS CREA_DTM,

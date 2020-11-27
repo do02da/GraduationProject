@@ -31,22 +31,11 @@
 
 <%@ include file="/WEB-INF/include/include-header.jspf" %>
 
-</head>
+</head>	
 <body>
 
 <%@ include file="/WEB-INF/jsp/navbar.jsp" %>
 	
-<<<<<<< HEAD
-<<<<<<< HEAD
-<main role="main">
-	<div class="container text-right">
-		<a href="#" class="btn btn-primary" role="button" id="openWritePage">글쓰기</a>
-=======
-<main role="main" class="bg-light">
-	<div class="container text-right	">
-			<a href="#" class="btn btn-primary" role="button" id="openWritePage">글쓰기</a>
->>>>>>> branch 'main' of https://github.com/wellcom8/GraduationProject.git
-=======
 <main role="main">
 	<div class="container text-right">
 			<a href="#" class="btn btn-primary" role="button" id="openWritePage">
@@ -55,7 +44,6 @@
 				  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
 				</svg> 글쓰기
 			</a>
->>>>>>> branch 'main' of https://github.com/wellcom8/GraduationProject.git
 	</div>
 
 	<div class="py-5">
@@ -142,18 +130,14 @@
 			</div>
 		</div>
 	</div>
-	
 	<c:if test="${not empty paginationInfo }">
-		<ui:pagination paginationInfo = "${paginationInfo }" type="text" jsFunction="fn_pagiNation"/>
-	</c:if>
-	<input type="hidden" id="currentPageNo" name="currentPageNo"/>
+		<ui:pagination paginationInfo="${paginationInfo }" type="text" jsFunction="fn_pagiNation" />
+	</c:if> 
+	<input type="hidden" id="currentPageNo" name="currentPageNo" />
 </main>
 
-<<<<<<< HEAD
 
-=======
 <%@ include file="/WEB-INF/jsp/footer.jsp" %>
->>>>>>> branch 'main' of https://github.com/wellcom8/GraduationProject.git
 <script>
 	$(document).ready(function() {
 		
@@ -194,17 +178,14 @@
 		
 		comSubmit.addParam("B_ID", B_ID);
 		comSubmit.submit();
-<<<<<<< HEAD
 	}
+	
 	function fn_pagiNation(pageNo){
 		var comSubmit = new ComSubmit();
 		comSubmit.setUrl("<c:url value='/board/openBoard.do' />");
 		comSubmit.addParam("currentPageNo", pageNo);
 		comSubmit.submit();
 	}
-=======
-	}b
->>>>>>> branch 'main' of https://github.com/wellcom8/GraduationProject.git
 </script>
 </body>
 </html>

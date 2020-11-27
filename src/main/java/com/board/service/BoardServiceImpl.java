@@ -28,18 +28,12 @@ public class BoardServiceImpl implements BoardService {
 	BoardDAO boardDAO;
 	
 	@Override
-<<<<<<< HEAD
 	public Map<String, Object> getBoardList(Map<String, Object> map) throws Exception {
 		return boardDAO.getBoardList(map);
-=======
+	}
+
 	public Map<String, Object> getBestBoardList() throws Exception {
 		return boardDAO.getBestBoardList();
-	}
-	
-	@Override
-	public Map<String, Object> getBoardList() throws Exception {
-		return boardDAO.getBoardList();
->>>>>>> branch 'main' of https://github.com/wellcom8/GraduationProject.git
 	}
 
 	@Override

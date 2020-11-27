@@ -51,17 +51,8 @@ public class BoardController {
 	public ModelAndView openBoard(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("/board/BoardMain");
 		
-<<<<<<< HEAD
 		Map<String, Object> resultMap = boardService.getBoardList(commandMap.getMap());
 				
-=======
-		Map<String, Object> resultMap = boardService.getBoardList();
-<<<<<<< HEAD
-		
->>>>>>> branch 'main' of https://github.com/wellcom8/GraduationProject.git
-=======
-
->>>>>>> branch 'main' of https://github.com/wellcom8/GraduationProject.git
 		mv.addObject("list", resultMap.get("result"));
 		mv.addObject("paginationInfo", (PaginationInfo)resultMap.get("paginationInfo"));
 		
@@ -116,7 +107,7 @@ public class BoardController {
 	public ModelAndView Delete(CommandMap commandMap) throws Exception {
 		boardService.Delete(commandMap.getMap());
 		
-		return openBoard();
+		return openBoard(commandMap);
 	}
 	
 	/**
@@ -180,18 +171,11 @@ public class BoardController {
 	 */
 	@RequestMapping(value="/board/insertBoard.do")
 	public ModelAndView insertBoard(CommandMap commandMap) throws Exception {
-<<<<<<< HEAD
 		ModelAndView mv = new ModelAndView("/board/BoardMain");
 		
-=======
->>>>>>> branch 'main' of https://github.com/wellcom8/GraduationProject.git
 		boardService.insertBoard(commandMap.getMap());
 	
-<<<<<<< HEAD
 		return mv;
-=======
-		return openBoard();
->>>>>>> branch 'main' of https://github.com/wellcom8/GraduationProject.git
 	}
 	
 	@RequestMapping(value="/board/openModify.do")

@@ -9,14 +9,6 @@ public interface BoardService {
 	Map<String, Object> getBestBoardList() throws Exception;
 	
 	/**
-	 * 게시글들을 가져온다
-	 * @author	김도영
-	 * @return	게시판 글들
-	 * @throws	Exception
-	 */
-	Map<String, Object> getBoardList() throws Exception;
-	
-	/**
 	 * 파일을 서버에 저장하고 저장된 URL을 반환한다.
 	 * @author	김도영
 	 * @param	multipartFile
@@ -39,9 +31,9 @@ public interface BoardService {
 	 * @param	map 게시글
 	 * @throws	Exception
 	 */
-<<<<<<< HEAD
+
 	Map<String, Object> getBoardList(Map<String, Object> map) throws Exception;
-=======
+
 	void up_Hit_Cnt(Map<String, Object> map) throws Exception;
 
 	/**
@@ -75,9 +67,7 @@ public interface BoardService {
 	 */
 	void DisLikeIt(Map<String, Object> map) throws Exception;
 
-<<<<<<< HEAD
->>>>>>> branch 'main' of https://github.com/wellcom8/GraduationProject.git
-=======
+
 	/**
 	 * 게시글 삭제
 	 * @param	map
@@ -87,5 +77,4 @@ public interface BoardService {
 
 	void UpdateBoard(Map<String, Object> map) throws Exception;
 
->>>>>>> branch 'main' of https://github.com/wellcom8/GraduationProject.git
 }

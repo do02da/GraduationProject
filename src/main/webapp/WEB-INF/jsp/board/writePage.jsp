@@ -63,7 +63,6 @@
 			</form>
 			<p class="text-right">
 				<a href="#this" class="btn btn-primary" id="write_submit" role="button">저장</a>
-				<a href="#this" class="btn btn-primary" id="list_submit" role="button">목록</a>
 			</p>
 		</div>
 	</main>
@@ -81,14 +80,7 @@
  			e.preventDefault();
  			fn_submit();
  		});
-		
-<<<<<<< HEAD
-		//목록으로 버튼 클릭 
-		$("#list_submit").on("click", function(e){
- 			e.preventDefault();
- 			fn_list();
- 		});
-		
+
 		// SummerNote 에디터 설정
 		$("#editor").summernote({
 			toolbar: [
@@ -126,12 +118,10 @@
 					}
 				}
 		  }
-=======
 		// 목록으로 버튼
 		$(".list").on("click", function(e) {
 			e.preventDefault();
 			window.history.back();
->>>>>>> branch 'main' of https://github.com/wellcom8/GraduationProject.git
 		});
 	});
 	
@@ -144,14 +134,6 @@
 			comSubmit.setUrl("<c:url value='/board/insertBoard.do'/>");
 			comSubmit.submit();
 		}
-	}
-	
-<<<<<<< HEAD
-	//게시물 목록으로
-	function fn_list() {
-		var comSubmit = new ComSubmit();
-		comSubmit.setUrl("<c:url value='/board/openBoard.do'/>");
-		comSubmit.submit();
 	}
 	
 	// SummerNote 이미지 업로드
@@ -170,8 +152,6 @@
 			}
 		});
 	}
-=======
->>>>>>> branch 'main' of https://github.com/wellcom8/GraduationProject.git
 	</script>
 </body>
 </html>
