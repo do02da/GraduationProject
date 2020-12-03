@@ -26,6 +26,7 @@ function ComSubmit(opt_formId) {
 		$("#"+this.formId).append($("<input type='hidden' name='"+key+"' id='"+key+"' value='"+value+"'>"));
 	};
 	
+	
 	this.submit = function submit() {
 		var frm = $("#" + this.formId)[0];
 		frm.action = this.url;

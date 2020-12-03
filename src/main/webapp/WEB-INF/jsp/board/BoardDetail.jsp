@@ -29,6 +29,10 @@
 			</div>
 			<br/>
 			
+			<form id="frm">
+				<input type="hidden" id="currentPageNo" name="currentPageNo" value="${currentPageNo}">
+				<input type="hidden" id="B_ID" name="B_ID" value="${map.B_ID }">
+			</form>
 			<table class="table">
 				<caption class="sr-only">게시글 상세</caption>
 				<colgroup>
@@ -40,7 +44,7 @@
 				<tbody>
 					<tr>
 						<th class="table-active" scope="row">글 번호</th>
-						<td><input type="hidden" id="B_ID" value="${map.B_ID }">${map.B_ID }</td>
+						<td>${map.B_ID }</td>
 						<th class="table-active" scope="row">조회수</th>
 						<td>${map.HIT_CNT }</td>
 					</tr>
@@ -159,16 +163,14 @@
 	
 	// 목록으로
 	function fn_openBoardList() {
-		var comSubmit = new ComSubmit();
+		var comSubmit = new ComSubmit("frm");
 		comSubmit.setUrl("<c:url value='/board/openBoard.do' />");
-		comSubmit.addParam("currentPageNo", ${currentPageNo});
 		comSubmit.submit();
 	}
 	
 	// 수정하기
 	function fn_Modify() {
-		var comSubmit = new ComSubmit();
-		comSubmit.addParam("B_ID", $("#B_ID").val());
+		var comSubmit = new ComSubmit("frm");
 		comSubmit.setUrl("<c:url value='/board/openModify.do' />");
 		comSubmit.submit();
 	}
@@ -176,15 +178,13 @@
 	// 삭제하기
 	function fn_delete() {
 		var comSubmit = new ComSubmit();
-		comSubmit.addParam("B_ID", $("#B_ID").val());
 		comSubmit.setUrl("<c:url value='/board/Delete.do' />");
 		comSubmit.submit();
 	}
 	
 	// 좋아요
 	function fn_likeit() {
-		var comSubmit = new ComSubmit();
-		comSubmit.addParam("B_ID", $("#B_ID").val());
+		var comSubmit = new ComSubmit("frm");
 		
 		var userNick = ${login.NICKNAME}
 		comSubmit.addParam("NICKNAME", userNick);
@@ -195,9 +195,8 @@
 	
 	// 좋아요 취소
 	function fn_DisLikeIt() {
-		var comSubmit = new ComSubmit();
-		comSubmit.addParam("B_ID", $("#B_ID").val());
-		
+		var comSubmit = new ComSubmit("frm");
+
 		var userNick = ${login.NICKNAME}
 		comSubmit.addParam("NICKNAME", userNick);
 		

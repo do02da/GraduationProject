@@ -1,9 +1,9 @@
 package com.board.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -36,6 +36,7 @@ public class BoardController {
 		ModelAndView mv = new ModelAndView("/AlbumBoard");
 		
 		Map<String, Object> resultMap = boardService.getBestBoardList();
+
 		mv.addObject("list", resultMap.get("result"));
 
 		return mv;
@@ -52,7 +53,6 @@ public class BoardController {
 		ModelAndView mv = new ModelAndView("/board/BoardMain");
 		
 		Map<String, Object> resultMap = boardService.getBoardList(commandMap.getMap());
-				
 		mv.addObject("list", resultMap.get("result"));
 		mv.addObject("paginationInfo", (PaginationInfo) resultMap.get("paginationInfo"));
 		
@@ -193,10 +193,10 @@ public class BoardController {
 	 * @throws	Exception
 	 */
 	@RequestMapping(value="/board/insertBoard.do")
-	public ModelAndView insertBoard(CommandMap commandMap) throws Exception {
+	public String insertBoard(CommandMap commandMap) throws Exception {
 		boardService.insertBoard(commandMap.getMap());
-	
-		return openBoard(commandMap);
+
+		return "redirect:/board/openBoard.do";
 	}
 	
 	/**
@@ -208,7 +208,8 @@ public class BoardController {
 	@RequestMapping(value="/board/openModify.do")
 	public ModelAndView openModify(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("board/BoardModify");
-		
+
+		mv.addObject("currentPageNo", commandMap.get("currentPageNo"));
 		mv.addObject("map", boardService.getBoardDetail(commandMap.getMap()));
 		
 		return mv;

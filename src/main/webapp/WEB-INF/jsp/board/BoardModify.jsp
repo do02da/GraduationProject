@@ -36,6 +36,8 @@
 			
 		<div class="container" id="writeDiv">
 			<form method="post" id="frm">
+				<input type="hidden" id="currentPageNo" name="currentPageNo" value="${currentPageNo}">
+			
 				<div class="form-group">
 					<input type="hidden" id="writer" name="writer" value="${login.NICKNAME }">
 					<label for="TITLE">제목</label>

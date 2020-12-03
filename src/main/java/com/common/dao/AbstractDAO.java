@@ -112,7 +112,7 @@ public class AbstractDAO {
 	      
 	    if(list.size() == 0){
 	        map = new HashMap<String,Object>();
-	        map.put("TOTAL_COUNT",0); 
+	        map.put("TOTAL_COUNT", 0); 
 	        list.add(map);
 	          
 	        if(paginationInfo != null){
