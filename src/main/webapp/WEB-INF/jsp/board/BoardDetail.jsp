@@ -177,7 +177,7 @@
 
 	// 삭제하기
 	function fn_delete() {
-		var comSubmit = new ComSubmit();
+		var comSubmit = new ComSubmit("frm");
 		comSubmit.setUrl("<c:url value='/board/Delete.do' />");
 		comSubmit.submit();
 	}

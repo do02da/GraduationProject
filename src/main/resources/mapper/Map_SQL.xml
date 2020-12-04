@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="map">
+	
+	<select id="getItemList" resultType="hashmap" parameterType="hashmap">
+		<![CDATA[
+			SELECT
+				PARENT_ID,
+				(
+				SELECT
+					TITLE
+				FROM
+					tb_board
+				WHERE
+					B_ID = PARENT_ID AND
+					DEL_GB = 'N'
+				) AS TITLE
+			FROM
+				tb_board_map
+			WHERE
+				(LAT_1 = #{lat} AND LNG_1 = #{lng}) OR
+				(LAT_2 = #{lat} AND LNG_2 = #{lng}) OR
+				(LAT_3 = #{lat} AND LNG_3 = #{lng}) OR
+				(LAT_3 = #{lat} AND LNG_3 = #{lng}) OR
+				(LAT_4 = #{lat} AND LNG_4 = #{lng}) OR
+				(LAT_5 = #{lat} AND LNG_5 = #{lng})
+			
+		]]>
+	</select>
+</mapper>

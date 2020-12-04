@@ -39,7 +39,12 @@
 				LAT_4,
 				LNG_4,
 				LAT_5,
-				LNG_5
+				LNG_5,
+				PLACE_1,
+				PLACE_2,
+				PLACE_3,
+				PLACE_4,
+				PLACE_5
 			) VALUES (
 				#{parent_id},
 				#{map_src},
@@ -52,7 +57,12 @@
 				IFNULL(#{lat_4}, 0),
 				IFNULL(#{lng_4}, 0),
 				IFNULL(#{lat_5}, 0),
-				IFNULL(#{lng_5}, 0)
+				IFNULL(#{lng_5}, 0),
+				#{place_1},
+				#{place_2},
+				#{place_3},
+				#{place_4},
+				#{place_5}
 			)
 		]]>
 	</insert>	
@@ -294,6 +304,11 @@
 				LNG_4 = IFNULL(#{lng_4}, 0),
 				LAT_5 = IFNULL(#{lat_5}, 0),
 				LNG_5 = IFNULL(#{lng_5}, 0)
+				PLACE_1 = #{place_1},
+				PLACE_2 = #{PLACE_2},
+				PLACE_3 = #{place_3},
+				PLACE_4 = #{place_4},
+				PLACE_5 = #{place_5}
 			WHERE
 				PARENT_ID = #{B_ID}
 		]]>

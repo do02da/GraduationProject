@@ -98,6 +98,7 @@
 						static_Map_Str += Markers[a-1].getPosition().lat();
 						static_Map_Str += "|label:" + a + "&";
 						
+						latlng_Str += "<input type='hidden' name='place_" + a + "' value='" + Markers[a-1].getTitle() + "'>";
 						latlng_Str += "<input type='hidden' name='lat_" + a + "' value='" + Markers[a-1].getPosition().lat() + "'>";
 						latlng_Str += "<input type='hidden' name='lng_" + a + "' value='" + Markers[a-1].getPosition().lng() + "'>";
 					}
@@ -159,12 +160,12 @@
 
 		        infoWindow.setContent([
 		        		'<div class="p-2">',
-		            '<div class="input-group">',
+		           		 '<div class="input-group">',
 				        '<input class="form-control" type="text" id="Place" placeholder="위치명을 입력하세요.">',
 				        '<button class="btn btn-light input-group-append" id="Marker_Add">추가</button></div>',
 				        '<small class="text-muted">',
-		            htmlAddresses.join('<br />'),
-		            '</small></div>'
+		          		  htmlAddresses.join('<br />'),
+		        	    '</small></div>'
 		        ].join('\n'));
 
 		        infoWindow.open(ModalMap, marker);
@@ -221,6 +222,7 @@
 			}
 		}
 		
+		// 마커 목록에서 X버튼 클릭시
 		function fn_Xbtn(obj) {
 			var tbId = obj.parent().find(".Xbtn").val();
 			
