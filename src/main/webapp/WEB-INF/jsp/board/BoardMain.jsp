@@ -232,12 +232,22 @@
 		var B_ID = obj.parent().find("#B_ID").val();
 		
 		var comSubmit = new ComSubmit();
+		comSubmit.setMethod("get");
 		comSubmit.setUrl("<c:url value='/board/openBoardDetail.do'/>");
 		
 		if (${not empty sessionScope.login}) {	// 로그인 했으면
 			var userNick = ${login.NICKNAME}
 			comSubmit.addParam("NICKNAME", userNick);
-		}	
+		}
+		
+		if (window.location.href.indexOf("search.do") > 0) { // 검색이면
+			var searchWord = getParameter("searchWord");
+			var searchCondition = getParameter("searchCondition");
+
+			comSubmit.addParam("searchWord", searchWord);
+	        comSubmit.addParam("searchCondition", searchCondition);
+	         
+		}
 
 		comSubmit.addParam("currentPageNo", $("#currentPageNo").val());
 		comSubmit.addParam("B_ID", B_ID);
@@ -245,48 +255,23 @@
 	}
 	
 	function fn_pagination(pageNo){
-		var comSubmit = document.createElement("form");
-		comSubmit.setAttribute("method", "get");  //Post 방식
-		
-		// 출처: https://penpen.tistory.com/entry/WEB-Chrome-56-동적-생성한-form-submit-불가 [갱훈 활용법]
-		// 출처: https://here4you.tistory.com/87
+		var comSubmit = new ComSubmit();
+		comSubmit.setMethod("get");
 		
 		if (window.location.href.indexOf("search.do") > 0) { // 검색이면
-			var searchWord = getParameter("searchWord");
-			var searchCondition = getParameter("searchCondition");
-			
-	         var hiddenField = document.createElement("input");
-	         hiddenField.setAttribute("type", "hidden");
-	         hiddenField.setAttribute("name", "searchWord");
-	         hiddenField.setAttribute("value", searchWord);
-	         comSubmit.appendChild(hiddenField);
-	         
-	         hiddenField = document.createElement("input");
-	         hiddenField.setAttribute("type", "hidden");
-	         hiddenField.setAttribute("name", "searchCondition");
-	         hiddenField.setAttribute("value", searchCondition);
-	         comSubmit.appendChild(hiddenField);
+		var searchWord = getParameter("searchWord");
+		var searchCondition = getParameter("searchCondition");
+		
+ 		comSubmit.addParam("searchWord", searchWord);
+		comSubmit.addParam("searchCondition", searchCondition);
 
-	         comSubmit.action = ("<c:url value='/board/search.do' />");
+	        comSubmit.setUrl("<c:url value='/board/search.do' />");
 		} else {
-			comSubmit.action = ("<c:url value='/board/openBoard.do' />");
+			comSubmit.setUrl("<c:url value='/board/openBoard.do' />");
 		}
 		
-        hiddenField = document.createElement("input");
-        hiddenField.setAttribute("type", "hidden");
-        hiddenField.setAttribute("name", "currentPageNo");
-        hiddenField.setAttribute("value", pageNo);
-        comSubmit.appendChild(hiddenField);
-		
-		document.body.appendChild(comSubmit);
+		comSubmit.addParam("currentPageNo", pageNo);
 		comSubmit.submit();
-	}
-	
-	function getParameter(name) {
-	    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-	    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-	        results = regex.exec(location.search);
-	    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 	}
 	
 	function fn_search() {

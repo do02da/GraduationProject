@@ -163,8 +163,17 @@
 	
 	// 목록으로
 	function fn_openBoardList() {
-		var comSubmit = new ComSubmit("frm");
-		comSubmit.setUrl("<c:url value='/board/openBoard.do' />");
+		var comSubmit = new ComSubmit();
+		comSubmit.setMethod("get");
+		comSubmit.addParam("currentPageNo", $("#currentPageNo").val());
+		
+		if (getParameter("searchWord") !== "") {
+			comSubmit.setUrl("<c:url value='/board/search.do' />");
+			comSubmit.addParam("searchWord", getParameter("searchWord"));
+			comSubmit.addParam("searchCondition", getParameter("searchCondition"));
+		} else {
+			comSubmit.setUrl("<c:url value='/board/openBoard.do' />");
+		}
 		comSubmit.submit();
 	}
 	
