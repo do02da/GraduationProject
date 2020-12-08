@@ -24,6 +24,10 @@
           font-size: 3.5rem;
         }
       }
+      html, body {
+	      height: 100%;
+      }
+      
       body {
       	padding-top: 60px;
       }
@@ -34,10 +38,10 @@
 			  padding: 15px;
 			}
 			
-			.content {
-			  display: grid;
-			  place-items: center;
-			}
+	  .content {
+		   display: grid;
+		   place-items: center;
+	  }
     </style>
 
 <%@ include file="/WEB-INF/include/include-header.jspf" %>
@@ -230,13 +234,14 @@
 	
 	function fn_openBoardDetail(obj) {
 		var B_ID = obj.parent().find("#B_ID").val();
+		var userNick = "";
 		
 		var comSubmit = new ComSubmit();
 		comSubmit.setMethod("get");
 		comSubmit.setUrl("<c:url value='/board/openBoardDetail.do'/>");
 		
 		if (${not empty sessionScope.login}) {	// 로그인 했으면
-			var userNick = ${login.NICKNAME}
+			userNick = "${login.NICKNAME}";
 			comSubmit.addParam("NICKNAME", userNick);
 		}
 		

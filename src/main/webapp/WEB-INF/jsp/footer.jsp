@@ -2,8 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-
-<footer class="text-muted w-100">
+<footer class="text-muted navbar-fixed-bottom w-100">
   <div class="container">
     <p class="float-right">
       <a href="#">Back to top</a>

@@ -11,23 +11,6 @@
 
 	<%@ include file="/WEB-INF/include/include-header.jspf" %>
 	
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-      
-    </style>
     <!-- Custom styles for this page -->
     <link href="<c:url value='/css/album.css'/>" rel="stylesheet">  
   </head>
@@ -35,7 +18,7 @@
   
 <%@ include file="/WEB-INF/jsp/navbar.jsp" %>
 
-<main role="main">
+<main role="main" class="wrap">
   <section>
 		<div id="Carousel" class="carousel slide" data-ride="carousel">
 		  <ol class="carousel-indicators">
@@ -45,13 +28,13 @@
 		  </ol>
 		  <div class="carousel-inner">
 		    <div class="carousel-item active">
-					<img src="<c:url value='/img/carousel01.svg'/>" class="bd-placeholder-img w-100">
+					<img src="<c:url value='/img/carousel01.svg'/>" class="w-100">
 				</div>
 		    <div class="carousel-item">
-					<img src="<c:url value='/img/carousel02.svg'/>" class="bd-placeholder-img w-100">
+					<img src="<c:url value='/img/carousel02.svg'/>" class="w-100">
 		    </div>
 		    <div class="carousel-item">
-					<img src="<c:url value='/img/carousel03.svg'/>" class="bd-placeholder-img w-100">
+					<img src="<c:url value='/img/carousel03.svg'/>" class="w-100">
 		    </div>
 		  </div>
 		    <a class="carousel-control-prev" href="#Carousel" role="button" data-slide="prev">
@@ -141,7 +124,7 @@
 						</c:forEach>
 					</c:when>
 					<c:otherwise>
-						등록된 게시글이 없습니다.
+						<div class="container-fluid text-center">등록된 게시글이 없습니다.</div>
 					</c:otherwise>
 				</c:choose>
         
@@ -169,7 +152,7 @@ function fn_openBoardDetail(obj) {
 	comSubmit.setUrl("<c:url value='/board/openBoardDetail.do'/>");
 	
 	if (${not empty sessionScope.login}) {	// 로그인 했으면
-		var userNick = ${login.NICKNAME}
+		var userNick = "${login.NICKNAME}";
 		comSubmit.addParam("NICKNAME", userNick);
 	}
 	
