@@ -27,4 +27,34 @@
 			
 		]]>
 	</select>
+	
+	<insert id="TrrstDBInsert" parameterType="hashmap">
+		<![CDATA[
+			INSERT INTO tb_trrst (
+				trrstNm,
+				rdnmadr,
+				lnmadr,
+				latitude,
+				longitude
+			)
+			VALUES (
+				#{trrstNm},
+				#{rdnmadr},
+				#{lnmadr},
+				#{latitude},
+				#{longitude}
+			)
+		]]>
+	</insert>
+	
+	<select id="getTrrst" resultType="hashmap" parameterType="hashmap">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+				tb_trrst
+			WHERE
+				trrstNm LIKE '%${SearchWord}%'
+		]]>
+	</select>
 </mapper>

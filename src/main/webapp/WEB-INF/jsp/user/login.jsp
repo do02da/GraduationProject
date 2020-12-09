@@ -40,12 +40,12 @@
 	        <input type="password" id="inputPassword" name="PASSWORD" class="form-control" placeholder="비밀번호" maxlength="20" required>
 	        <!-- <a class="text-muted" id="openInquiry" href="#this">아이디 찾기</a>&ensp;  -->
 	        <a class="text-muted" id="toReg" href="#this">회원가입</a>
-	        <div class="checkbox mb-3">
+	        <!-- <div class="checkbox mb-3">
 		      <label>
 		        <input type="checkbox" value="remember-me"> Remember me
 		      </label>
-	        </div>
-	        <a class="btn btn-lg btn-primary btn-block" id="login_submit" role="button">로그인</a>
+	        </div> -->
+	        <a class="btn btn-lg btn-primary btn-block mt-3" id="login_submit" role="button">로그인</a>
 	        <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
 	      </form>
 	    </div>

@@ -65,7 +65,7 @@
 					<c:if test="${map.MAP_SRC != 'undefined' }">
 						<tr>
 							<td class="text-center" colspan="4">
-								<img src='${map.MAP_SRC }' style="width:100%">
+								<img src='${map.MAP_SRC }' class="img-fluid">
 							</td>
 						</tr>
 					</c:if>
@@ -118,6 +118,8 @@
 	<%@ include file="/WEB-INF/jsp/footer.jsp" %>
 <script>
 	$(document).ready(function() {
+		$("img").addClass("img-fluid");
+		
 		// 목록으로 버튼
 		$(".list").on("click", function(e) {
 			e.preventDefault();
@@ -195,7 +197,7 @@
 	function fn_likeit() {
 		var comSubmit = new ComSubmit("frm");
 		
-		var userNick = ${login.NICKNAME}
+		var userNick = "${login.NICKNAME}"
 		comSubmit.addParam("NICKNAME", userNick);
 			
 		comSubmit.setUrl("<c:url value='/board/LikeIt.do' />");
@@ -206,7 +208,7 @@
 	function fn_DisLikeIt() {
 		var comSubmit = new ComSubmit("frm");
 
-		var userNick = ${login.NICKNAME}
+		var userNick = "${login.NICKNAME}"
 		comSubmit.addParam("NICKNAME", userNick);
 		
 		comSubmit.setUrl("<c:url value='/board/DisLikeIt.do' />");

@@ -21,9 +21,20 @@ public class MapController {
 	@Resource(name="MapService")
 	MapService mapService;
 	
-	@RequestMapping(value="/map/getItemList")
+	@RequestMapping(value="/map/getItemList.do")
 	@ResponseBody
 	public List<Map<String, Object>> getItemList(CommandMap commandMap) throws Exception {
 		return mapService.getItemList(commandMap.getMap());
+	}
+	
+	@RequestMapping(value="/map/SearchTrrst.do")
+	@ResponseBody
+	public List<Map<String, Object>> SearchTrrst(CommandMap commandMap) throws Exception {
+		return mapService.getTrrst(commandMap.getMap());
+	}
+	
+	@RequestMapping(value="/map/TrrstDBInsert.do")
+	public void TrrstDBInsert() throws Exception {
+		mapService.TrrstDBInsert();
 	}
 }

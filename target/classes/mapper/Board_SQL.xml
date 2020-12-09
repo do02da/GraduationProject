@@ -303,7 +303,7 @@
 				LAT_4 = IFNULL(#{lat_4}, 0),
 				LNG_4 = IFNULL(#{lng_4}, 0),
 				LAT_5 = IFNULL(#{lat_5}, 0),
-				LNG_5 = IFNULL(#{lng_5}, 0)
+				LNG_5 = IFNULL(#{lng_5}, 0),
 				PLACE_1 = #{place_1},
 				PLACE_2 = #{PLACE_2},
 				PLACE_3 = #{place_3},

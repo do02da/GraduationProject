@@ -11,6 +11,23 @@
 
 	<%@ include file="/WEB-INF/include/include-header.jspf" %>
 	
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+      
+    </style>
     <!-- Custom styles for this page -->
     <link href="<c:url value='/css/album.css'/>" rel="stylesheet">  
   </head>
@@ -18,7 +35,7 @@
   
 <%@ include file="/WEB-INF/jsp/navbar.jsp" %>
 
-<main role="main" class="wrap">
+<main role="main">
   <section>
 		<div id="Carousel" class="carousel slide" data-ride="carousel">
 		  <ol class="carousel-indicators">
@@ -28,13 +45,13 @@
 		  </ol>
 		  <div class="carousel-inner">
 		    <div class="carousel-item active">
-					<img src="<c:url value='/img/carousel01.svg'/>" class="w-100">
+					<img src="<c:url value='/img/carousel01.svg'/>" class="">
 				</div>
 		    <div class="carousel-item">
-					<img src="<c:url value='/img/carousel02.svg'/>" class="w-100">
+					<img src="<c:url value='/img/carousel02.svg'/>" class="">
 		    </div>
 		    <div class="carousel-item">
-					<img src="<c:url value='/img/carousel03.svg'/>" class="w-100">
+					<img src="<c:url value='/img/carousel03.svg'/>" class="">
 		    </div>
 		  </div>
 		    <a class="carousel-control-prev" href="#Carousel" role="button" data-slide="prev">

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<head><%response.setHeader("Access-Control-Allow-Origin","*"); %></head>
 
 	<!-- 지도 Modal -->
 	<div class="modal fade" id="MapModal" tabindex="-1" aria-labelledby="MapModalLabel" aria-hidden="true">
@@ -10,14 +11,14 @@
 	        <h5 class="modal-title sr-only" id="MapModalLabel">장소 선택</h5>
 	        <div class="input-group">
 	        	<div class="input-group-prepend">
-	        		<button class="btn btn-outline-secondary">
+	        		<button id="Search" class="btn btn-outline-secondary">
 		        	<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 							  <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
 							  <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
 							</svg>
 							</button>
 	        	</div>
-		        <input type="text" class="form-control">
+		        <input type="text" id="SearchWord" class="form-control">
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		          <span aria-hidden="true">&times;</span>
 		        </button>
@@ -25,16 +26,17 @@
 	      </div>
 	      <div class="modal-body">
 	      	<div class="container-fluid">
-	      		<div class="row">
+	      		<div id="modal_body_div" class="row">
 	      			<div class="col-md-8 order-md-2" style="height:500px;">
 								<div id="Modal_Map_Panel" style="width:100%; height:100%;">
 		      			</div>
 							</div>
 	      			
-	      			<table class="col-md-4" style="width:100%; height:500px">
+	      			<div id="Search_list" class="list-group" style="height:500px; overflow-y: auto;"></div>
+	      			<table id="tmptb" class="col-md-4" style="width:100%; height:500px">
 	      				<tbody>
 		      				<tr>
-		      					<td class="text-center">
+		      					<td id="Place_list" class="text-center" >
 		      						<svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-geo-alt" fill="#AAAAAA" xmlns="http://www.w3.org/2000/svg">
 											  <path fill-rule="evenodd" d="M12.166 8.94C12.696 7.867 13 6.862 13 6A5 5 0 0 0 3 6c0 .862.305 1.867.834 2.94.524 1.062 1.234 2.12 1.96 3.07A31.481 31.481 0 0 0 8 14.58l.208-.22a31.493 31.493 0 0 0 1.998-2.35c.726-.95 1.436-2.008 1.96-3.07zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"/>
 											  <path fill-rule="evenodd" d="M8 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
@@ -88,6 +90,20 @@
 	</script>
 	
 	<script>
+	$(document).ready(function(){
+		$("#Search").on("click", function(e) {
+			e.preventDefault();
+			Search();
+		});
+		
+		$("#SearchWord").keypress(function (e){
+			if (e.which === 13) {	// Enter 키 눌렸을 때
+				e.preventDefault();
+				Search();
+			}
+		});
+	});
+	
 		$("#Map_Confirm").on("click", function(e) {
 					// Static Map
 					var static_Map_Str = "<img src='https://naveropenapi.apigw.ntruss.com/map-static/v2/raster-cors?w=1024&h=300&"
@@ -238,6 +254,46 @@
 				});
 			} else {
 				Markers = [];
+			}
+		}
+		
+		function Search() {
+			var SearchWord = $("#SearchWord").val();
+			
+			if (SearchWord === '') {
+				alert("검색어를 입력해주세요");
+					$("#SearchWord").focus();
+				} else {
+					$("#SearchWord").val("");
+				    
+				    $("#tmptb").remove();
+				    $("#Search_list").addClass("col-md-4");
+				       
+					$.ajax({
+					     post: 'get',
+					     url: "<c:url value='/map/SearchTrrst.do'/>",
+					     data: {SearchWord:SearchWord},
+					     success: function(data){
+					    	 var listStr = "";
+					    	 
+					    	 if (data.length > 0) {
+						       for (i=0; i < data.length; i++) {
+									listStr += "<a href='#' class='list-Item-Event list-group-item list-group-item-action'>"
+										   // + "<input type='hidden' class='B_ID' name='PARENT_ID' value='" + item.PARENT_ID + "'>"
+										    + "<h5 class='list-group-item-heading mb-1'>" + data[i].trrstNm + "</h5>"
+										    + "<p class='list-group-item-text mb-0'><small class='text-muted'>[소재지지번주소] " + data[i].lnmadr + "</small></p>"
+										    + "<p class='list-group-item-text'><small class='text-muted'>[소재지도로명주소] " + data[i].rdnmadr + "</small></p>"
+										    + "</a>";
+						    	}
+						    	
+							 	
+					    	 } else {
+					    		 listStr += "검색 결과가 없습니다."
+					    	 }
+		
+							 $("#Search_list").html(listStr);
+					     }
+					});
 			}
 		}
 
