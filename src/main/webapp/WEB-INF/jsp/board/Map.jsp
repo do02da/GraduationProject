@@ -161,7 +161,6 @@
 					    		  }
 					 		     
 					 		     $(".list-Item-Event").on("click", function(e) {
-					 		    	console.log($(this).find($(".B_ID")).val());
 					 		 		var comSubmit = new ComSubmit();
 					 				comSubmit.setUrl("<c:url value='/board/openBoardDetail.do' />");
 					 		 		comSubmit.addParam("B_ID", $(this).find($(".B_ID")).val());

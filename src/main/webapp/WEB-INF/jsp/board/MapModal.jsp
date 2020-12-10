@@ -72,7 +72,6 @@
 	var mapOptions = {
 			center: new naver.maps.LatLng(37.3595704, 127.105399),
 			zoom: 10,
-			logoControlOptions: naver.maps.Position.CENTER
 		};
 	
 		var ModalMap;								// Modal 맵
@@ -132,7 +131,7 @@
 				ModalMap = new naver.maps.Map(document.getElementById('Modal_Map_Panel'), mapOptions);
 				
 				naver.maps.Event.addListener(ModalMap, 'click', function(e) {
-						marker.setMap(ModalMap);		// 마커 맵에 등록
+					marker.setMap(ModalMap);		// 마커 맵에 등록
 				    marker.setPosition(e.coord);
 
 				    searchCoordinateToAddress(e.coord);
@@ -144,8 +143,8 @@
 			// 마커 초기화
 			marker.setMap(null);				// 마커 지도에서 제거
 			infoWindow.close();					// 정보 창 닫기
-			marker.setPosition(null);		// 마커 좌표 삭제
-			$("#Markers_Div").empty();	// 마커 목록 다이브 초기화
+			marker.setPosition(null);			// 마커 좌표 삭제
+			$("#Markers_Div").empty();			// 마커 목록 다이브 초기화
 		});
 		
 
@@ -279,8 +278,8 @@
 					    	 if (data.length > 0) {
 						       for (i=0; i < data.length; i++) {
 									listStr += "<a href='#' class='list-Item-Event list-group-item list-group-item-action'>"
-										    + "<input type='hidden' class='lat' value='" + data[i].latitude + "'>"
-										    + "<input type='hidden' class='lng' value='" + data[i].longitude + "'>"
+										    + "<input type='hidden' id='lat' value='" + data[i].latitude + "'>"
+										    + "<input type='hidden' id='lng' value='" + data[i].longitude + "'>"
 										    + "<h5 class='list-group-item-heading mb-1'>" + data[i].trrstNm + "</h5>"
 										    + "<p class='list-group-item-text mb-0'><small class='text-muted'>[소재지지번주소] " + data[i].lnmadr + "</small></p>"
 										    + "<p class='list-group-item-text'><small class='text-muted'>[소재지도로명주소] " + data[i].rdnmadr + "</small></p>"
@@ -293,9 +292,26 @@
 					    	 }
 		
 							 $("#Search_list").html(listStr);
+							 
+							 fn_list_item_Event()
 					     }
 					});
 			}
+		}
+		
+		function fn_list_item_Event() {
+			$(".list-Item-Event").on("click", function(e) {
+				var lat = $(this).find("#lat").val();
+				var lng = $(this).find("#lng").val();
+				
+				var latlng = new naver.maps.LatLng(lat, lng);
+				
+				marker.setMap(ModalMap);		// 마커 맵에 등록
+			    marker.setPosition(latlng);
+				
+				searchCoordinateToAddress(latlng);
+			});		
+			
 		}
 
 		function makeAddress(item) {
