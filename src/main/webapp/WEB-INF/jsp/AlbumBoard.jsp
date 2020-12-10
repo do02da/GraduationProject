@@ -45,13 +45,13 @@
 		  </ol>
 		  <div class="carousel-inner">
 		    <div class="carousel-item active">
-					<img src="<c:url value='/img/carousel01.svg'/>" class="">
+					<img src="<c:url value='/img/carousel01.svg'/>">
 				</div>
 		    <div class="carousel-item">
-					<img src="<c:url value='/img/carousel02.svg'/>" class="">
+					<img src="<c:url value='/img/carousel02.svg'/>">
 		    </div>
 		    <div class="carousel-item">
-					<img src="<c:url value='/img/carousel03.svg'/>" class="">
+					<img src="<c:url value='/img/carousel03.svg'/>">
 		    </div>
 		  </div>
 		    <a class="carousel-control-prev" href="#Carousel" role="button" data-slide="prev">

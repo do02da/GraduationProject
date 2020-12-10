@@ -279,7 +279,8 @@
 					    	 if (data.length > 0) {
 						       for (i=0; i < data.length; i++) {
 									listStr += "<a href='#' class='list-Item-Event list-group-item list-group-item-action'>"
-										   // + "<input type='hidden' class='B_ID' name='PARENT_ID' value='" + item.PARENT_ID + "'>"
+										    + "<input type='hidden' class='lat' value='" + data[i].latitude + "'>"
+										    + "<input type='hidden' class='lng' value='" + data[i].longitude + "'>"
 										    + "<h5 class='list-group-item-heading mb-1'>" + data[i].trrstNm + "</h5>"
 										    + "<p class='list-group-item-text mb-0'><small class='text-muted'>[소재지지번주소] " + data[i].lnmadr + "</small></p>"
 										    + "<p class='list-group-item-text'><small class='text-muted'>[소재지도로명주소] " + data[i].rdnmadr + "</small></p>"
