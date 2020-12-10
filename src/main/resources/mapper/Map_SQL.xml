@@ -12,19 +12,24 @@
 				FROM
 					tb_board
 				WHERE
-					B_ID = PARENT_ID AND
-					DEL_GB = 'N'
+					B_ID = PARENT_ID
 				) AS TITLE
 			FROM
 				tb_board_map
 			WHERE
+				(SELECT
+					DEL_GB
+				FROM
+					tb_board
+				WHERE
+					B_ID = PARENT_ID
+				) = 'N' AND
 				(LAT_1 = #{lat} AND LNG_1 = #{lng}) OR
 				(LAT_2 = #{lat} AND LNG_2 = #{lng}) OR
 				(LAT_3 = #{lat} AND LNG_3 = #{lng}) OR
 				(LAT_3 = #{lat} AND LNG_3 = #{lng}) OR
 				(LAT_4 = #{lat} AND LNG_4 = #{lng}) OR
 				(LAT_5 = #{lat} AND LNG_5 = #{lng})
-			
 		]]>
 	</select>
 	

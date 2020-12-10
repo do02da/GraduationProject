@@ -320,6 +320,15 @@
 				*
 			FROM
 				tb_board_map
+			WHERE
+				(SELECT
+					DEL_GB
+				FROM
+					tb_board
+				WHERE
+					B_ID = PARENT_ID
+				) = 'N'
+					
 		]]>
 	</select>
 	
