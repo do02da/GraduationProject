@@ -110,14 +110,17 @@
    		
    	// 비밀번호 확인 포커스 해제
    		$("#inputPasswordCheck").blur(function() {
+   			var inputPassword = $("#inputPassword").val()
+   			var inputPasswordCheck = $(this).val();
+   			
    			// 비밀번호 확인이 비어있으면
-   			if ($(this).val() == "") {
+   			if (inputPasswordCheck == "") {
 	   			$("#alertDiv").children().remove();
 					var str = str_dangerAlert + "비밀번호 확인을 입력해주세요</div>";
 					$("#alertDiv").append(str);
 					isPWChk = false;
 					return false;
-   			} else if ($(this).val() != $("#inputPasswordCheck").val() ) {	// 비밀번호와 비밀번호 확인이 일치하지 않으면
+   			} else if (inputPassword !== inputPasswordCheck ) {	// 비밀번호와 비밀번호 확인이 일치하지 않으면
    				$("#alertDiv").children().remove();
 					var str = str_dangerAlert + "비밀번호가 일치하지 않습니다.</div>";
 					$("#alertDiv").append(str);
